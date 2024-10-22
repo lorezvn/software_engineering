@@ -10,7 +10,7 @@ CREATE DOMAIN Via as StringS
 CREATE DOMAIN Cap as char(5)
 	CHECK (VALUE IS NOT NULL);
 
-CREATE TYPE Indirizzo (
+CREATE TYPE Indirizzo AS (
 	via Via,
 	civico IntGZ,
 	cap Cap
@@ -23,6 +23,24 @@ CREATE TABLE IF NOT EXISTS Utente (
     email StringM NOT NULL,
     indirizzo Indirizzo NOT NULL,
     UNIQUE(email)
+);
+
+CREATE TABLE IF NOT EXISTS CasaEditrice (
+    nome StringM PRIMARY KEY
+);
+
+CREATE TABLE IF NOT EXISTS LibroEdizione (
+    ISBN VARCHAR(13) PRIMARY KEY,
+    titolo StringS NOT NULL,
+    pagine IntGZ NOT NULL,
+    casaEditrice StringM NOT NULL,
+    FOREIGN KEY (casaEditrice) REFERENCES CasaEditrice(nome)
+);
+
+CREATE TABLE IF NOT EXISTS LibroFisico (
+    id SERIAL PRIMARY KEY,
+    edizione VARCHAR(16) NOT NULL,
+    FOREIGN KEY (edizione) REFERENCES LibroEdizione(ISBN)
 );
 
 CREATE TABLE IF NOT EXISTS Prestito (
@@ -48,29 +66,11 @@ CREATE TABLE IF NOT EXISTS Prestito (
     FOREIGN KEY (utente) REFERENCES Utente(cf)
 );
 
-CREATE TABLE IF NOT EXISTS LibroFisico (
-    id SERIAL PRIMARY KEY,
-    edizione VARCHAR(16) NOT NULL,
-    FOREIGN KEY (edizione) REFERENCES LibroEdizione(ISBN)
-);
-
-CREATE TABLE IF NOT EXISTS LibroEdizione (
-    ISBN VARCHAR(13) PRIMARY KEY,
-    titolo StringS NOT NULL,
-    pagine IntGZ NOT NULL,
-    casaEditrice StringM NOT NULL,
-    FOREIGN KEY (casaEditrice) REFERENCES CasaEditrice(nome)
-);
-
 CREATE TABLE IF NOT EXISTS Autore (
     id SERIAL PRIMARY KEY,
     nome StringS NOT NULL,
     cognome StringS NOT NULL,
     nascita DATE NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS CasaEditrice (
-    nome StringM PRIMARY KEY
 );
 
 CREATE TABLE IF NOT EXISTS Genere (
