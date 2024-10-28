@@ -33,13 +33,21 @@ GRANT SELECT ON LibroFisico TO :bibliotecario;                      -- Visualizz
 GRANT SELECT ON LibroEdizione TO :bibliotecario;                    -- Visualizzare edizioni dei libri
 GRANT SELECT ON Autore TO :bibliotecario;                           -- Visualizzare autori
 GRANT SELECT ON CasaEditrice TO :bibliotecario;                     -- Visualizzare case editrici
+GRANT SELECT ON GenereEdizione TO :bibliotecario;                   -- Visualizzare associazioni tra generi ed edizioni
+GRANT SELECT ON EdizioneAutore TO :bibliotecario;                   -- Visualizzare associazioni tra edizioni e autori
 
 
 -- Privilegi dell'utente
 GRANT CONNECT ON DATABASE :dbname TO :utente;
 GRANT USAGE ON SCHEMA public TO :utente;
-GRANT SELECT, INSERT ON Utente TO :utente;    -- Solo creare nuovi utenti o aggiornare dati personali
-GRANT SELECT, INSERT ON Prestito TO :utente;  -- Permessi sui prestiti personali
+GRANT SELECT, INSERT, UPDATE ON Utente TO :utente;     -- Solo creare nuovi utenti o aggiornare dati personali
+GRANT SELECT, INSERT ON Prestito TO :utente;           -- Permessi sui prestiti personali
+GRANT SELECT ON LibroFisico TO :utente;                -- Visualizzare copie fisiche dei libri
+GRANT SELECT ON LibroEdizione TO :utente;              -- Visualizzare edizioni dei libri
+GRANT SELECT ON Autore TO :utente;                     -- Visualizzare autori
+GRANT SELECT ON CasaEditrice TO :utente;               -- Visualizzare case editrici
+GRANT SELECT ON GenereEdizione TO :utente;             -- Visualizzare associazioni tra generi ed edizioni
+GRANT SELECT ON EdizioneAutore TO :utente;             -- Visualizzare associazioni tra edizioni e autori
 
 
 -- Privilegi del fornitore 
@@ -48,4 +56,6 @@ GRANT USAGE ON SCHEMA public TO :fornitore;
 GRANT INSERT, SELECT, UPDATE ON LibroEdizione TO :fornitore;       -- Gestione delle edizioni dei libri
 GRANT INSERT, SELECT, UPDATE, DELETE ON LibroFisico TO :fornitore; -- Gestione completa delle copie fisiche dei libri
 GRANT INSERT, SELECT, UPDATE ON Autore TO :fornitore;              -- Gestione degli autori
-GRANT INSERT, SELECT, UPDATE ON TABLE CasaEditrice TO :fornitore;  -- Gestione delle case editrici
+GRANT INSERT, SELECT, UPDATE ON CasaEditrice TO :fornitore;        -- Gestione delle case editrici
+GRANT INSERT, SELECT, UPDATE ON GenereEdizione TO :fornitore;      -- Gestione associazioni tra generi ed edizioni dei libri
+GRANT INSERT, SELECT, UPDATE ON EdizioneAutore TO :fornitore;      -- Gestione associazioni tra edizioni e autori dei libri
