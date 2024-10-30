@@ -1,3 +1,5 @@
+\c :dbname
+
 -- Definizione dei domini
 CREATE DOMAIN IntGZ AS INTEGER CHECK (VALUE > 0);
 CREATE DOMAIN StringS AS VARCHAR(50);
@@ -5,6 +7,7 @@ CREATE DOMAIN StringM AS VARCHAR(100);
 CREATE DOMAIN Via AS StringS CHECK (VALUE IS NOT NULL);
 CREATE DOMAIN Cap AS char(5) CHECK (VALUE IS NOT NULL);
 
+-- Definizione dei tipi
 CREATE TYPE Indirizzo AS (
     via Via,
     civico IntGZ,
