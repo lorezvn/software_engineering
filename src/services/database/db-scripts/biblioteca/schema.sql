@@ -2,25 +2,28 @@
 
 -- Definizione dei domini
 CREATE DOMAIN IntGZ AS INTEGER CHECK (VALUE > 0);
+CREATE DOMAIN RealGEZ AS REAL CHECK (VALUE >= 0);
 CREATE DOMAIN StringS AS VARCHAR(50);
 CREATE DOMAIN StringM AS VARCHAR(100);
-CREATE DOMAIN Via AS StringS CHECK (VALUE IS NOT NULL);
-CREATE DOMAIN Cap AS char(5) CHECK (VALUE IS NOT NULL);
+CREATE DOMAIN StringL AS VARCHAR(500);
+CREATE DOMAIN CF AS VARCHAR(16) CHECK (VALUE ~ '^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$');
+CREATE DOMAIN Email AS StringM CHECK (VALUE ~* E'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
 
 -- Definizione dei tipi
-CREATE TYPE Indirizzo AS (
-    via Via,
-    civico IntGZ,
-    cap Cap
+
+CREATE TYPE Denaro AS (
+    importo RealGEZ,
+    valuta CHAR(3)
 );
+
+CREATE TYPE StatoSanzione AS ENUM('PAGATA', 'NON PAGATA');
 
 -- Tabella Utente
 CREATE TABLE IF NOT EXISTS Utente (
-    cf VARCHAR(16) PRIMARY KEY,
+    cf CF PRIMARY KEY,
     nome StringS NOT NULL,
     cognome StringS NOT NULL,
-    email StringM NOT NULL,
-    indirizzo Indirizzo NOT NULL,
+    email Email NOT NULL,
     UNIQUE(email)
 );
 
@@ -53,7 +56,7 @@ CREATE TABLE IF NOT EXISTS Prestito (
     dataRest DATE,
     isTerminato BOOLEAN DEFAULT FALSE,
     libro INTEGER NOT NULL,
-    utente VARCHAR(16) NOT NULL,
+    utente CF NOT NULL,
     CHECK (dataInizio < dataFine),
     CHECK (
         (isTerminato = FALSE OR dataRest IS NOT NULL)
@@ -95,3 +98,42 @@ CREATE TABLE IF NOT EXISTS EdizioneAutore (
     FOREIGN KEY (autore) REFERENCES Autore(id) ON DELETE CASCADE
 );
 
+-- Tabella Fornitore
+CREATE TABLE IF NOT EXISTS Fornitore (
+    nome StringS PRIMARY KEY,
+    email Email NOT NULL
+);
+
+-- Tabella Restock
+CREATE TABLE IF NOT EXISTS Restock (
+    id SERIAL PRIMARY KEY,
+    quantita IntGZ NOT NULL,
+    istante TIMESTAMP,
+    fornitore StringS NOT NULL,
+    edizione VARCHAR(13) NOT NULL,
+    FOREIGN KEY (fornitore) REFERENCES Fornitore(nome),
+    FOREIGN KEY (edizione) REFERENCES LibroEdizione(ISBN)
+);
+
+-- Tabella Bibliotecario
+CREATE TABLE IF NOT EXISTS Bibliotecario (
+    cf CF PRIMARY KEY,
+    nome StringS NOT NULL,
+    cognome StringS NOT NULL,
+    email Email NOT NULL,
+    dataAssunzione DATE NOT NULL,
+    UNIQUE(email)
+);
+
+-- Tabella Sanzione
+CREATE TABLE IF NOT EXISTS Sanzione (
+    id SERIAL PRIMARY KEY,
+    costo Denaro NOT NULL,
+    stato StatoSanzione NOT NULL DEFAULT 'NON PAGATA', 
+    motivazione StringL,
+    dataSanzione DATE NOT NULL,
+    bibliotecario CF NOT NULL,
+    utente CF NOT NULL,
+    FOREIGN KEY (bibliotecario) REFERENCES Bibliotecario(cf),
+    FOREIGN KEY (utente) REFERENCES Utente(cf)
+);
