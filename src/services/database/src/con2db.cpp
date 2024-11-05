@@ -4,16 +4,12 @@
 
 Con2DB::Con2DB(const char *hostname, const char *port, const char *username, const char *password, const char *dbname) {
 
-    // Buffer che contiene tutte le informazioni di connessione
     char info[1000]; 
 
-    // Compone la stringa di connessione
     sprintf(info, "host=%s port=%s user=%s password=%s dbname=%s", hostname, port, username, password, dbname);
 
-    // Connette l'utente al database
     conn = PQconnectdb(info);
 
-    // Verifica lo stato della connessione
     if (PQstatus(conn) != CONNECTION_OK) {
         fprintf(stderr, "Con2DB(%s): Connessione al database fallita: %s\n", dbname, PQerrorMessage(conn));
         endDBConnection();
@@ -54,14 +50,13 @@ PGresult* Con2DB::execDataQuery(char *query) {
     return res;
 }
 
-#if 0
 // Esegue una query e gestisce la transazione (BEGIN, COMMIT)
 PGresult* Con2DB::execQuery(char* query, bool moreValue) {
     PGresult *res;     // Risultato della query principale
     PGresult *t_res;   // Risultato della query per la transazione
     char sqlCmd[7];    // Comandi SQL per transazioni (BEGIN, COMMIT)
 
-    // Inizia la transazione
+    // BEGIN 
     sprintf(sqlCmd, "BEGIN");
     t_res = execActionQuery(sqlCmd);
     if (PQresultStatus(t_res) != PGRES_COMMAND_OK) {
@@ -70,7 +65,7 @@ PGresult* Con2DB::execQuery(char* query, bool moreValue) {
     }
     PQclear(t_res);
 
-    // Esegue la query principale
+    // Query principale
     res = !moreValue ? execActionQuery(query) : execDataQuery(query);
     if (res == NULL) {
         PQclear(t_res);
@@ -78,7 +73,7 @@ PGresult* Con2DB::execQuery(char* query, bool moreValue) {
         return res;
     }
 
-    // Chiude la transazione
+    // COMMIT
     sprintf(sqlCmd, "COMMIT");
     t_res = execActionQuery(sqlCmd);
     if (PQresultStatus(t_res) != PGRES_COMMAND_OK) {
@@ -90,12 +85,11 @@ PGresult* Con2DB::execQuery(char* query, bool moreValue) {
 
     return res;
 }
-#endif
 
 // Disconnessione dal database
 void Con2DB::endDBConnection() {
     if (conn != NULL) {
-        PQfinish(conn); // Chiude la connessione
+        PQfinish(conn); 
         conn = NULL;
         exit(1);
     }

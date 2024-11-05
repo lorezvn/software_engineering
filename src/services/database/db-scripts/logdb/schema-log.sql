@@ -7,7 +7,7 @@ CREATE DOMAIN RealGEZ AS REAL CHECK (VALUE >= 0);
 
 -- Definizione dei tipi
 CREATE TYPE ClientStatus AS ENUM ('ACTIVE', 'CLOSED', 'ERROR');
-CREATE TYPE SessionStatsType AS ENUM ('SESSION', 'RESPONSE');
+CREATE TYPE SessionStatsType AS ENUM ('SESSION', 'RESPONSE', 'CONNECTION_SUCCESS_RATE');
 CREATE TYPE ResponseStatus AS ENUM ('SUCCESS', 'ERROR');
 
 -- Tabella Client
