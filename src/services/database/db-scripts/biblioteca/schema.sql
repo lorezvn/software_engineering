@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS Sanzione (
     FOREIGN KEY (utente) REFERENCES Utente(cf)
 );
 
-
+-- Tabella PendingRestock
 CREATE TABLE IF NOT EXISTS PendingRestock (
     id SERIAL PRIMARY KEY,
     quantita IntGZ NOT NULL,

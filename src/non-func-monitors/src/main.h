@@ -8,8 +8,8 @@
 #include <errno.h>
 #include <unistd.h> 
 
-#include "con2db.h"
-#include "../../../utilities/constants.h"
+#include "../../services/database/src/con2db.h"
+#include "../../utilities/constants.h"
 
 #define DEBUG 1000
 

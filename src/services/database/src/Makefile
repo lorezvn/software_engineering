@@ -16,16 +16,13 @@ OBJ = $(patsubst %.cpp, $(ODIR)/%.o, $(SRC))
 
 #all:	$(ODIR)/%.o
 
-all:	create_dirs $(ODIR)/$(OBJ) $(BDIR)/main
+all:	create_dirs $(ODIR)/$(OBJ)
 
 create_dirs:
-	mkdir -p $(ODIR) $(BDIR)
+	mkdir -p $(ODIR) 
 
 $(ODIR)/%.o: %.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
-
-$(BDIR)/main: $(OBJ) $(DEPS)
-	$(CC) -o $@ $(OBJ) $(CFLAGS)
 
 .PHONY: clean
 
