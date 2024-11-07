@@ -35,7 +35,7 @@ GRANT SELECT ON Autore TO :bibliotecario;                           -- Visualizz
 GRANT SELECT ON CasaEditrice TO :bibliotecario;                     -- Visualizzare case editrici
 GRANT SELECT ON GenereEdizione TO :bibliotecario;                   -- Visualizzare associazioni tra generi ed edizioni
 GRANT SELECT ON EdizioneAutore TO :bibliotecario;                   -- Visualizzare associazioni tra edizioni e autori
-
+GRANT SELECT, INSERT, UPDATE, DELETE ON PendingRestock TO :bibliotecario;
 
 -- Privilegi dell'utente
 GRANT CONNECT ON DATABASE :dbname TO :utente;
@@ -59,3 +59,5 @@ GRANT INSERT, SELECT, UPDATE ON Autore TO :fornitore;              -- Gestione d
 GRANT INSERT, SELECT, UPDATE ON CasaEditrice TO :fornitore;        -- Gestione delle case editrici
 GRANT INSERT, SELECT, UPDATE ON GenereEdizione TO :fornitore;      -- Gestione associazioni tra generi ed edizioni dei libri
 GRANT INSERT, SELECT, UPDATE ON EdizioneAutore TO :fornitore;      -- Gestione associazioni tra edizioni e autori dei libri
+GRANT SELECT ON PendingRestock TO :fornitore;
+

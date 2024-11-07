@@ -32,3 +32,7 @@ INSERT INTO Prestito (dataInizio, dataFine, libro, utente)
 VALUES
     ('2024-01-01', '2024-01-31', 1, 'RSSMRA85M01H501Z'),
     ('2024-02-01', '2024-02-28', 2, 'BNCLRD70M01H501Z');
+INSERT INTO Prestito (dataInizio, dataFine, libro, utente)
+VALUES
+    ('2024-01-01', '2024-01-31', 1, 'RSSMRA85M01H501Z'),
+    ('2024-02-01', '2024-02-28', 2, 'BNCLRD70M01H501Z');

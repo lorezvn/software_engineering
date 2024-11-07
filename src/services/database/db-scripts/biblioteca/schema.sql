@@ -15,7 +15,7 @@ CREATE TYPE Denaro AS (
     importo RealGEZ,
     valuta CHAR(3)
 );
-
+CREATE TYPE StatoRestock AS ENUM('IN ATTESA',  'COMPLETATO', 'ANNULLATA');
 CREATE TYPE StatoSanzione AS ENUM('PAGATA', 'NON PAGATA');
 
 -- Tabella Utente
@@ -136,4 +136,18 @@ CREATE TABLE IF NOT EXISTS Sanzione (
     utente CF NOT NULL,
     FOREIGN KEY (bibliotecario) REFERENCES Bibliotecario(cf),
     FOREIGN KEY (utente) REFERENCES Utente(cf)
+);
+
+
+CREATE TABLE IF NOT EXISTS PendingRestock (
+    id SERIAL PRIMARY KEY,
+    quantita IntGZ NOT NULL,
+    bibliotecario CF NOT NULL,
+    istante TIMESTAMP,
+    fornitore StringS NOT NULL,
+    edizione VARCHAR(13) NOT NULL,
+    stato StatoRestock DEFAULT 'IN ATTESA',
+    FOREIGN KEY (fornitore) REFERENCES Fornitore(nome),
+    FOREIGN KEY (edizione) REFERENCES LibroEdizione(ISBN),
+    FOREIGN KEY (bibliotecario) REFERENCES Bibliotecario(cf)
 );
