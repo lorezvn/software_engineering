@@ -5,7 +5,14 @@ INSERT INTO Utente (cf, nome, cognome, email)
 VALUES
     ('RSSMRA85M01H501Z', 'Mario', 'Rossi', 'mario.rossi@gmail.com'),
     ('BNCLRD70M01H501Z', 'Lucia', 'Bianchi', 'lucia.bianchi@gmail.com');
-
+INSERT INTO Bibliotecario (cf, nome, cognome, email, dataAssunzione)
+VALUES
+    ('VRDLGI70M01H501Z', 'Giovanni', 'Verdi', 'giovanni.verdi@gmail.com', '2023-01-10'),
+    ('BLUFBA60M01H501Z', 'Francesca', 'Blu', 'francesca.blu@gmail.com', '2022-06-15');
+INSERT INTO Fornitore (nome, email)
+VALUES
+    ('Distribuzione Libri S.p.A.', 'info@distribuzionelibri.com'),
+    ('Libro Express SRL', 'contatti@libroexpress.com');
 -- Inserisci alcune case editrici
 INSERT INTO CasaEditrice (nome)
 VALUES
@@ -36,3 +43,19 @@ INSERT INTO Prestito (dataInizio, dataFine, libro, utente)
 VALUES
     ('2024-01-01', '2024-01-31', 1, 'RSSMRA85M01H501Z'),
     ('2024-02-01', '2024-02-28', 2, 'BNCLRD70M01H501Z');
+-- Inserimento di richieste di rifornimento pendenti
+INSERT INTO PendingRestock (quantita, bibliotecario, istante, fornitore, edizione, stato)
+VALUES
+    (5, 'VRDLGI70M01H501Z', '2024-09-13 10:30:00', 'Distribuzione Libri S.p.A.', '9781234567897', 'IN ATTESA'),
+    (10, 'BLUFBA60M01H501Z', '2024-09-05 14:45:00', 'Libro Express SRL', '9782345678901', 'IN ATTESA');
+
+-- Inserimento di rifornimenti completati
+INSERT INTO Restock (quantita, istante, fornitore, edizione)
+VALUES
+    (5, '2024-09-15 09:00:00', 'Distribuzione Libri S.p.A.', '9781234567897'),
+    (10, '2024-09-07 11:20:00', 'Libro Express SRL', '9782345678901');
+
+-- Inserimento di sanzioni
+INSERT INTO Sanzione (costo, stato, motivazione, dataSanzione, bibliotecario, utente)
+VALUES
+    (ROW(15.0, 'EUR')::Denaro, 'NON PAGATA', 'Ritardo nella restituzione del libro', '2024-10-15', 'VRDLGI70M01H501Z', 'RSSMRA85M01H501Z');
