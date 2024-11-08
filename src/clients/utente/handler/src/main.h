@@ -4,8 +4,6 @@
 #include "../../../../server/src/server.h"
 #include "../../../../server/src/handler.h"
 
-using namespace std;
-
 #define SERVER_ID "utente_handler" 
 #define REDIS_SERVER "localhost"
 #define REDIS_PORT 6379

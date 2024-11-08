@@ -1,18 +1,23 @@
 \c :dbname
 
--- Inserisci alcuni utenti di esempio
+-- Inserisci alcuni utenti 
 INSERT INTO Utente (cf, nome, cognome, email)
 VALUES
     ('RSSMRA85M01H501Z', 'Mario', 'Rossi', 'mario.rossi@gmail.com'),
     ('BNCLRD70M01H501Z', 'Lucia', 'Bianchi', 'lucia.bianchi@gmail.com');
+
+-- Inserisci alcuni bibliotecari 
 INSERT INTO Bibliotecario (cf, nome, cognome, email, dataAssunzione)
 VALUES
     ('VRDLGI70M01H501Z', 'Giovanni', 'Verdi', 'giovanni.verdi@gmail.com', '2023-01-10'),
     ('BLUFBA60M01H501Z', 'Francesca', 'Blu', 'francesca.blu@gmail.com', '2022-06-15');
+
+-- Inserisci alcuni fornitori
 INSERT INTO Fornitore (nome, email)
 VALUES
     ('Distribuzione Libri S.p.A.', 'info@distribuzionelibri.com'),
     ('Libro Express SRL', 'contatti@libroexpress.com');
+
 -- Inserisci alcune case editrici
 INSERT INTO CasaEditrice (nome)
 VALUES
@@ -39,10 +44,7 @@ INSERT INTO Prestito (dataInizio, dataFine, libro, utente)
 VALUES
     ('2024-01-01', '2024-01-31', 1, 'RSSMRA85M01H501Z'),
     ('2024-02-01', '2024-02-28', 2, 'BNCLRD70M01H501Z');
-INSERT INTO Prestito (dataInizio, dataFine, libro, utente)
-VALUES
-    ('2024-01-01', '2024-01-31', 1, 'RSSMRA85M01H501Z'),
-    ('2024-02-01', '2024-02-28', 2, 'BNCLRD70M01H501Z');
+
 -- Inserimento di richieste di rifornimento pendenti
 INSERT INTO PendingRestock (quantita, bibliotecario, istante, fornitore, edizione, stato)
 VALUES

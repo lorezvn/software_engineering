@@ -10,7 +10,6 @@ CREATE DOMAIN CF AS VARCHAR(16) CHECK (VALUE ~ '^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A
 CREATE DOMAIN Email AS StringM CHECK (VALUE ~* E'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
 
 -- Definizione dei tipi
-
 CREATE TYPE Denaro AS (
     importo RealGEZ,
     valuta CHAR(3)

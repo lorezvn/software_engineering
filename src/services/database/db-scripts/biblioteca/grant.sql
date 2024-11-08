@@ -38,6 +38,7 @@ GRANT SELECT ON EdizioneAutore TO :bibliotecario;                   -- Visualizz
 GRANT SELECT, INSERT, UPDATE, DELETE ON PendingRestock TO :bibliotecario;
 GRANT SELECT, INSERT, UPDATE, DELETE ON Sanzione TO :bibliotecario;
 GRANT SELECT ON Restock TO :bibliotecario;
+
 -- Privilegi dell'utente
 GRANT CONNECT ON DATABASE :dbname TO :utente;
 GRANT USAGE ON SCHEMA public TO :utente;

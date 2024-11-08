@@ -20,9 +20,7 @@
 
 #include "handler.h"
 #include "../../services/database/src/con2db.h"
-#include "../../utilities/constants.h"
-
-using namespace std;
+#include "../../utilities/src/constants.h"
 
 #define POSTGRESQL_SERVER "localhost"
 #define POSTGRESQL_PORT "5432"
@@ -34,14 +32,14 @@ using namespace std;
 
 class Server {
     public:
-        Server(const char* server_id, int server_port, const char* redis_ip, int redis_port, string requests[], int num_requests);
+        Server(const char* server_id, int server_port, const char* redis_ip, int redis_port, std::string requests[], int num_requests);
         ~Server();
         void run();
 
     private:
         void addNewClients();
         void receiveData(int i);
-        void sendResponse(int client_id, string out_str);
+        void sendResponse(int client_id, std::string out_str);
         void closeConnections();
 
         Con2DB logdb = Con2DB(POSTGRESQL_SERVER, POSTGRESQL_PORT, POSTGRESQL_USER, POSTGRESQL_PASSWORD, POSTGRESQL_DBNAME);
