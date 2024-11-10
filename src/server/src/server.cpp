@@ -4,17 +4,17 @@ bool run_server = true;
 
 void termination_handler(int signum) {
     run_server = false;
-    cout << "\n[INFO] Spegnimento server..." << endl;
+    std::cout << "\n[INFO] Spegnimento server..." << std::endl;
 }
 
-Server::Server(const char* server_id, int server_port, const char* redis_ip, int redis_port, string requests[], int num_requests) {
+Server::Server(const char* server_id, int server_port, const char* redis_ip, int redis_port, std::string requests[], int num_requests) {
 
     sockaddr_in address;
 
     server = server_id;
     if ((socket_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         sprintf(error_msg, "[%s]: Errore nella creazione del socket", server);
-        throw runtime_error(error_msg);
+        throw std::runtime_error(error_msg);
     };
     socket_port = server_port;
 
@@ -28,7 +28,7 @@ Server::Server(const char* server_id, int server_port, const char* redis_ip, int
     int flags = fcntl(socket_fd, F_GETFL, 0);
     if (fcntl(socket_fd, F_SETFL, flags | O_NONBLOCK) < 0) {
         sprintf(error_msg, "[%s]: Errore nel settare il socket a NON_BLOCKING", server);
-        throw runtime_error(error_msg);
+        throw std::runtime_error(error_msg);
     }
 
     address.sin_family = AF_INET;
@@ -37,11 +37,11 @@ Server::Server(const char* server_id, int server_port, const char* redis_ip, int
 
     if (bind(socket_fd, (struct sockaddr*)&address, sizeof(address)) < 0) {
         sprintf(error_msg, "[%s]: Errore binding del socket", server);
-        throw runtime_error(error_msg);
+        throw std::runtime_error(error_msg);
     }
     if (listen(socket_fd, MAX_CONNECTIONS) < 0) {
         sprintf(error_msg, "[%s]: Errore listening nel socket", server);
-        throw runtime_error(error_msg);
+        throw std::runtime_error(error_msg);
     }
 
     handler = new Handler(redis_ip, redis_port, requests, num_requests);
@@ -63,7 +63,7 @@ void Server::run(){
     int client_id;
     bool response;
     char query[QUERY_SIZE];
-    string out_str;
+    std::string out_str;
 
     signal_handler.sa_handler = termination_handler;
     sigemptyset(&signal_handler.sa_mask);
@@ -138,7 +138,7 @@ void Server::addNewClients() {
 
             // Non ci sono altre connessioni in coda -> stop server
             if (errno != EWOULDBLOCK) {
-                cout << "\nErrore accept client" << endl;
+                std::cout << "\nErrore accept client" << std::endl;
                 run_server = false;
             }
             break;
@@ -158,46 +158,37 @@ void Server::addNewClients() {
             max_fd = new_client;
         }
         if (fcntl(new_client, F_SETFL, O_NONBLOCK) < 0) {
-            cout << "\nErrore accept client" << endl;
+            std::cout << "\nErrore accept client" << std::endl;
         }
     } while (new_client != -1);
 }
 
-void Server::sendResponse(int client_id, string out_str) {
+void Server::sendResponse(int client_id, std::string out_str) {
 
     char query[QUERY_SIZE];
 
     size_t eol = out_str.find('\n');
-    string first_line = out_str.substr(0, eol);
+    std::string first_line = out_str.substr(0, eol);
 
-
-    const char* query_max_client_conn = 
+    sprintf(query, 
         "WITH MaxClientConn AS ( "
         "   SELECT max(connTime) AS instant "
         "   FROM Client "
-        "   WHERE serverName = \'%s\' " 
-        "   AND fileDescriptor = %d), ";
-
-    const char* query_last_request =
+        "   WHERE serverName = '%s' "
+        "   AND fileDescriptor = %d), "
         "LastRequest AS ( "
         "   SELECT MAX(r.requestTime) AS instant "
         "   FROM Requests AS r, MaxClientConn AS m "
-        "   WHERE r.clientServerName = \'%s\' " 
+        "   WHERE r.clientServerName = '%s' "
         "   AND r.clientFileDescriptor = %d "
-        "   AND r.clientConnTime = m.instant) ";
-
-    const char* query_update = 
+        "   AND r.clientConnTime = m.instant), "
         "UPDATE Requests "
-        "SET responseStatus = \'%s\', responseTime = CURRENT_TIMESTAMP "
-        "WHERE clientServerName = \'%s\' "
+        "SET responseStatus = '%s', responseTime = CURRENT_TIMESTAMP "
+        "WHERE clientServerName = '%s' "
         "  AND clientFileDescriptor = %d "
         "  AND clientConnTime = (SELECT instant FROM MaxClientConn) "
-        "  AND requestTime = (SELECT instant FROM LastRequest);";
-
-    sprintf(query, 
-           "%s%s%s", 
-           query_max_client_conn, query_last_request, query_update,
-           server, client_id, server, client_id, first_line.c_str(), server, client_id);
+        "  AND requestTime = (SELECT instant FROM LastRequest);", 
+    server, client_id, server, client_id, first_line.c_str(), server, client_id);
 
     query_res = logdb.execQuery(query, false);
 
@@ -206,14 +197,14 @@ void Server::sendResponse(int client_id, string out_str) {
         return;
     }
 
-    cout << "\nClient id: " << client_id << " - Response: " << out_str << endl;
+    std::cout << "\nClient id: " << client_id << " - Response: " << out_str << std::endl;
     send(client_id, out_str.c_str(), out_str.length(), 0);
 }
 
 
 void Server::receiveData(int i) {
 
-    string	msg;
+    std::string	msg;
     char buffer[100];
     int rc;
     bool close_conn = false;

@@ -1,6 +1,6 @@
 #include "handler.h"
 
-Handler::Handler(const char* redis_ip, int redis_port, string requests[], int num_requests) {
+Handler::Handler(const char* redis_ip, int redis_port, std::string requests[], int num_requests) {
     
     c2r = redisConnect(redis_ip, redis_port);
     this->requests = requests;
@@ -9,7 +9,7 @@ Handler::Handler(const char* redis_ip, int redis_port, string requests[], int nu
     initHandlerStreams();
 }
 
-bool Handler::sendToFunctions(int client_id, string msg) {
+bool Handler::sendToFunctions(int client_id, std::string msg) {
 
     redisReply* reply;
     bool is_valid; 
@@ -21,12 +21,12 @@ bool Handler::sendToFunctions(int client_id, string msg) {
     }
 
     if (i >= msg.length()) {
-        cout << "\nMessaggio non valido" << endl;
+        std::cout << "\nMessaggio non valido" << std::endl;
         return false;
     }
 
-    string req_type = msg.substr(0, i); // Estrae il tipo di richiesta dalla stringa del messaggio
-    string req_cmd  = msg.substr(i);    // Estrae il comando della richiesta dalla stringa del messaggio
+    std::string req_type = msg.substr(0, i); // Estrae il tipo di richiesta dalla stringa del messaggio
+    std::string req_cmd  = msg.substr(i);    // Estrae il comando della richiesta dalla stringa del messaggio
 
     is_valid = false;
     for (i = 0; i < num_requests; i++) {
@@ -38,21 +38,21 @@ bool Handler::sendToFunctions(int client_id, string msg) {
 
     // Tipo di richiesta non valido
     if (!is_valid) {
-        cout << "\nTipo di richiesta non valido" << endl;
+        std::cout << "\nTipo di richiesta non valido" << std::endl;
         return false;
     }
 
     // Invia il comando sullo stream -in del gestore corrispondente
-    string redis_cmd = "XADD " + req_type + "-in * client_id " + to_string(client_id) + " " + req_cmd;
+    std::string redis_cmd = "XADD " + req_type + "-in * client_id " + std::to_string(client_id) + " " + req_cmd;
 
-    cout << "\n" << redis_cmd << endl;
+    std::cout << "\n" << redis_cmd << std::endl;
 
     reply = RedisCommand(c2r, redis_cmd.c_str());
     assertReply(c2r, reply);
     return true;
 }
 
-bool Handler::readFromFunctions(string* out_str_ptr, int* client_id_ptr) {
+bool Handler::readFromFunctions(std::string* out_str_ptr, int* client_id_ptr) {
 
     redisReply* reply;
     char msg_id[MSG_ID_SIZE];
@@ -62,8 +62,8 @@ bool Handler::readFromFunctions(string* out_str_ptr, int* client_id_ptr) {
     char num_rows[30];
     char row[30];
     int i, j, num_rows_int, curr_row, row_columns;
-    string tmp_str;
-    string out_str;
+    std::string tmp_str;
+    std::string out_str;
 
     for (i = 0; i < num_requests; i++) {
 
@@ -157,13 +157,13 @@ bool Handler::readFromFunctions(string* out_str_ptr, int* client_id_ptr) {
 void Handler::initHandlerStreams() {
 
     redisReply* reply; 
-    string read_stream; 
-    string write_stream; 
+    std::string read_stream; 
+    std::string write_stream; 
 
-    for (int i = 0; i < this->num_requests; i++) { 
+    for (int i = 0; i < num_requests; i++) { 
 
-        read_stream  = this->requests[i] + "-in"; 
-        write_stream = this->requests[i] + "-out"; 
+        read_stream  = requests[i] + "-in"; 
+        write_stream = requests[i] + "-out"; 
         
         reply = RedisCommand(c2r, "DEL %s", read_stream.c_str()); 
         assertReply(c2r, reply); 

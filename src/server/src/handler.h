@@ -15,19 +15,17 @@
 
 #include "../../services/redis/src/con2redis.h"
 #include "../../services/database/src/con2db.h"
-#include "../../utilities/constants.h"
-
-using namespace std;
+#include "../../utilities/src/constants.h"
 
 class Handler {
     public:
-        Handler(const char* redis_ip, int redis_port, string requests[], int num_requests);
-        bool sendToFunctions(int client_id, string msg);
-        bool readFromFunctions(string* out_str_ptr, int* client_id_ptr);
+        Handler(const char* redis_ip, int redis_port, std::string requests[], int num_requests);
+        bool sendToFunctions(int client_id, std::string msg);
+        bool readFromFunctions(std::string* out_str_ptr, int* client_id_ptr);
 
     private:
         redisContext *c2r;
-        string* requests;
+        std::string* requests;
         int num_requests;
         void initHandlerStreams();
 };
