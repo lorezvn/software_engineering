@@ -48,7 +48,10 @@ INSERT INTO PendingRestock (quantita, bibliotecario, istante, fornitore, edizion
 VALUES
     (5, 'VRDLGI70M01H501Z', '2024-09-13 10:30:00', 'Distribuzione Libri S.p.A.', '9781234567897', 'IN ATTESA'),
     (10, 'BLUFBA60M01H501Z', '2024-09-05 14:45:00', 'Libro Express SRL', '9782345678901', 'IN ATTESA');
-
+INSERT INTO PendingPrestito (dataInizio, dataFine, dataRichiesta, stato, libro, utente)
+VALUES
+    ('2024-11-10', '2024-12-10', '2024-11-05', 'IN ATTESA', 1, 'RSSMRA85M01H501Z'),
+    ('2024-11-15', '2024-12-15', '2024-11-06', 'IN ATTESA', 2, 'BNCLRD70M01H501Z');
 -- Inserimento di rifornimenti completati
 INSERT INTO Restock (quantita, istante, fornitore, edizione)
 VALUES

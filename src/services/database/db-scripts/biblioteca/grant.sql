@@ -38,11 +38,12 @@ GRANT SELECT ON EdizioneAutore TO :bibliotecario;                   -- Visualizz
 GRANT SELECT, INSERT, UPDATE, DELETE ON PendingRestock TO :bibliotecario;
 GRANT SELECT, INSERT, UPDATE, DELETE ON Sanzione TO :bibliotecario;
 GRANT SELECT ON Restock TO :bibliotecario;
+GRANT SELECT, INSERT, UPDATE, DELETE ON PendingPrestito TO :bibliotecario;
 -- Privilegi dell'utente
 GRANT CONNECT ON DATABASE :dbname TO :utente;
 GRANT USAGE ON SCHEMA public TO :utente;
 GRANT SELECT, INSERT, UPDATE ON Utente TO :utente;     -- Solo creare nuovi utenti o aggiornare dati personali
-GRANT SELECT, INSERT ON Prestito TO :utente;           -- Permessi sui prestiti personali
+GRANT SELECT ON Prestito TO :utente;           -- Permessi sui prestiti personali
 GRANT SELECT ON LibroFisico TO :utente;                -- Visualizzare copie fisiche dei libri
 GRANT SELECT ON LibroEdizione TO :utente;              -- Visualizzare edizioni dei libri
 GRANT SELECT ON Autore TO :utente;                     -- Visualizzare autori
@@ -50,7 +51,7 @@ GRANT SELECT ON CasaEditrice TO :utente;               -- Visualizzare case edit
 GRANT SELECT ON GenereEdizione TO :utente;             -- Visualizzare associazioni tra generi ed edizioni
 GRANT SELECT ON EdizioneAutore TO :utente;             -- Visualizzare associazioni tra edizioni e autori
 GRANT SELECT ON Sanzione TO :utente;
-
+GRANT SELECT, INSERT, UPDATE, DELETE ON PendingPrestito TO :utente;
 -- Privilegi del fornitore 
 GRANT CONNECT ON DATABASE :dbname TO :fornitore;
 GRANT USAGE ON SCHEMA public TO :fornitore;

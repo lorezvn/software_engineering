@@ -16,6 +16,7 @@ CREATE TYPE Denaro AS (
     valuta CHAR(3)
 );
 CREATE TYPE StatoRestock AS ENUM('IN ATTESA',  'COMPLETATO', 'ANNULLATA');
+CREATE TYPE StatoPrestito AS ENUM('IN ATTESA',  'COMPLETATA', 'ANNULLATA');
 CREATE TYPE StatoSanzione AS ENUM('PAGATA', 'NON PAGATA');
 
 -- Tabella Utente
@@ -66,7 +67,19 @@ CREATE TABLE IF NOT EXISTS Prestito (
     FOREIGN KEY (libro) REFERENCES LibroFisico(id) ON DELETE CASCADE,
     FOREIGN KEY (utente) REFERENCES Utente(cf) ON DELETE CASCADE
 );
-
+-- Tabella PendingPrestito
+CREATE TABLE IF NOT EXISTS PendingPrestito (
+    id SERIAL PRIMARY KEY,
+    dataInizio DATE NOT NULL,
+    dataFine DATE NOT NULL,
+    dataRichiesta DATE NOT NULL,
+    stato StatoPrestito DEFAULT 'IN ATTESA',
+    libro INTEGER NOT NULL,
+    utente CF NOT NULL,
+    CHECK (dataInizio < dataFine),
+    FOREIGN KEY (libro) REFERENCES LibroFisico(id) ON DELETE CASCADE,
+    FOREIGN KEY (utente) REFERENCES Utente(cf) ON DELETE CASCADE
+);
 -- Tabella Autore
 CREATE TABLE IF NOT EXISTS Autore (
     id SERIAL PRIMARY KEY,
