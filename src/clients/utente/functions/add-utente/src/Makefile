@@ -15,26 +15,33 @@ DEPS = $(wildcard $(IDIR)/*.h)
 #OBJ = $(wildcard $(ODIR)/*.o)
 SRC = $(wildcard *.cpp)
 OBJ = $(patsubst %.cpp, $(ODIR)/%.o, $(SRC))
-db_OBJ=$(wildcard ../../services/database/obj/*.o)
-redis_OBJ=$(wildcard ../../services/redis/obj/*.o)
-utilities_OBJ=$(wildcard ../../utilities/obj/*.o)
+db_OBJ=$(wildcard ../../../../../services/database/obj/*.o)
+redis_OBJ=$(wildcard ../../../../../services/redis/obj/*.o)
+classes_OBJ=$(wildcard ../../../../../classes/obj/*.o)
+utilities_OBJ=$(wildcard ../../../../../utilities/obj/*.o)
 
-all:	create_dirs db redis utilities $(ODIR)/$(OBJ)
+all:	create_dirs db redis classes utilities $(BDIR)/main
 
 create_dirs:
-	mkdir -p $(ODIR)
+	mkdir -p $(ODIR) $(BDIR)
 
 db:
-	$(MAKE) -C ../../services/database/src/
+	$(MAKE) -C ../../../../../services/database/src/
 
 redis:
-	$(MAKE) -C ../../services/redis/src/
+	$(MAKE) -C ../../../../../services/redis/src/
+
+classes:
+	$(MAKE) -C ../../../../../classes/src/
 
 utilities:
-	$(MAKE) -C ../../utilities/src/
+	$(MAKE) -C ../../../../../utilities/src/
 
 $(ODIR)/%.o: %.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
+
+$(BDIR)/main: $(OBJ) $(DEPS)
+	$(CC) -o $@ $(OBJ) $(db_OBJ) $(redis_OBJ) $(classes_OBJ) $(utilities_OBJ) $(CFLAGS)
 
 .PHONY: clean
 
