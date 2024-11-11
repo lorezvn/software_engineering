@@ -6,7 +6,6 @@ CREATE DOMAIN RealGEZ AS REAL CHECK (VALUE >= 0);
 CREATE DOMAIN StringS AS VARCHAR(50);
 CREATE DOMAIN StringM AS VARCHAR(100);
 CREATE DOMAIN StringL AS VARCHAR(500);
-CREATE DOMAIN CF AS VARCHAR(16) CHECK (VALUE ~ '^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$');
 CREATE DOMAIN Email AS StringM CHECK (VALUE ~* E'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
 
 -- Definizione dei tipi
@@ -20,7 +19,7 @@ CREATE TYPE StatoSanzione AS ENUM('PAGATA', 'NON PAGATA','REVOCATA');
 
 -- Tabella Utente
 CREATE TABLE IF NOT EXISTS Utente (
-    cf CF PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     nome StringS NOT NULL,
     cognome StringS NOT NULL,
     email Email NOT NULL,
@@ -74,10 +73,10 @@ CREATE TABLE IF NOT EXISTS PendingPrestito (
     dataRichiesta DATE NOT NULL,
     stato StatoPrestito DEFAULT 'IN ATTESA',
     libro INTEGER NOT NULL,
-    utente CF NOT NULL,
+    utente IntGZ NOT NULL,
     CHECK (dataInizio < dataFine),
     FOREIGN KEY (libro) REFERENCES LibroFisico(id) ON DELETE CASCADE,
-    FOREIGN KEY (utente) REFERENCES Utente(cf) ON DELETE CASCADE
+    FOREIGN KEY (utente) REFERENCES Utente(id) ON DELETE CASCADE
 );
 -- Tabella Autore
 CREATE TABLE IF NOT EXISTS Autore (
@@ -112,6 +111,7 @@ CREATE TABLE IF NOT EXISTS EdizioneAutore (
 
 -- Tabella Fornitore
 CREATE TABLE IF NOT EXISTS Fornitore (
+    id SERIAL PRIMARY KEY,
     nome StringS PRIMARY KEY,
     email Email NOT NULL
 );
@@ -129,7 +129,7 @@ CREATE TABLE IF NOT EXISTS Restock (
 
 -- Tabella Bibliotecario
 CREATE TABLE IF NOT EXISTS Bibliotecario (
-    cf CF PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     nome StringS NOT NULL,
     cognome StringS NOT NULL,
     email Email NOT NULL,
@@ -144,9 +144,9 @@ CREATE TABLE IF NOT EXISTS Sanzione (
     stato StatoSanzione NOT NULL DEFAULT 'NON PAGATA', 
     motivazione StringL,
     dataSanzione DATE NOT NULL,
-    bibliotecario CF NOT NULL,
+    bibliotecario IntGZ NOT NULL,
     utente CF NOT NULL,
-    FOREIGN KEY (bibliotecario) REFERENCES Bibliotecario(cf),
+    FOREIGN KEY (bibliotecario) REFERENCES Bibliotecario(id),
     FOREIGN KEY (utente) REFERENCES Utente(cf)
 );
 
@@ -154,12 +154,12 @@ CREATE TABLE IF NOT EXISTS Sanzione (
 CREATE TABLE IF NOT EXISTS PendingRestock (
     id SERIAL PRIMARY KEY,
     quantita IntGZ NOT NULL,
-    bibliotecario CF NOT NULL,
+    bibliotecario IntGZ NOT NULL,
     istante TIMESTAMP,
     fornitore StringS NOT NULL,
     edizione VARCHAR(13) NOT NULL,
     stato StatoRestock DEFAULT 'IN ATTESA',
     FOREIGN KEY (fornitore) REFERENCES Fornitore(nome),
     FOREIGN KEY (edizione) REFERENCES LibroEdizione(ISBN),
-    FOREIGN KEY (bibliotecario) REFERENCES Bibliotecario(cf)
+    FOREIGN KEY (bibliotecario) REFERENCES Bibliotecario(id)
 );

@@ -3,14 +3,14 @@
 -- Inserisci alcuni utenti 
 INSERT INTO Utente (cf, nome, cognome, email)
 VALUES
-    ('RSSMRA85M01H501Z', 'Mario', 'Rossi', 'mario.rossi@gmail.com'),
-    ('BNCLRD70M01H501Z', 'Lucia', 'Bianchi', 'lucia.bianchi@gmail.com');
+    ( 'Mario', 'Rossi', 'mario.rossi@gmail.com'),
+    ( 'Lucia', 'Bianchi', 'lucia.bianchi@gmail.com');
 
 -- Inserisci alcuni bibliotecari 
 INSERT INTO Bibliotecario (cf, nome, cognome, email, dataAssunzione)
 VALUES
-    ('VRDLGI70M01H501Z', 'Giovanni', 'Verdi', 'giovanni.verdi@gmail.com', '2023-01-10'),
-    ('BLUFBA60M01H501Z', 'Francesca', 'Blu', 'francesca.blu@gmail.com', '2022-06-15');
+    ( 'Giovanni', 'Verdi', 'giovanni.verdi@gmail.com', '2023-01-10'),
+    ( 'Francesca', 'Blu', 'francesca.blu@gmail.com', '2022-06-15');
 
 -- Inserisci alcuni fornitori
 INSERT INTO Fornitore (nome, email)
@@ -42,18 +42,18 @@ VALUES
 -- Inserisci prestiti di esempio
 INSERT INTO Prestito (dataInizio, dataFine, libro, utente)
 VALUES
-    ('2024-01-01', '2024-01-31', 1, 'RSSMRA85M01H501Z'),
-    ('2024-02-01', '2024-02-28', 2, 'BNCLRD70M01H501Z');
+    ('2024-01-01', '2024-01-31', 1, 1),
+    ('2024-02-01', '2024-02-28', 2, 2);
 
 -- Inserimento di richieste di rifornimento pendenti
 INSERT INTO PendingRestock (quantita, bibliotecario, istante, fornitore, edizione, stato)
 VALUES
-    (5, 'VRDLGI70M01H501Z', '2024-09-13 10:30:00', 'Distribuzione Libri S.p.A.', '9781234567897', 'IN ATTESA'),
-    (10, 'BLUFBA60M01H501Z', '2024-09-05 14:45:00', 'Libro Express SRL', '9782345678901', 'IN ATTESA');
+    (5, 1, '2024-09-13 10:30:00', 'Distribuzione Libri S.p.A.', '9781234567897', 'IN ATTESA'),
+    (10, 2, '2024-09-05 14:45:00', 'Libro Express SRL', '9782345678901', 'IN ATTESA');
 INSERT INTO PendingPrestito (dataInizio, dataFine, dataRichiesta, stato, libro, utente)
 VALUES
-    ('2024-11-10', '2024-12-10', '2024-11-05', 'IN ATTESA', 1, 'RSSMRA85M01H501Z'),
-    ('2024-11-15', '2024-12-15', '2024-11-06', 'IN ATTESA', 2, 'BNCLRD70M01H501Z');
+    ('2024-11-10', '2024-12-10', '2024-11-05', 'IN ATTESA', 1, 1),
+    ('2024-11-15', '2024-12-15', '2024-11-06', 'IN ATTESA', 2, 2);
 -- Inserimento di rifornimenti completati
 INSERT INTO Restock (quantita, istante, fornitore, edizione)
 VALUES
@@ -63,4 +63,4 @@ VALUES
 -- Inserimento di sanzioni
 INSERT INTO Sanzione (costo, stato, motivazione, dataSanzione, bibliotecario, utente)
 VALUES
-    (ROW(15.0, 'EUR')::Denaro, 'NON PAGATA', 'Ritardo nella restituzione del libro', '2024-10-15', 'VRDLGI70M01H501Z', 'RSSMRA85M01H501Z');
+    (ROW(15.0, 'EUR')::Denaro, 'NON PAGATA', 'Ritardo nella restituzione del libro', '2024-10-15', 2, 1);
