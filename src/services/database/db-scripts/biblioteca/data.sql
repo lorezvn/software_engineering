@@ -1,13 +1,13 @@
 \c :dbname
 
 -- Inserisci alcuni utenti 
-INSERT INTO Utente (cf, nome, cognome, email)
+INSERT INTO Utente (nome, cognome, email)
 VALUES
     ( 'Mario', 'Rossi', 'mario.rossi@gmail.com'),
     ( 'Lucia', 'Bianchi', 'lucia.bianchi@gmail.com');
 
 -- Inserisci alcuni bibliotecari 
-INSERT INTO Bibliotecario (cf, nome, cognome, email, dataAssunzione)
+INSERT INTO Bibliotecario (nome, cognome, email, dataAssunzione)
 VALUES
     ( 'Giovanni', 'Verdi', 'giovanni.verdi@gmail.com', '2023-01-10'),
     ( 'Francesca', 'Blu', 'francesca.blu@gmail.com', '2022-06-15');
@@ -52,10 +52,10 @@ VALUES
     (10, 2, '2024-09-05 14:45:00', 'Libro Express SRL', '9782345678901', 'IN ATTESA');
 
 -- Inserimento di richieste di prestito
-INSERT INTO PendingPrestito (dataInizio, dataFine, dataRichiesta, stato, libro, utente)
+INSERT INTO PendingPrestito (dataInizio, dataFine, istante, stato, libro, utente)
 VALUES
-    ('2024-11-10', '2024-12-10', '2024-11-05', 'IN ATTESA', 1, 1),
-    ('2024-11-15', '2024-12-15', '2024-11-06', 'IN ATTESA', 2, 2);
+    ('2024-11-10', '2024-12-10', '2024-11-05 09:50:00', 'IN ATTESA', 1, 1),
+    ('2024-11-15', '2024-12-15', '2024-11-06 10:30:30', 'IN ATTESA', 2, 2);
 
 -- Inserimento di rifornimenti completati
 INSERT INTO Restock (quantita, istante, fornitore, edizione)

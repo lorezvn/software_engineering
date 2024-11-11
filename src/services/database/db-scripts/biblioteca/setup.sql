@@ -41,7 +41,7 @@ REVOKE ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public FROM :utente;
 DROP OWNED BY :utente;
 DROP USER IF EXISTS :utente;
 
-CREATE USER :utente WITH ENCRYPTED PASSWORD 'user';
+CREATE USER :utente WITH ENCRYPTED PASSWORD 'utente';
 
 
 -- Crea l'utente fornitore

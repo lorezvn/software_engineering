@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS Prestito (
     dataRest DATE,
     isTerminato BOOLEAN DEFAULT FALSE,
     libro INTEGER NOT NULL,
-    utente CF NOT NULL,
+    utente INTEGER NOT NULL,
     CHECK (dataInizio < dataFine),
     CHECK (
         (isTerminato = FALSE OR dataRest IS NOT NULL)
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS Prestito (
     ),
     CHECK (isTerminato = FALSE OR (dataInizio <= dataRest AND dataRest <= dataFine)),
     FOREIGN KEY (libro) REFERENCES LibroFisico(id) ON DELETE CASCADE,
-    FOREIGN KEY (utente) REFERENCES Utente(cf) ON DELETE CASCADE
+    FOREIGN KEY (utente) REFERENCES Utente(id) ON DELETE CASCADE
 );
 
 -- Tabella PendingPrestito
@@ -112,7 +112,6 @@ CREATE TABLE IF NOT EXISTS EdizioneAutore (
 
 -- Tabella Fornitore
 CREATE TABLE IF NOT EXISTS Fornitore (
-    id SERIAL PRIMARY KEY,
     nome StringS PRIMARY KEY,
     email Email NOT NULL
 );
@@ -146,9 +145,9 @@ CREATE TABLE IF NOT EXISTS Sanzione (
     motivazione StringL,
     dataSanzione DATE NOT NULL,
     bibliotecario IntGZ NOT NULL,
-    utente CF NOT NULL,
+    utente INTEGER NOT NULL,
     FOREIGN KEY (bibliotecario) REFERENCES Bibliotecario(id),
-    FOREIGN KEY (utente) REFERENCES Utente(cf)
+    FOREIGN KEY (utente) REFERENCES Utente(id)
 );
 
 -- Tabella PendingRestock
