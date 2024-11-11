@@ -40,7 +40,7 @@ int main() {
             printf("Errore database\n");
             continue;
         } else {
-            printf("INSERT INTO SessionStats avvenuto con successo: SESSION_TYPE='SESSION', AVG=%s ms, STATUS=%s\n", avg, response_status);
+            //printf("INSERT INTO SessionStats avvenuto con successo: SESSION_TYPE='SESSION', AVG=%s ms, STATUS=%s\n", avg, response_status);
         }
 
 
@@ -67,7 +67,7 @@ int main() {
             printf("Errore database\n");
             continue;
         } else {
-            printf("INSERT INTO SessionStats avvenuto con successo: SESSION_TYPE='RESPONSE', AVG=%s ms, STATUS=%s\n", avg, response_status);
+            //printf("INSERT INTO SessionStats avvenuto con successo: SESSION_TYPE='RESPONSE', AVG=%s ms, STATUS=%s\n", avg, response_status);
         }
 
 
@@ -92,7 +92,7 @@ int main() {
             printf("Errore database\n");
             continue;
         } else {
-            printf("INSERT INTO SessionStats avvenuto con successo: SESSION_TYPE='CONNECTION_SUCCESS_RATE', SUCCESS_RATE=%s%%, STATUS=%s\n", success_rate, response_status);
+            //printf("INSERT INTO SessionStats avvenuto con successo: SESSION_TYPE='CONNECTION_SUCCESS_RATE', SUCCESS_RATE=%s%%, STATUS=%s\n", success_rate, response_status);
         }
 
         micro_sleep(60000000);
