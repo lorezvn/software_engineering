@@ -65,12 +65,13 @@ CREATE TABLE IF NOT EXISTS Prestito (
     FOREIGN KEY (libro) REFERENCES LibroFisico(id) ON DELETE CASCADE,
     FOREIGN KEY (utente) REFERENCES Utente(cf) ON DELETE CASCADE
 );
+
 -- Tabella PendingPrestito
 CREATE TABLE IF NOT EXISTS PendingPrestito (
     id SERIAL PRIMARY KEY,
     dataInizio DATE NOT NULL,
     dataFine DATE NOT NULL,
-    dataRichiesta DATE NOT NULL,
+    istante TIMESTAMP NOT NULL,
     stato StatoPrestito DEFAULT 'IN ATTESA',
     libro INTEGER NOT NULL,
     utente IntGZ NOT NULL,
@@ -155,7 +156,7 @@ CREATE TABLE IF NOT EXISTS PendingRestock (
     id SERIAL PRIMARY KEY,
     quantita IntGZ NOT NULL,
     bibliotecario IntGZ NOT NULL,
-    istante TIMESTAMP,
+    istante TIMESTAMP NOT NULL,
     fornitore StringS NOT NULL,
     edizione VARCHAR(13) NOT NULL,
     stato StatoRestock DEFAULT 'IN ATTESA',

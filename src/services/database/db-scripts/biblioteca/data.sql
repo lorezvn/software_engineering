@@ -45,15 +45,18 @@ VALUES
     ('2024-01-01', '2024-01-31', 1, 1),
     ('2024-02-01', '2024-02-28', 2, 2);
 
--- Inserimento di richieste di rifornimento pendenti
+-- Inserimento di richieste di rifornimento 
 INSERT INTO PendingRestock (quantita, bibliotecario, istante, fornitore, edizione, stato)
 VALUES
     (5, 1, '2024-09-13 10:30:00', 'Distribuzione Libri S.p.A.', '9781234567897', 'IN ATTESA'),
     (10, 2, '2024-09-05 14:45:00', 'Libro Express SRL', '9782345678901', 'IN ATTESA');
+
+-- Inserimento di richieste di prestito
 INSERT INTO PendingPrestito (dataInizio, dataFine, dataRichiesta, stato, libro, utente)
 VALUES
     ('2024-11-10', '2024-12-10', '2024-11-05', 'IN ATTESA', 1, 1),
     ('2024-11-15', '2024-12-15', '2024-11-06', 'IN ATTESA', 2, 2);
+
 -- Inserimento di rifornimenti completati
 INSERT INTO Restock (quantita, istante, fornitore, edizione)
 VALUES
