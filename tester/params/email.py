@@ -9,7 +9,7 @@ random.seed(RANDOM_SEED)
 
 class EmailGenerator():
     def __init__(self):
-        self.allowed_chars = string.ascii_letters + string.digits + "._%+-"
+        self.allowed_chars = string.ascii_letters + string.digits
         self.regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
         self.domain_list = ['gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com', 'example.com']
 

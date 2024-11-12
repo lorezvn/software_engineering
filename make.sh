@@ -121,6 +121,5 @@ make_folder handler/src
 
 make_folder functions/add-utente/src
 
-printf "\n\n### 
-Script 'make.sh' completato ### \n\n"
+printf "\n\n### Script 'make.sh' completato ### \n\n"
 

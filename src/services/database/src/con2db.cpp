@@ -20,14 +20,14 @@ Con2DB::Con2DB(const char *hostname, const char *port, const char *username, con
 PGresult* Con2DB::execActionQuery(char *query) {
     if (conn == NULL) {
         fprintf(stderr, "execActionQuery(): Connessione al database assente\n");
-        return NULL;
+        exit(1);
     }
 
     PGresult *res = PQexec(conn, query);
     if (PQresultStatus(res) != PGRES_COMMAND_OK) {
         fprintf(stderr, "execActionQuery(): Errore durante l'esecuzione della query: %s\n", query);
         PQclear(res); 
-        return NULL;
+        endDBConnection();
     }
 
     return res;
@@ -37,14 +37,14 @@ PGresult* Con2DB::execActionQuery(char *query) {
 PGresult* Con2DB::execDataQuery(char *query) {
     if (conn == NULL) {
         fprintf(stderr, "execDataQuery(): Connessione al database assente\n");
-        return NULL;
+        exit(1);
     }
 
     PGresult *res = PQexec(conn, query);
     if (PQresultStatus(res) != PGRES_TUPLES_OK) {
         fprintf(stderr, "execDataQuery(): Errore durante l'esecuzione della query: %s\n", query);
         PQclear(res);
-        return NULL;
+        endDBConnection();
     }
 
     return res;
@@ -54,11 +54,11 @@ PGresult* Con2DB::execDataQuery(char *query) {
 PGresult* Con2DB::execQuery(char* query, bool moreValue) {
     PGresult *res;     // Risultato della query principale
     PGresult *t_res;   // Risultato della query per la transazione
-    char sqlCmd[7];    // Comandi SQL per transazioni (BEGIN, COMMIT)
+    char sql_cmd[7];    // Comandi SQL per transazioni (BEGIN, COMMIT)
 
     // BEGIN 
-    sprintf(sqlCmd, "BEGIN");
-    t_res = execActionQuery(sqlCmd);
+    sprintf(sql_cmd, "BEGIN");
+    t_res = execActionQuery(sql_cmd);
     if (PQresultStatus(t_res) != PGRES_COMMAND_OK) {
         PQclear(t_res);
         return t_res;
@@ -67,30 +67,32 @@ PGresult* Con2DB::execQuery(char* query, bool moreValue) {
 
     // Query principale
     res = !moreValue ? execActionQuery(query) : execDataQuery(query);
-    if (res == NULL) {
+
+    // COMMIT
+    sprintf(sql_cmd, "COMMIT");
+    t_res = execActionQuery(sql_cmd);
+
+
+    if(PQresultStatus(res) != PGRES_COMMAND_OK && PQresultStatus(res) != PGRES_TUPLES_OK){
         PQclear(t_res);
         PQclear(res);
         return res;
     }
-
-    // COMMIT
-    sprintf(sqlCmd, "COMMIT");
-    t_res = execActionQuery(sqlCmd);
-    if (PQresultStatus(t_res) != PGRES_COMMAND_OK) {
+    else if(PQresultStatus(t_res) != PGRES_COMMAND_OK){
         PQclear(res);
         PQclear(t_res);
         return t_res;
     }
-    PQclear(t_res);
-
-    return res;
+    else {
+        PQclear(t_res);
+        if (PQresultStatus(res) != PGRES_TUPLES_OK) PQclear(res);
+        return res;
+    }
 }
 
 // Disconnessione dal database
 void Con2DB::endDBConnection() {
-    if (conn != NULL) {
-        PQfinish(conn); 
-        conn = NULL;
-        exit(1);
-    }
+    PQfinish(conn); 
+    conn = NULL;
+    exit(1);
 }

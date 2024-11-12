@@ -72,6 +72,7 @@ int main() {
 
 
         // Percentuale di connessione del client
+        #if 0
         sprintf(query, "SELECT (CASE WHEN COUNT(*) = 0 THEN 0 ELSE (COUNT(CASE WHEN connStatus = 'CLOSED' THEN 1 END) * 100.0 / COUNT(*)) END) AS success_rate FROM Client");
         query_res = log_db.execQuery(query, true);
 
@@ -94,6 +95,7 @@ int main() {
         } else {
             //printf("INSERT INTO SessionStats avvenuto con successo: SESSION_TYPE='CONNECTION_SUCCESS_RATE', SUCCESS_RATE=%s%%, STATUS=%s\n", success_rate, response_status);
         }
+        #endif
 
         micro_sleep(60000000);
     }

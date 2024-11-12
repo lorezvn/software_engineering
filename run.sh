@@ -47,7 +47,7 @@ run_main() {
     change_dir "$ROOT/$CURRENT_ROOT"
 }
 
-check_arguments $1
+check_args $1
 
 # Start
 printf "\n\n### Inizio script 'run.sh' ###\n\n"

@@ -17,8 +17,9 @@ SRC = $(wildcard *.cpp)
 OBJ = $(patsubst %.cpp, $(ODIR)/%.o, $(SRC))
 db_OBJ=$(wildcard ../../services/database/obj/*.o)
 redis_OBJ=$(wildcard ../../services/redis/obj/*.o)
+utilities_OBJ=$(wildcard ../../utilities/obj/*.o)
 
-all:	create_dirs db redis $(ODIR)/$(OBJ) 
+all:	create_dirs db redis utilities $(ODIR)/$(OBJ) 
 
 create_dirs:
 	mkdir -p $(ODIR) 
@@ -28,6 +29,9 @@ db:
 
 redis:
 	$(MAKE) -C ../../services/redis/src/
+
+utilities:
+	$(MAKE) -C ../../utilities/src/
 
 $(ODIR)/%.o: %.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)

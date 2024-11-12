@@ -172,7 +172,7 @@ void Server::sendResponse(int client_id, std::string out_str) {
 
     sprintf(query, 
         "WITH MaxClientConn AS ( "
-        "   SELECT max(connTime) AS instant "
+        "   SELECT MAX(connTime) AS instant "
         "   FROM Client "
         "   WHERE serverName = '%s' "
         "   AND fileDescriptor = %d), "
@@ -181,13 +181,13 @@ void Server::sendResponse(int client_id, std::string out_str) {
         "   FROM Requests AS r, MaxClientConn AS m "
         "   WHERE r.clientServerName = '%s' "
         "   AND r.clientFileDescriptor = %d "
-        "   AND r.clientConnTime = m.instant), "
+        "   AND r.clientConnTime = m.instant) "
         "UPDATE Requests "
         "SET responseStatus = '%s', responseTime = CURRENT_TIMESTAMP "
         "WHERE clientServerName = '%s' "
         "  AND clientFileDescriptor = %d "
         "  AND clientConnTime = (SELECT instant FROM MaxClientConn) "
-        "  AND requestTime = (SELECT instant FROM LastRequest);", 
+        "  AND requestTime = (SELECT instant FROM LastRequest)", 
     server, client_id, server, client_id, first_line.c_str(), server, client_id);
 
     query_res = logdb.execQuery(query, false);

@@ -19,8 +19,9 @@ db_OBJ=$(wildcard ../../../../../services/database/obj/*.o)
 redis_OBJ=$(wildcard ../../../../../services/redis/obj/*.o)
 classes_OBJ=$(wildcard ../../../../../classes/obj/*.o)
 utilities_OBJ=$(wildcard ../../../../../utilities/obj/*.o)
+server_OBJ=$(wildcard ../../../../../server/obj/*.o)
 
-all:	create_dirs db redis classes utilities $(BDIR)/main
+all:	create_dirs db redis classes utilities server $(BDIR)/main
 
 create_dirs:
 	mkdir -p $(ODIR) $(BDIR)
@@ -37,11 +38,14 @@ classes:
 utilities:
 	$(MAKE) -C ../../../../../utilities/src/
 
+server:
+	$(MAKE) -C ../../../../../server/src/
+
 $(ODIR)/%.o: %.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 $(BDIR)/main: $(OBJ) $(DEPS)
-	$(CC) -o $@ $(OBJ) $(db_OBJ) $(redis_OBJ) $(classes_OBJ) $(utilities_OBJ) $(CFLAGS)
+	$(CC) -o $@ $(OBJ) $(db_OBJ) $(redis_OBJ) $(classes_OBJ) $(utilities_OBJ) $(server_OBJ) $(CFLAGS)
 
 .PHONY: clean
 
