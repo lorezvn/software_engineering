@@ -35,3 +35,43 @@ To stop all processes related to the project, run:
 ```sh
 sh run.sh --kill
 ```
+
+## Api Methods
+
+
+### Utente
+- [x] add-utente
+- [ ] add-richiesta-prestito
+- [ ] ricerca-libro
+- [ ] visualizza-prestiti-attivi
+- [ ] visualizza-cronologia
+- [ ] visualizza-sanzioni
+- [ ] update-username
+
+
+### Bibliotecario
+- [ ] add-bibliotecario
+- [ ] visualizza-catalogo (?)
+- [ ] visualizza-copie
+- [ ] add-sanzione
+- [ ] estingui-sanzione
+- [ ] revoca-sanzione
+- [ ] add-prestito
+- [ ] update-prestito
+- [ ] visualizza-richieste-prestito
+- [ ] update-richiesta-prestito
+- [ ] add-richiesta-restock
+
+
+### Fornitore
+- [ ] add-fornitore
+- [ ] add-restock
+- [ ] visualizza-richieste-restock
+- [ ] update-richiesta-restock
+
+
+## TO-DO
+- [ ] Sistemare relazione
+- [ ] Sistemare UML 
+- [ ] Aggiornare Trigger
+
