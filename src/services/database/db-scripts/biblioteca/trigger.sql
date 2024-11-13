@@ -92,5 +92,40 @@ FOR EACH ROW
 EXECUTE FUNCTION prevent_delete_if_user_has_prestiti();
 
 
+-- 6. Trigger sulla tabella Restock: Completa la richiesta associata al restock inserito
+CREATE OR REPLACE FUNCTION update_richiesta_restock_status()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Aggiorna lo stato della richiesta in 'COMPLETATA' quando viene inserito un nuovo restock
+    UPDATE RichiestaRestock
+    SET stato = 'COMPLETATA'
+    WHERE id = NEW.richiesta;  
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER after_restock_insert
+AFTER INSERT ON Restock
+FOR EACH ROW
+EXECUTE FUNCTION update_richiesta_restock_status();
+
+
+-- 7. Trigger sulla tabella Restock: Completa la richiesta associata al prestito inserito
+CREATE OR REPLACE FUNCTION update_richiesta_prestito_status()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Aggiorna lo stato della richiesta in 'COMPLETATA' quando viene inserito un nuovo prestito
+    UPDATE RichiestaPrestito
+    SET stato = 'COMPLETATA'
+    WHERE id = NEW.richiesta;  
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER after_prestito_insert
+AFTER INSERT ON Prestito
+FOR EACH ROW
+EXECUTE FUNCTION update_richiesta_prestito_status();
+
 
 

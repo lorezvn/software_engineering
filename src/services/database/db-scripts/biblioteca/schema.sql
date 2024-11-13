@@ -9,12 +9,7 @@ CREATE DOMAIN StringL AS VARCHAR(500);
 CREATE DOMAIN Email AS StringM CHECK (VALUE ~* E'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
 
 -- Definizione dei tipi
-CREATE TYPE Denaro AS (
-    importo RealGEZ,
-    valuta CHAR(3)
-);
-CREATE TYPE StatoRestock AS ENUM('IN ATTESA',  'COMPLETATO', 'ANNULLATA');
-CREATE TYPE StatoPrestito AS ENUM('IN ATTESA',  'COMPLETATA', 'ANNULLATA');
+CREATE TYPE StatoRichiesta AS ENUM('IN ATTESA', 'COMPLETATA', 'ANNULLATA');
 CREATE TYPE StatoSanzione AS ENUM('PAGATA', 'NON PAGATA','REVOCATA');
 
 -- Tabella Utente
@@ -23,6 +18,7 @@ CREATE TABLE IF NOT EXISTS Utente (
     nome StringS NOT NULL,
     cognome StringS NOT NULL,
     email Email NOT NULL,
+    username VARCHAR(16) NOT NULL,
     UNIQUE(email)
 );
 
@@ -47,9 +43,24 @@ CREATE TABLE IF NOT EXISTS LibroFisico (
     FOREIGN KEY (edizione) REFERENCES LibroEdizione(ISBN) ON DELETE CASCADE
 );
 
+-- Tabella RichiestaPrestito
+CREATE TABLE IF NOT EXISTS RichiestaPrestito (
+    id SERIAL PRIMARY KEY,
+    dataInizio DATE NOT NULL,
+    dataFine DATE NOT NULL,
+    istante TIMESTAMP NOT NULL,
+    stato StatoRichiesta DEFAULT 'IN ATTESA',
+    libro INTEGER NOT NULL,
+    utente IntGZ NOT NULL,
+    CHECK (dataInizio < dataFine),
+    FOREIGN KEY (libro) REFERENCES LibroFisico(id) ON DELETE CASCADE,
+    FOREIGN KEY (utente) REFERENCES Utente(id) ON DELETE CASCADE
+);
+
 -- Tabella Prestito
 CREATE TABLE IF NOT EXISTS Prestito (
     id SERIAL PRIMARY KEY,
+    richiesta INTEGER NOT NULL,
     dataInizio DATE NOT NULL,
     dataFine DATE NOT NULL,
     dataRest DATE,
@@ -62,23 +73,11 @@ CREATE TABLE IF NOT EXISTS Prestito (
         AND (dataRest IS NULL OR isTerminato = TRUE)
     ),
     CHECK (isTerminato = FALSE OR (dataInizio <= dataRest AND dataRest <= dataFine)),
+    FOREIGN KEY (richiesta) REFERENCES RichiestaPrestito(id) ON DELETE CASCADE,
     FOREIGN KEY (libro) REFERENCES LibroFisico(id) ON DELETE CASCADE,
     FOREIGN KEY (utente) REFERENCES Utente(id) ON DELETE CASCADE
 );
 
--- Tabella PendingPrestito
-CREATE TABLE IF NOT EXISTS PendingPrestito (
-    id SERIAL PRIMARY KEY,
-    dataInizio DATE NOT NULL,
-    dataFine DATE NOT NULL,
-    istante TIMESTAMP NOT NULL,
-    stato StatoPrestito DEFAULT 'IN ATTESA',
-    libro INTEGER NOT NULL,
-    utente IntGZ NOT NULL,
-    CHECK (dataInizio < dataFine),
-    FOREIGN KEY (libro) REFERENCES LibroFisico(id) ON DELETE CASCADE,
-    FOREIGN KEY (utente) REFERENCES Utente(id) ON DELETE CASCADE
-);
 -- Tabella Autore
 CREATE TABLE IF NOT EXISTS Autore (
     id SERIAL PRIMARY KEY,
@@ -116,17 +115,6 @@ CREATE TABLE IF NOT EXISTS Fornitore (
     email Email NOT NULL
 );
 
--- Tabella Restock
-CREATE TABLE IF NOT EXISTS Restock (
-    id SERIAL PRIMARY KEY,
-    quantita IntGZ NOT NULL,
-    istante TIMESTAMP,
-    fornitore StringS NOT NULL,
-    edizione VARCHAR(13) NOT NULL,
-    FOREIGN KEY (fornitore) REFERENCES Fornitore(nome),
-    FOREIGN KEY (edizione) REFERENCES LibroEdizione(ISBN)
-);
-
 -- Tabella Bibliotecario
 CREATE TABLE IF NOT EXISTS Bibliotecario (
     id SERIAL PRIMARY KEY,
@@ -140,7 +128,7 @@ CREATE TABLE IF NOT EXISTS Bibliotecario (
 -- Tabella Sanzione
 CREATE TABLE IF NOT EXISTS Sanzione (
     id SERIAL PRIMARY KEY,
-    costo Denaro NOT NULL,
+    costo RealGEZ NOT NULL,
     stato StatoSanzione NOT NULL DEFAULT 'NON PAGATA', 
     motivazione StringL,
     dataSanzione DATE NOT NULL,
@@ -150,16 +138,29 @@ CREATE TABLE IF NOT EXISTS Sanzione (
     FOREIGN KEY (utente) REFERENCES Utente(id)
 );
 
--- Tabella PendingRestock
-CREATE TABLE IF NOT EXISTS PendingRestock (
+-- Tabella RichiestaRestock
+CREATE TABLE IF NOT EXISTS RichiestaRestock (
     id SERIAL PRIMARY KEY,
     quantita IntGZ NOT NULL,
     bibliotecario IntGZ NOT NULL,
     istante TIMESTAMP NOT NULL,
     fornitore StringS NOT NULL,
     edizione VARCHAR(13) NOT NULL,
-    stato StatoRestock DEFAULT 'IN ATTESA',
+    stato StatoRichiesta DEFAULT 'IN ATTESA',
     FOREIGN KEY (fornitore) REFERENCES Fornitore(nome),
-    FOREIGN KEY (edizione) REFERENCES LibroEdizione(ISBN),
-    FOREIGN KEY (bibliotecario) REFERENCES Bibliotecario(id)
+    FOREIGN KEY (edizione) REFERENCES LibroEdizione(ISBN) ON DELETE CASCADE,
+    FOREIGN KEY (bibliotecario) REFERENCES Bibliotecario(id) ON DELETE CASCADE
+);
+
+-- Tabella Restock
+CREATE TABLE IF NOT EXISTS Restock (
+    id SERIAL PRIMARY KEY,
+    richiesta INTEGER NOT NULL,
+    quantita IntGZ NOT NULL,
+    istante TIMESTAMP,
+    fornitore StringS NOT NULL,
+    edizione VARCHAR(13) NOT NULL,
+    FOREIGN KEY (richiesta) REFERENCES RichiestaRestock(id) ON DELETE CASCADE,
+    FOREIGN KEY (fornitore) REFERENCES Fornitore(nome),
+    FOREIGN KEY (edizione) REFERENCES LibroEdizione(ISBN) 
 );

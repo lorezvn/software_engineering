@@ -35,10 +35,11 @@ GRANT SELECT ON Autore TO :bibliotecario;                           -- Visualizz
 GRANT SELECT ON CasaEditrice TO :bibliotecario;                     -- Visualizzare case editrici
 GRANT SELECT ON GenereEdizione TO :bibliotecario;                   -- Visualizzare associazioni tra generi ed edizioni
 GRANT SELECT ON EdizioneAutore TO :bibliotecario;                   -- Visualizzare associazioni tra edizioni e autori
-GRANT SELECT, INSERT, UPDATE, DELETE ON PendingRestock TO :bibliotecario;
+GRANT SELECT, INSERT, UPDATE, DELETE ON RichiestaRestock TO :bibliotecario;
 GRANT SELECT, INSERT, UPDATE, DELETE ON Sanzione TO :bibliotecario;
 GRANT SELECT ON Restock TO :bibliotecario;
-GRANT SELECT, INSERT, UPDATE, DELETE ON PendingPrestito TO :bibliotecario;
+GRANT SELECT, INSERT, UPDATE, DELETE ON RichiestaPrestito TO :bibliotecario;
+
 -- Privilegi dell'utente
 GRANT CONNECT ON DATABASE :dbname TO :utente;
 GRANT USAGE ON SCHEMA public TO :utente;
@@ -51,7 +52,8 @@ GRANT SELECT ON CasaEditrice TO :utente;               -- Visualizzare case edit
 GRANT SELECT ON GenereEdizione TO :utente;             -- Visualizzare associazioni tra generi ed edizioni
 GRANT SELECT ON EdizioneAutore TO :utente;             -- Visualizzare associazioni tra edizioni e autori
 GRANT SELECT ON Sanzione TO :utente;
-GRANT SELECT, INSERT, UPDATE, DELETE ON PendingPrestito TO :utente;
+GRANT SELECT, INSERT, UPDATE, DELETE ON RichiestaPrestito TO :utente;
+
 -- Privilegi del fornitore 
 GRANT CONNECT ON DATABASE :dbname TO :fornitore;
 GRANT USAGE ON SCHEMA public TO :fornitore;
@@ -61,5 +63,5 @@ GRANT INSERT, SELECT, UPDATE ON Autore TO :fornitore;              -- Gestione d
 GRANT INSERT, SELECT, UPDATE ON CasaEditrice TO :fornitore;        -- Gestione delle case editrici
 GRANT INSERT, SELECT, UPDATE ON GenereEdizione TO :fornitore;      -- Gestione associazioni tra generi ed edizioni dei libri
 GRANT INSERT, SELECT, UPDATE ON EdizioneAutore TO :fornitore;      -- Gestione associazioni tra edizioni e autori dei libri
-GRANT SELECT ON PendingRestock TO :fornitore;
+GRANT SELECT ON RichiestaRestock TO :fornitore;
 GRANT SELECT, INSERT, UPDATE, DELETE ON Restock TO :fornitore;
