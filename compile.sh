@@ -32,7 +32,7 @@ change_dir ..
 change_dir ..
 change_dir ..
 change_dir ..
-run_sh make.sh --c
+run_sh make.sh --clean
 run_sh make.sh
 
 printf "\n\n### Script 'compile.sh' completato ### \n\n"

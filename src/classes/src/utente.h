@@ -16,8 +16,9 @@ class Utente {
         std::string nome;
         std::string cognome;
         std::string email;
+        std::string username;
         
-        Utente(std::string utente_nome, std::string utente_cognome, std::string utente_email);
+        Utente(std::string utente_nome, std::string utente_cognome, std::string utente_email, std::string utente_username);
 
         static Utente* fromRedisStream(redisReply* reply, int stream_num, int msg_num);
 };

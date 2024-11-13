@@ -1,9 +1,10 @@
 #include "utente.h"
 
-Utente::Utente(std::string utente_nome, std::string utente_cognome, std::string utente_email) {
+Utente::Utente(std::string utente_nome, std::string utente_cognome, std::string utente_email, std::string utente_username) {
     nome = utente_nome;
     cognome = utente_cognome;
     email = utente_email;
+    username = utente_username;
 }
 
 Utente* Utente::fromRedisStream(redisReply* reply, int stream_num, int msg_num) {
@@ -11,6 +12,7 @@ Utente* Utente::fromRedisStream(redisReply* reply, int stream_num, int msg_num) 
     std::string nome;
     std::string cognome;
     std::string email;
+    std::string username;
 
     char key[KEY_SIZE];
     char value[PARAMETERS_SIZE];
@@ -27,10 +29,12 @@ Utente* Utente::fromRedisStream(redisReply* reply, int stream_num, int msg_num) 
             cognome = value;
         } else if (strcmp(key, "email") == 0) {
             email = value;
+        } else if (strcmp(key, "username") == 0) {
+            username = value;
         } else {
             throw std::invalid_argument("Errore stream: chiave non riconosciuta");
         }
     }
 
-    return new Utente(nome, cognome, email);
+    return new Utente(nome, cognome, email, username);
 }

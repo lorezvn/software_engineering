@@ -50,8 +50,9 @@ int main() {
             continue;
         }
 
-        sprintf(query, "INSERT INTO Utente (nome, cognome, email) VALUES (\'%s\', \'%s\', \'%s\')", 
-                        utente->nome.c_str(), utente->cognome.c_str(), utente->email.c_str());
+        sprintf(query, "INSERT INTO Utente (nome, cognome, email, username) VALUES (\'%s\', \'%s\', \'%s\', \'%s\')", 
+                        utente->nome.c_str(), utente->cognome.c_str(), 
+                        utente->email.c_str(), utente->username.c_str());
 
         query_res = db.execQuery(query, false);
 
