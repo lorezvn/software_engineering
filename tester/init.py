@@ -5,6 +5,7 @@ from params.string_L import StringLGenerator
 from params.string_M import StringMGenerator
 from params.string_S import StringSGenerator
 from params.username import UsernameGenerator
+from params.id import IdGenerator
 
 requests = {
     "add-utente": [
@@ -12,9 +13,13 @@ requests = {
         [("cognome", StringSGenerator)],
         [("email", EmailGenerator)],
         [("username", UsernameGenerator)]
+    ], 
+    "update-username": [
+        [("user_id", IdGenerator)],
+        [("new_username", UsernameGenerator)]
     ]
 }
 
 api_methods = {
-    "utente": ["add-utente"],
+    "utente": ["add-utente", "update-username"]
 }

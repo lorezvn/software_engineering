@@ -12,7 +12,7 @@ check_args() {
 }
 
 check_last_command() {
-    if [$? -ne 0]
+    if [ $? -ne 0 ]
     then
         printf "\n\nErrore durante l'esecuzione dello script \n\n"
         exit
@@ -120,6 +120,7 @@ set_current_root src/clients/utente
 make_folder handler/src
 
 make_folder functions/add-utente/src
+make_folder functions/update-username/src
 
 printf "\n\n### Script 'make.sh' completato ### \n\n"
 

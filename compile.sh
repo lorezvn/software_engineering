@@ -5,7 +5,7 @@ CURRENT_ROOT=""
 
 
 check_last_command() {
-    if [$? -ne 0]
+    if [ $? -ne 0 ]
     then
         printf "\n\nErrore durante l'esecuzione dello script \n\n"
         exit

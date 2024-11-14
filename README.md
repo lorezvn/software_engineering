@@ -46,7 +46,7 @@ sh run.sh --kill
 - [ ] visualizza-prestiti-attivi
 - [ ] visualizza-cronologia
 - [ ] visualizza-sanzioni
-- [ ] update-username
+- [x] update-username
 
 
 ### Bibliotecario
@@ -74,4 +74,5 @@ sh run.sh --kill
 - [ ] Sistemare relazione
 - [ ] Sistemare UML 
 - [ ] Aggiornare Trigger
+- [ ] Sistemare monitor non funzionali
 
