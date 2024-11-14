@@ -27,6 +27,7 @@ GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO :utente;
 -- Privilegi del bibliotecario
 GRANT CONNECT ON DATABASE :dbname TO :bibliotecario;
 GRANT USAGE ON SCHEMA public TO :bibliotecario;
+GRANT INSERT ON Bibliotecario TO :bibliotecario;
 GRANT SELECT ON Utente TO :bibliotecario;                           -- Solo visualizzare dati utenti
 GRANT SELECT, INSERT, UPDATE, DELETE ON Prestito TO :bibliotecario; -- Gestione completa dei prestiti
 GRANT SELECT ON LibroFisico TO :bibliotecario;                      -- Visualizzare copie fisiche dei libri
@@ -57,6 +58,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON RichiestaPrestito TO :utente;
 -- Privilegi del fornitore 
 GRANT CONNECT ON DATABASE :dbname TO :fornitore;
 GRANT USAGE ON SCHEMA public TO :fornitore;
+GRANT INSERT ON Fornitore TO :fornitore;
 GRANT INSERT, SELECT, UPDATE ON LibroEdizione TO :fornitore;       -- Gestione delle edizioni dei libri
 GRANT INSERT, SELECT, UPDATE, DELETE ON LibroFisico TO :fornitore; -- Gestione completa delle copie fisiche dei libri
 GRANT INSERT, SELECT, UPDATE ON Autore TO :fornitore;              -- Gestione degli autori

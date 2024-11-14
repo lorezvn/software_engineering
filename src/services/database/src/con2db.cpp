@@ -26,8 +26,9 @@ PGresult* Con2DB::execActionQuery(char *query) {
     PGresult *res = PQexec(conn, query);
     if (PQresultStatus(res) != PGRES_COMMAND_OK) {
         fprintf(stderr, "execActionQuery(): Errore durante l'esecuzione della query: %s\n", query);
-        PQclear(res); 
-        endDBConnection();
+        fprintf(stderr, "Dettagli dell'errore: %s\n", PQerrorMessage(conn));
+        //PQclear(res); 
+        //endDBConnection();
     }
 
     return res;
@@ -43,8 +44,9 @@ PGresult* Con2DB::execDataQuery(char *query) {
     PGresult *res = PQexec(conn, query);
     if (PQresultStatus(res) != PGRES_TUPLES_OK) {
         fprintf(stderr, "execDataQuery(): Errore durante l'esecuzione della query: %s\n", query);
-        PQclear(res);
-        endDBConnection();
+        fprintf(stderr, "Dettagli dell'errore: %s\n", PQerrorMessage(conn));
+        //PQclear(res);
+        //endDBConnection();
     }
 
     return res;
