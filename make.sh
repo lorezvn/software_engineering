@@ -98,21 +98,27 @@ set_current_root src
 make_folder non-func-monitors/src
 
 
-# Clients
+# Bibliotecario
 printf "\n\n### BIBLIOTECARIO ###\n\n"
 
 set_current_root src/clients/bibliotecario
 
 make_folder handler/src
 
+make_folder functions/add-bibliotecario/src
 
+
+# Fornitore
 printf "\n\n### FORNITORE ###\n\n"
 
 set_current_root src/clients/fornitore
 
 make_folder handler/src
 
+make_folder functions/add-fornitore/src
 
+
+# Utente
 printf "\n\n### UTENTE ###\n\n"
 
 set_current_root src/clients/utente
@@ -121,6 +127,7 @@ make_folder handler/src
 
 make_folder functions/add-utente/src
 make_folder functions/update-username/src
+
 
 printf "\n\n### Script 'make.sh' completato ### \n\n"
 

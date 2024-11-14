@@ -16,7 +16,7 @@ int main() {
     Con2DB db(POSTGRESQL_SERVER, POSTGRESQL_PORT, POSTGRESQL_USER, POSTGRESQL_PASSWORD, POSTGRESQL_DBNAME);
     c2r = redisConnect(REDIS_SERVER, REDIS_PORT);
 
-    Utente* utente;
+    Fornitore* fornitore;
 
     while(true) {
 
@@ -43,16 +43,15 @@ int main() {
         
         // Conversione richiesta
         try {
-            utente = Utente::fromRedisStream(reply, 0, 0);
+            fornitore = Fornitore::fromRedisStream(reply, 0, 0);
         }
         catch(std::invalid_argument exp){
             send_response_status(c2r, WRITE_STREAM, client_id, "BAD_REQUEST", msg_id, 0);
             continue;
         }
 
-        sprintf(query, "INSERT INTO Utente (nome, cognome, email, username) VALUES (\'%s\', \'%s\', \'%s\', \'%s\')", 
-                        utente->nome.c_str(), utente->cognome.c_str(), 
-                        utente->email.c_str(), utente->username.c_str());
+        sprintf(query, "INSERT INTO Fornitore (nome, email) VALUES (\'%s\', \'%s\')", 
+                        fornitore->nome.c_str(), fornitore->email.c_str());
 
         query_res = db.execQuery(query, false);
 

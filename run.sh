@@ -62,12 +62,15 @@ set_current_root src
 
 run_main non-func-monitors/bin
 
+
 # Bibliotecario
 printf "\n\n### BIBLIOTECARIO ###\n\n"
 
 set_current_root src/clients/bibliotecario
 
 run_main handler/bin
+
+run_main functions/add-bibliotecario/bin
 
 
 # Fornitore
@@ -76,6 +79,8 @@ printf "\n\n### FORNITORE ###\n\n"
 set_current_root src/clients/fornitore
 
 run_main handler/bin
+
+run_main functions/add-fornitore/bin
 
 
 # Utente

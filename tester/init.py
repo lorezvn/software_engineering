@@ -6,8 +6,20 @@ from params.string_M import StringMGenerator
 from params.string_S import StringSGenerator
 from params.username import UsernameGenerator
 from params.id import IdGenerator
+from params.date import DateGenerator
+
 
 requests = {
+    "add-bibliotecario": [
+        [("nome", StringSGenerator)],
+        [("cognome", StringSGenerator)],
+        [("email", EmailGenerator)],
+        [("data_ass", DateGenerator)]
+    ],
+    "add-fornitore": [
+        [("nome", StringSGenerator)],
+        [("email", EmailGenerator)]
+    ],
     "add-utente": [
         [("nome", StringSGenerator)],
         [("cognome", StringSGenerator)],
@@ -20,6 +32,9 @@ requests = {
     ]
 }
 
+
 api_methods = {
+    "bibliotecario": ["add-bibliotecario"],
+    "fornitore": ["add-fornitore"],
     "utente": ["add-utente", "update-username"]
 }
