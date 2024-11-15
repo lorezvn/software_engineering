@@ -41,7 +41,7 @@ sh run.sh --kill
 
 ### Utente
 - [x] add-utente
-- [ ] add-richiesta-prestito ( da controllare)
+- [x] add-richiesta-prestito ( da controllare)
 - [ ] ricerca-libri ( da controllare)
 - [ ] visualizza-prestiti-attivi 
 - [ ] visualizza-cronologia
@@ -50,7 +50,7 @@ sh run.sh --kill
 
 
 ### Bibliotecario
-- [ ] add-bibliotecario
+- [x] add-bibliotecario
 - [ ] visualizza-catalogo (?)
 - [ ] visualizza-copie
 - [ ] add-sanzione
@@ -64,7 +64,7 @@ sh run.sh --kill
 
 
 ### Fornitore
-- [ ] add-fornitore
+- [x] add-fornitore
 - [ ] add-restock
 - [ ] visualizza-richieste-restock
 - [ ] update-richiesta-restock
@@ -75,4 +75,5 @@ sh run.sh --kill
 - [ ] Sistemare UML 
 - [ ] Aggiornare Trigger
 - [ ] Sistemare monitor non funzionali
+- [ ] Sistemare Tester (alcuni test dovrebbero essere fatti meglio ad esempio per coppie di date inizio/fine)
 
