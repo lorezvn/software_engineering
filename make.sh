@@ -126,6 +126,7 @@ set_current_root src/clients/utente
 make_folder handler/src
 
 make_folder functions/add-utente/src
+make_folder functions/add-richiesta-prestito/src
 make_folder functions/update-username/src
 
 

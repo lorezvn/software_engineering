@@ -23,7 +23,7 @@ def generate_request(client):
     for arg_values in request_args:
         for arg_name, arg_value in arg_values.items():
             if type(arg_value) == str:
-                arg_value.replace(" ", "##")              
+                arg_value = arg_value.replace(" ", "##")              
             request_string += f" {arg_name} {arg_value}"
     
     return request_string.strip()

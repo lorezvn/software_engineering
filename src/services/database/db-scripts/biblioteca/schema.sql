@@ -46,12 +46,12 @@ CREATE TABLE IF NOT EXISTS LibroFisico (
 -- Tabella RichiestaPrestito
 CREATE TABLE IF NOT EXISTS RichiestaPrestito (
     id SERIAL PRIMARY KEY,
+    utente INTEGER NOT NULL,
+    libro INTEGER NOT NULL,
     dataInizio DATE NOT NULL,
     dataFine DATE NOT NULL,
     istante TIMESTAMP NOT NULL,
     stato StatoRichiesta DEFAULT 'IN ATTESA',
-    libro INTEGER NOT NULL,
-    utente IntGZ NOT NULL,
     CHECK (dataInizio < dataFine),
     FOREIGN KEY (libro) REFERENCES LibroFisico(id) ON DELETE CASCADE,
     FOREIGN KEY (utente) REFERENCES Utente(id) ON DELETE CASCADE
@@ -61,12 +61,12 @@ CREATE TABLE IF NOT EXISTS RichiestaPrestito (
 CREATE TABLE IF NOT EXISTS Prestito (
     id SERIAL PRIMARY KEY,
     richiesta INTEGER NOT NULL,
+    utente INTEGER NOT NULL,
+    libro INTEGER NOT NULL,
     dataInizio DATE NOT NULL,
     dataFine DATE NOT NULL,
     dataRest DATE,
     isTerminato BOOLEAN DEFAULT FALSE,
-    libro INTEGER NOT NULL,
-    utente INTEGER NOT NULL,
     CHECK (dataInizio < dataFine),
     CHECK (
         (isTerminato = FALSE OR dataRest IS NOT NULL)

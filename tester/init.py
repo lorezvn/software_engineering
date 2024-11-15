@@ -26,6 +26,12 @@ requests = {
         [("email", EmailGenerator)],
         [("username", UsernameGenerator)]
     ], 
+    "add-richiesta-prestito": [
+        [("utente_id", IdGenerator)],
+        [("libro_id", IdGenerator)],
+        [("data_inizio", DateGenerator)],
+        [("data_fine", DateGenerator)]
+    ],
     "update-username": [
         [("user_id", IdGenerator)],
         [("new_username", UsernameGenerator)]
@@ -36,5 +42,5 @@ requests = {
 api_methods = {
     "bibliotecario": ["add-bibliotecario"],
     "fornitore": ["add-fornitore"],
-    "utente": ["add-utente", "update-username"]
+    "utente": ["add-utente", "add-richiesta-prestito", "update-username"]
 }

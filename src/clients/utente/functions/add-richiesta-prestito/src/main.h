@@ -1,5 +1,5 @@
-#ifndef ADD_RICHIESTA_PRESTITO_H
-#define ADD_RICHIESTA_PRESTITO_H
+#ifndef main_h
+#define main_h
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,6 +14,7 @@
 
 #include "../../../../../services/database/src/con2db.h"
 #include "../../../../../services/redis/src/con2redis.h"
+#include "../../../../../classes/src/richiesta-prestito.h"
 #include "../../../../../utilities/src/functions.h"
 #include "../../../../../utilities/src/constants.h"
 
@@ -29,4 +30,4 @@
 #define POSTGRESQL_PASSWORD "utente"
 #define POSTGRESQL_DBNAME "biblioteca"
 
-#endif // ADD_RICHIESTA_PRESTITO_H
+#endif 

@@ -14,7 +14,7 @@ classes_OBJ=$(wildcard ../../../../../classes/obj/*.o)
 utilities_OBJ=$(wildcard ../../../../../utilities/obj/*.o)
 server_OBJ=$(wildcard ../../../../../server/obj/*.o)
 
-all:	create_dirs db redis classes utilities server $(BDIR)/add-richiesta-prestito
+all:	create_dirs db redis classes utilities server $(BDIR)/main
 
 create_dirs:
 	mkdir -p $(ODIR) $(BDIR)
@@ -37,7 +37,7 @@ server:
 $(ODIR)/%.o: %.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-$(BDIR)/add-richiesta-prestito: $(OBJ) $(DEPS)
+$(BDIR)/main: $(OBJ) $(DEPS)
 	$(CC) -o $@ $(OBJ) $(db_OBJ) $(redis_OBJ) $(classes_OBJ) $(utilities_OBJ) $(server_OBJ) $(CFLAGS)
 
 .PHONY: clean

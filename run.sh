@@ -91,6 +91,7 @@ set_current_root src/clients/utente
 run_main handler/bin
 
 run_main functions/add-utente/bin
+run_main functions/add-richiesta-prestito/bin
 run_main functions/update-username/bin
 
 
