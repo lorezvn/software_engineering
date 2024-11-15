@@ -41,11 +41,11 @@ sh run.sh --kill
 
 ### Utente
 - [x] add-utente
-- [ ] add-richiesta-prestito
-- [ ] ricerca-libro
-- [ ] visualizza-prestiti-attivi
+- [ ] add-richiesta-prestito ( da controllare)
+- [ ] ricerca-libri ( da controllare)
+- [ ] visualizza-prestiti-attivi 
 - [ ] visualizza-cronologia
-- [ ] visualizza-sanzioni
+- [ ] visualizza-sanzioni ( da controllare)
 - [x] update-username
 
 
