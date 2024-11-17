@@ -10,10 +10,18 @@ Sanzione::Sanzione(float sanz_costo, std::string sanz_stato, std::string sanz_mo
     utente_id = sanz_utente_id;
 }
 
+Sanzione::Sanzione(float sanz_costo, std::string sanz_motivazione, std::string sanz_data, 
+                   int sanz_bibl_id, int sanz_utente_id) {
+    costo = sanz_costo;
+    motivazione = sanz_motivazione;
+    data = sanz_data;
+    bibl_id = sanz_bibl_id;
+    utente_id = sanz_utente_id;
+}
+
 Sanzione* Sanzione::fromRedisStream(redisReply* reply, int stream_num, int msg_num) {
 
     float costo;
-    std::string stato;
     std::string motivazione;
     std::string data;
     int bibl_id;
@@ -30,8 +38,6 @@ Sanzione* Sanzione::fromRedisStream(redisReply* reply, int stream_num, int msg_n
 
         if (strcmp(key, "costo") == 0) {
             costo = atof(value);
-        } else if (strcmp(key, "stato") == 0) {
-            stato = value;
         } else if (strcmp(key, "motivazione") == 0) {
             motivazione = value;
         } else if (strcmp(key, "data") == 0) {
@@ -45,5 +51,5 @@ Sanzione* Sanzione::fromRedisStream(redisReply* reply, int stream_num, int msg_n
         }
     }
 
-    return new Sanzione(costo, stato, motivazione, data, bibl_id, utente_id);
+    return new Sanzione(costo, motivazione, data, bibl_id, utente_id);
 }

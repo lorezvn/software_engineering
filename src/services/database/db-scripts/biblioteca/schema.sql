@@ -5,7 +5,7 @@ CREATE DOMAIN IntGZ AS INTEGER CHECK (VALUE > 0);
 CREATE DOMAIN RealGEZ AS REAL CHECK (VALUE >= 0);
 CREATE DOMAIN StringS AS VARCHAR(50);
 CREATE DOMAIN StringM AS VARCHAR(100);
-CREATE DOMAIN StringL AS VARCHAR(500);
+CREATE DOMAIN StringL AS VARCHAR(250);
 CREATE DOMAIN Email AS StringM CHECK (VALUE ~* E'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
 
 -- Definizione dei tipi
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS Sanzione (
     stato StatoSanzione NOT NULL DEFAULT 'NON PAGATA', 
     motivazione StringL,
     data DATE NOT NULL,
-    bibliotecario IntGZ NOT NULL,
+    bibliotecario INTEGER NOT NULL,
     utente INTEGER NOT NULL,
     FOREIGN KEY (bibliotecario) REFERENCES Bibliotecario(id),
     FOREIGN KEY (utente) REFERENCES Utente(id)

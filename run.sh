@@ -71,6 +71,7 @@ set_current_root src/clients/bibliotecario
 run_main handler/bin
 
 run_main functions/add-bibliotecario/bin
+run_main functions/add-sanzione/bin
 
 
 # Fornitore

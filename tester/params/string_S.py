@@ -1,4 +1,5 @@
 from .constants import RANDOM_SEED
+from .constants import PUNCTUATION
 
 import random
 import string
@@ -8,7 +9,7 @@ random.seed(RANDOM_SEED)
 
 class StringSGenerator():
     def __init__(self):
-        self.allowed_chars = string.ascii_letters + string.digits
+        self.allowed_chars = string.ascii_letters + string.digits + PUNCTUATION
         self.max_len = 50
 
     def generate(self):

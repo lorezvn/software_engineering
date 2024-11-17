@@ -30,7 +30,7 @@ INSERT INTO LibroEdizione (ISBN, titolo, pagine, casaEditrice)
 VALUES
     ('9781234567897', 'Il Signore degli Anelli', 1000, 'Bompiani'),
     ('9782345678901', 'Harry Potter e la Pietra Filosofale', 340, 'Salani'),
-    ('9784515712938', 'Il Pianeta di CiccioGamer e Jokerinho',789000, 'Sgruda'),
+    ('9784515712938', 'Il Pianeta di CiccioGamer e Jokerinho', 789000, 'Sgruda'),
     ('9774515712039', 'Il Mondo di Sgrognolox', 300, 'Sgruda');
 
 -- Inserisci alcuni libri fisici

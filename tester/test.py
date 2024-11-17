@@ -10,7 +10,7 @@ RANDOM_SEED = 10
 ports = {"bibliotecario": 42069, "fornitore": 42070, "utente": 42071}
 
 DEBUG = False
-debug = {"method_name": "visualizza-sanzioni", "client": "utente"}
+debug = {"method_name": "add-sanzione", "client": "bibliotecario"}
 
 def generate_request(client):
     method_name = debug["method_name"] if DEBUG else random.choice(api_methods[client])
@@ -19,7 +19,12 @@ def generate_request(client):
     for arg_set in requests[method_name]:
         arg_values = {}
         for arg_name, arg_class in arg_set:
-            arg_values[arg_name] = arg_class().generate()
+            if isinstance(arg_name, tuple) and arg_class.__name__ == "DateGenerator":
+                start_date = arg_name[0]
+                end_date = arg_name[1]
+                arg_values[start_date], arg_values[end_date] = arg_class().generate_start_end()
+            else:
+                arg_values[arg_name] = arg_class().generate()
         request_args.append(arg_values)
 
     request_string = f"{method_name}"

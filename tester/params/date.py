@@ -13,6 +13,13 @@ class DateGenerator:
         self.end_date = datetime.strptime(end_date, "%Y-%m-%d")
         self.date_range = (self.end_date - self.start_date).days
 
+    def generate_start_end(self):
+        while True:
+            start = self.generate()
+            end = self.generate()
+            if start <= end:
+                return start, end
+
     def generate(self):
         random_days = random.randint(0, self.date_range)
         random_date = self.start_date + timedelta(days=random_days)

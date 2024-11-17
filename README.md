@@ -51,16 +51,16 @@ sh run.sh --kill
 
 ### Bibliotecario
 - [x] add-bibliotecario
+- [x] add-sanzione (guardare TODO)
+- [ ] add-prestito
+- [ ] add-richiesta-restock
 - [ ] visualizza-catalogo (?)
 - [ ] visualizza-copie
-- [ ] add-sanzione
 - [ ] estingui-sanzione
 - [ ] revoca-sanzione
-- [ ] add-prestito
 - [ ] update-prestito
 - [ ] visualizza-richieste-prestito
 - [ ] update-richiesta-prestito
-- [ ] add-richiesta-restock
 
 
 ### Fornitore
@@ -71,9 +71,10 @@ sh run.sh --kill
 
 
 ## TO-DO
+- [ ] Per operazioni di visualizzazione da "stack smashed" -> Cercare su readFromFunctions in `server/handler.cpp` la causa
 - [ ] Sistemare relazione
 - [ ] Sistemare UML 
 - [ ] Aggiornare Trigger
 - [ ] Sistemare monitor non funzionali
-- [ ] Sistemare Tester (alcuni test dovrebbero essere fatti meglio ad esempio per coppie di date inizio/fine)
+- [x] Sistemare Tester (alcuni test dovrebbero essere fatti meglio ad esempio per coppie di date inizio/fine)
 

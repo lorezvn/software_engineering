@@ -8,7 +8,6 @@ from params.username import UsernameGenerator
 from params.id import IdGenerator
 from params.date import DateGenerator
 from params.isbn import ISBNGenerator
-from params.titolo import TitoloGenerator
 
 
 requests = {
@@ -31,11 +30,10 @@ requests = {
     "add-richiesta-prestito": [
         [("utente_id", IdGenerator)],
         [("libro_id", IdGenerator)],
-        [("data_inizio", DateGenerator)],
-        [("data_fine", DateGenerator)]
+        [(("data_inizio", "data_fine"), DateGenerator)]
     ],
     "ricerca-libri": [
-        [("titolo", TitoloGenerator)]
+        [("titolo", StringSGenerator)]
     ],
     "update-username": [
         [("user_id", IdGenerator)],
@@ -43,12 +41,19 @@ requests = {
     ], 
     "visualizza-sanzioni": [
         [("utente_id", IdGenerator)]
+    ],
+    "add-sanzione": [
+        [("costo", RealGEZGenerator)],
+        [("motivazione", StringLGenerator)],
+        [("data", DateGenerator)],
+        [("bibl_id", IdGenerator)], 
+        [("utente_id", IdGenerator)]
     ]
 }
 
 
 api_methods = {
-    "bibliotecario": ["add-bibliotecario"],
+    "bibliotecario": ["add-bibliotecario", "add-sanzione"],
     "fornitore": ["add-fornitore"],
     "utente": ["add-utente", "add-richiesta-prestito", "ricerca-libri", "update-username", "visualizza-sanzioni"]
 }
