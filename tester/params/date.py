@@ -18,6 +18,3 @@ class DateGenerator:
         random_date = self.start_date + timedelta(days=random_days)
         return random_date.strftime("%Y-%m-%d") 
 
-d = DateGenerator()
-print(d.generate())
-

@@ -9,8 +9,11 @@ RANDOM_SEED = 10
 
 ports = {"bibliotecario": 42069, "fornitore": 42070, "utente": 42071}
 
+DEBUG = False
+debug = {"method_name": "visualizza-sanzioni", "client": "utente"}
+
 def generate_request(client):
-    method_name = random.choice(api_methods[client])
+    method_name = debug["method_name"] if DEBUG else random.choice(api_methods[client])
 
     request_args = []
     for arg_set in requests[method_name]:
@@ -37,9 +40,8 @@ if __name__ == "__main__":
     
     for _ in range(totale):
         
-        client = random.choice(list(api_methods.keys()))
+        client = debug["client"] if DEBUG else random.choice(list(api_methods.keys()))
         PORT = ports[client]
-        
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((HOST, PORT))
   

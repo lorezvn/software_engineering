@@ -66,6 +66,6 @@ VALUES
     (2, '2024-02-01', '2024-02-28', 2, 2);
 
 -- Inserimento di sanzioni
-INSERT INTO Sanzione (costo, stato, motivazione, dataSanzione, bibliotecario, utente)
+INSERT INTO Sanzione (costo, stato, motivazione, data, bibliotecario, utente)
 VALUES
     (15.0, 'NON PAGATA', 'Ritardo nella restituzione del libro', '2024-10-15', 2, 1);

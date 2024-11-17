@@ -127,7 +127,9 @@ make_folder handler/src
 
 make_folder functions/add-utente/src
 make_folder functions/add-richiesta-prestito/src
+make_folder functions/ricerca-libri/src
 make_folder functions/update-username/src
+make_folder functions/visualizza-sanzioni/src
 
 
 printf "\n\n### Script 'make.sh' completato ### \n\n"

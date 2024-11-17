@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS Sanzione (
     costo RealGEZ NOT NULL,
     stato StatoSanzione NOT NULL DEFAULT 'NON PAGATA', 
     motivazione StringL,
-    dataSanzione DATE NOT NULL,
+    data DATE NOT NULL,
     bibliotecario IntGZ NOT NULL,
     utente INTEGER NOT NULL,
     FOREIGN KEY (bibliotecario) REFERENCES Bibliotecario(id),

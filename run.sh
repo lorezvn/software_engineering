@@ -92,7 +92,9 @@ run_main handler/bin
 
 run_main functions/add-utente/bin
 run_main functions/add-richiesta-prestito/bin
+run_main functions/ricerca-libri/bin
 run_main functions/update-username/bin
+run_main functions/visualizza-sanzioni/bin
 
 
 printf "\n\n### Script 'run.sh' completato ### \n\n"

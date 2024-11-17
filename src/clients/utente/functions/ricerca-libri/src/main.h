@@ -1,5 +1,5 @@
-#ifndef RICERCA_LIBRI_H
-#define RICERCA_LIBRI_H
+#ifndef main_h
+#define main_h
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,9 +7,11 @@
 #include <sys/types.h>
 #include <cassert>
 #include <cerrno>
+#include <list>
 
 #include "../../../../../services/database/src/con2db.h"
 #include "../../../../../services/redis/src/con2redis.h"
+#include "../../../../../classes/src/libro_edizione.h"
 #include "../../../../../utilities/src/functions.h"
 #include "../../../../../utilities/src/constants.h"
 

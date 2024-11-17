@@ -7,6 +7,8 @@ from params.string_S import StringSGenerator
 from params.username import UsernameGenerator
 from params.id import IdGenerator
 from params.date import DateGenerator
+from params.isbn import ISBNGenerator
+from params.titolo import TitoloGenerator
 
 
 requests = {
@@ -32,9 +34,15 @@ requests = {
         [("data_inizio", DateGenerator)],
         [("data_fine", DateGenerator)]
     ],
+    "ricerca-libri": [
+        [("titolo", TitoloGenerator)]
+    ],
     "update-username": [
         [("user_id", IdGenerator)],
         [("new_username", UsernameGenerator)]
+    ], 
+    "visualizza-sanzioni": [
+        [("utente_id", IdGenerator)]
     ]
 }
 
@@ -42,5 +50,5 @@ requests = {
 api_methods = {
     "bibliotecario": ["add-bibliotecario"],
     "fornitore": ["add-fornitore"],
-    "utente": ["add-utente", "add-richiesta-prestito", "update-username"]
+    "utente": ["add-utente", "add-richiesta-prestito", "ricerca-libri", "update-username", "visualizza-sanzioni"]
 }

@@ -1,4 +1,4 @@
-#include "richiesta-prestito.h"
+#include "richiesta_prestito.h"
 
 RichiestaPrestito::RichiestaPrestito(int r_utente_id, int r_libro_id, std::string r_data_inizio, std::string r_data_fine) {
     utente_id = r_utente_id;

@@ -14,7 +14,7 @@
 
 #include "../../../../../services/database/src/con2db.h"
 #include "../../../../../services/redis/src/con2redis.h"
-#include "../../../../../classes/src/richiesta-prestito.h"
+#include "../../../../../classes/src/richiesta_prestito.h"
 #include "../../../../../utilities/src/functions.h"
 #include "../../../../../utilities/src/constants.h"
 
