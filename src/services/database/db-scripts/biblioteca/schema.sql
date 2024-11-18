@@ -9,8 +9,8 @@ CREATE DOMAIN StringL AS VARCHAR(250);
 CREATE DOMAIN Email AS StringM CHECK (VALUE ~* E'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
 
 -- Definizione dei tipi
-CREATE TYPE StatoRichiesta AS ENUM('IN ATTESA', 'COMPLETATA', 'ANNULLATA');
-CREATE TYPE StatoSanzione AS ENUM('PAGATA', 'NON PAGATA','REVOCATA');
+CREATE TYPE StatoRichiesta AS ENUM('IN ATTESA', 'COMPLETATA', 'RIFIUTATA');
+CREATE TYPE StatoSanzione AS ENUM('PAGATA', 'NON PAGATA', 'REVOCATA');
 
 -- Tabella Utente
 CREATE TABLE IF NOT EXISTS Utente (

@@ -43,8 +43,7 @@ sh run.sh --kill
 - [x] add-utente
 - [x] add-richiesta-prestito 
 - [x] ricerca-libri (da ricontrollare)
-- [ ] visualizza-prestiti-attivi 
-- [ ] visualizza-cronologia
+- [ ] visualizza-prestiti 
 - [x] visualizza-sanzioni (da ricontrollare)
 - [x] update-username
 
@@ -56,18 +55,18 @@ sh run.sh --kill
 - [ ] add-richiesta-restock
 - [ ] visualizza-catalogo (?)
 - [ ] visualizza-copie
-- [ ] estingui-sanzione
-- [ ] revoca-sanzione
-- [ ] update-prestito
+- [x] estingui-sanzione
+- [x] revoca-sanzione
+- [ ] termina-prestito
 - [ ] visualizza-richieste-prestito
-- [ ] update-richiesta-prestito
+- [ ] rifiuta-richiesta-prestito
 
 
 ### Fornitore
 - [x] add-fornitore
 - [ ] add-restock
 - [ ] visualizza-richieste-restock
-- [ ] update-richiesta-restock
+- [ ] rifiuta-richiesta-restock
 
 
 ## TO-DO

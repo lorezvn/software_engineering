@@ -72,6 +72,8 @@ run_main handler/bin
 
 run_main functions/add-bibliotecario/bin
 run_main functions/add-sanzione/bin
+run_main functions/estingui-sanzione/bin
+run_main functions/revoca-sanzione/bin
 
 
 # Fornitore

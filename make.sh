@@ -107,6 +107,8 @@ make_folder handler/src
 
 make_folder functions/add-bibliotecario/src
 make_folder functions/add-sanzione/src
+make_folder functions/estingui-sanzione/src
+make_folder functions/revoca-sanzione/src
 
 
 # Fornitore

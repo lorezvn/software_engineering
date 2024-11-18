@@ -10,4 +10,4 @@ class IdGenerator():
         pass
 
     def generate(self):
-        return random.randint(1, 3)
+        return random.randint(1, 2)

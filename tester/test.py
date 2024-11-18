@@ -11,7 +11,7 @@ RANDOM_SEED = 10
 ports = {"bibliotecario": 42069, "fornitore": 42070, "utente": 42071}
 
 DEBUG = False
-debug = {"method_name": "add-sanzione", "client": "bibliotecario"}
+debug = {"method_name": "estingui-sanzione", "client": "bibliotecario"}
 
 def generate_request(client):
     method_name = debug["method_name"] if DEBUG else random.choice(api_methods[client])
@@ -40,7 +40,7 @@ def generate_request(client):
 if __name__ == "__main__":
     totale = 50
     richieste = 5
-    succesful = 0
+    successful = 0
     failed = 0
     errate = []
     
@@ -65,9 +65,9 @@ if __name__ == "__main__":
                     failed += 1
                     errate.append(request_string)
                 else:
-                    succesful += 1
+                    successful += 1
 
                 time.sleep(0.5)
             
                             
-    print(f"\n succesful requests: {succesful}/{totale*richieste} \n failed requests: {failed}/{totale*richieste} \n\n")
+    print(f"\n successful requests: {successful}/{totale*richieste} \n failed requests: {failed}/{totale*richieste} \n\n")
