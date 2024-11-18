@@ -77,4 +77,7 @@ int main() {
             freeReplyObject(reply);
         }
     }
+
+    db.endDBConnection();
+    return 0;
 }

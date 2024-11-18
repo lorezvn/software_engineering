@@ -89,7 +89,7 @@ void Server::run(){
         rc = select(max_fd + 1, &working_set, NULL, NULL, &timeout);
 
         if (rc < 0) {
-            perror("Errore socket selection\n");
+            perror("Errore socket selection");
             break;
         }
 

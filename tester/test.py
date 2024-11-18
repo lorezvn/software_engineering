@@ -1,4 +1,5 @@
 from init import requests, api_methods
+import time
 
 import socket
 import random 
@@ -65,5 +66,8 @@ if __name__ == "__main__":
                     errate.append(request_string)
                 else:
                     succesful += 1
+
+                time.sleep(0.5)
+            
                             
     print(f"\n succesful requests: {succesful}/{totale*richieste} \n failed requests: {failed}/{totale*richieste} \n\n")

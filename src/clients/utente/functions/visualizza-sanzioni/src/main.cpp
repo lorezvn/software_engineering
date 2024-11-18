@@ -83,11 +83,14 @@ int main() {
 
             sanzioni.pop_front();
 
-            reply = RedisCommand(c2r, "XADD %s * row %d costo %f stato %s motivazione %s data %s bibl_id %d utente_id %d", WRITE_STREAM, row, 
+            reply = RedisCommand(c2r, "XADD %s * row %d costo %.2f stato %s motivazione %s data %s bibl_id %d utente_id %d", WRITE_STREAM, row, 
                                  sanzione->costo, sanzione->stato.c_str(), sanzione->motivazione.c_str(), sanzione->data.c_str(),
                                  sanzione->bibl_id, sanzione->utente_id);
             assertReplyType(c2r, reply, REDIS_REPLY_STRING);
             freeReplyObject(reply);
         }
     }
+
+    db.endDBConnection();
+    return 0;
 }

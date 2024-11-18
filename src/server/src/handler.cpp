@@ -56,7 +56,7 @@ bool Handler::readFromFunctions(std::string* out_str_ptr, int* client_id_ptr) {
 
     redisReply* reply;
     char msg_id[MSG_ID_SIZE];
-    char tmp_buffer[30];
+    char tmp_buffer[PARAMETERS_SIZE];
     char client_id[VALUE_SIZE];
     char resp_status[30];
     char num_rows[30];

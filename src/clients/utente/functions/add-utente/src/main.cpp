@@ -63,4 +63,7 @@ int main() {
 
         send_response_status(c2r, WRITE_STREAM, client_id, "REQUEST_SUCCESS", msg_id, 0);
     }
+
+    db.endDBConnection();
+    return 0;
 }
