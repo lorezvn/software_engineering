@@ -37,37 +37,52 @@ def generate_request(client):
     
     return request_string.strip()
 
+
+def colored_output(text, color_code):
+    return f"\033[{color_code}m{text}\033[0m"
+
+def colored_output_bold(text, color_code):
+    return f"\033[1;{color_code}m{text}\033[0m"
+
+# Main
 if __name__ == "__main__":
-    totale = 50
+    totale = 1
     richieste = 5
-    successful = 0
-    failed = 0
+    tot_richieste = totale * richieste
+    successful, failed = 0, 0
     errate = []
-    
-    for _ in range(totale):
-        
+
+    print()
+
+    for i in range(totale):
         client = debug["client"] if DEBUG else random.choice(list(api_methods.keys()))
         PORT = ports[client]
+
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((HOST, PORT))
-  
-            for _ in range(richieste):
+
+            for j in range(richieste):
+                current_request = i * richieste + j + 1
                 request_string = generate_request(client)
-                print(f"Inviando la richiesta: {request_string}")
-    
-                s.send(request_string.encode()) # Invia la richiesta al server
-                print("post invio")
-                
-                response = s.recv(2048).decode() # Ricevi la risposta dal server
-                print(f"Risposta ricevuta: {response}")
-    
+
+                status = f"[{current_request}/{tot_richieste}]" 
+                print(f"{colored_output_bold(status, 37)} Inviando la richiesta: {request_string}")
+
+                s.send(request_string.encode())
+                print(" Richiesta inviata")
+
+                response = s.recv(2048).decode()
+
                 if response.startswith("BAD_REQUEST") or response.startswith("DB_ERROR"):
                     failed += 1
                     errate.append(request_string)
+                    print(f"{colored_output_bold('[ERRORE]', 31)} Risposta Ricevuta: {response}\n") 
                 else:
                     successful += 1
+                    print(f"{colored_output_bold('[SUCCESSO]', 32)} Risposta Ricevuta: {response}\n") 
 
-                time.sleep(0.5)
-            
-                            
-    print(f"\n successful requests: {successful}/{totale*richieste} \n failed requests: {failed}/{totale*richieste} \n\n")
+                time.sleep(0.5) 
+
+    # Risultati finali
+    print(f"Richieste soddisfatte: {colored_output_bold(successful, 32)}/{tot_richieste}")
+    print(f"Richieste fallite: {colored_output_bold(failed, 31)}/{tot_richieste}\n")
