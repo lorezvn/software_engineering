@@ -71,6 +71,7 @@ set_current_root src/clients/bibliotecario
 run_main handler/bin
 
 run_main functions/add-bibliotecario/bin
+run_main functions/add-prestito/bin
 run_main functions/add-sanzione/bin
 run_main functions/estingui-sanzione/bin
 run_main functions/revoca-sanzione/bin

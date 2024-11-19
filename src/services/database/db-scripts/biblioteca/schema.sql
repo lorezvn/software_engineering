@@ -1,3 +1,5 @@
+-- DA RIVEDERE dataInizio e dataFine in RichiestaPrestito
+
 \c :dbname
 
 -- Definizione dei domini
@@ -62,6 +64,7 @@ CREATE TABLE IF NOT EXISTS Prestito (
     id SERIAL PRIMARY KEY,
     richiesta INTEGER NOT NULL,
     utente INTEGER NOT NULL,
+    bibliotecario INTEGER NOT NULL,
     libro INTEGER NOT NULL,
     dataInizio DATE NOT NULL,
     dataFine DATE NOT NULL,
@@ -72,7 +75,7 @@ CREATE TABLE IF NOT EXISTS Prestito (
         (isTerminato = FALSE OR dataRest IS NOT NULL)
         AND (dataRest IS NULL OR isTerminato = TRUE)
     ),
-    CHECK (isTerminato = FALSE OR (dataInizio <= dataRest AND dataRest <= dataFine)),
+    CHECK (isTerminato = FALSE OR (dataInizio <= dataRest)),
     FOREIGN KEY (richiesta) REFERENCES RichiestaPrestito(id) ON DELETE CASCADE,
     FOREIGN KEY (libro) REFERENCES LibroFisico(id) ON DELETE CASCADE,
     FOREIGN KEY (utente) REFERENCES Utente(id) ON DELETE CASCADE
@@ -142,9 +145,9 @@ CREATE TABLE IF NOT EXISTS Sanzione (
 CREATE TABLE IF NOT EXISTS RichiestaRestock (
     id SERIAL PRIMARY KEY,
     quantita IntGZ NOT NULL,
-    bibliotecario IntGZ NOT NULL,
-    istante TIMESTAMP NOT NULL,
+    bibliotecario INTEGER NOT NULL,
     fornitore StringS NOT NULL,
+    istante TIMESTAMP NOT NULL,
     edizione VARCHAR(13) NOT NULL,
     stato StatoRichiesta DEFAULT 'IN ATTESA',
     FOREIGN KEY (fornitore) REFERENCES Fornitore(nome),

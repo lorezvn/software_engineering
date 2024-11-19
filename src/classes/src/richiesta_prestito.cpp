@@ -7,6 +7,16 @@ RichiestaPrestito::RichiestaPrestito(int r_utente_id, int r_libro_id, std::strin
     data_fine = r_data_fine;
 }
 
+RichiestaPrestito::RichiestaPrestito(int r_utente_id, int r_libro_id, std::string r_data_inizio, std::string r_data_fine, 
+                                     std::string r_istante, std::string r_stato) {
+    utente_id = r_utente_id;
+    libro_id = r_libro_id;
+    data_inizio = r_data_inizio;
+    data_fine = r_data_fine;
+    istante = r_istante;
+    stato = r_stato;
+}
+
 RichiestaPrestito* RichiestaPrestito::fromRedisStream(redisReply* reply, int stream_num, int msg_num) {
 
     int utente_id;

@@ -54,12 +54,16 @@ requests = {
     ], 
     "revoca-sanzione": [
         [("sanzione_id", IdGenerator)]
+    ], 
+    "add-prestito": [
+        [("richiesta_id", IdGenerator)], 
+        [("bibl_id", IdGenerator)]
     ]
 }
 
 
 api_methods = {
-    "bibliotecario": ["add-bibliotecario", "add-sanzione", "estingui-sanzione", "revoca-sanzione"],
+    "bibliotecario": ["add-bibliotecario", "add-sanzione", "estingui-sanzione", "revoca-sanzione", "add-prestito"],
     "fornitore": ["add-fornitore"],
     "utente": ["add-utente", "add-richiesta-prestito", "ricerca-libri", "update-username", "visualizza-sanzioni"]
 }

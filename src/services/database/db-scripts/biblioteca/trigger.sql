@@ -110,7 +110,7 @@ FOR EACH ROW
 EXECUTE FUNCTION update_richiesta_restock_status();
 
 
--- 7. Trigger sulla tabella Restock: Completa la richiesta associata al prestito inserito
+-- 7. Trigger sulla tabella Prestito: Completa la richiesta associata al prestito inserito
 CREATE OR REPLACE FUNCTION update_richiesta_prestito_status()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -126,6 +126,28 @@ CREATE TRIGGER after_prestito_insert
 AFTER INSERT ON Prestito
 FOR EACH ROW
 EXECUTE FUNCTION update_richiesta_prestito_status();
+
+
+-- 8. Trigger sulla tabella Prestito: Inserimento solo se la richiesta associata è "IN ATTESA"
+CREATE OR REPLACE FUNCTION check_richiesta_prestito_in_attesa()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Controlla se la richiesta associata è in stato "IN ATTESA"
+    IF NOT EXISTS (
+        SELECT 1
+        FROM RichiestaPrestito
+        WHERE id = NEW.richiesta AND stato = 'IN ATTESA'
+    ) THEN
+        RAISE EXCEPTION 'Non è possibile creare un prestito per una richiesta non in stato "IN ATTESA".';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER before_prestito_insert
+BEFORE INSERT ON Prestito
+FOR EACH ROW
+EXECUTE FUNCTION check_richiesta_prestito_in_attesa();
 
 
 

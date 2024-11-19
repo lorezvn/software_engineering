@@ -20,10 +20,10 @@ class Sanzione {
         int bibl_id;
         int utente_id;
 
+         Sanzione(float sanz_costo,std::string sanz_motivazione, std::string sanz_data, int sanz_bibl_id, int sanz_utente_id);
+
         Sanzione(float sanz_costo, std::string sanz_stato, std::string sanz_motivazione, std::string sanz_data, 
                  int sanz_bibl_id, int sanz_utente_id);
-
-        Sanzione(float sanz_costo,std::string sanz_motivazione, std::string sanz_data, int sanz_bibl_id, int sanz_utente_id);
 
         static Sanzione* fromRedisStream(redisReply* reply, int stream_num, int msg_num);
 };

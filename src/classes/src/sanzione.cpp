@@ -1,18 +1,18 @@
 #include "sanzione.h"
 
-Sanzione::Sanzione(float sanz_costo, std::string sanz_stato, std::string sanz_motivazione, std::string sanz_data, 
+Sanzione::Sanzione(float sanz_costo, std::string sanz_motivazione, std::string sanz_data, 
                    int sanz_bibl_id, int sanz_utente_id) {
     costo = sanz_costo;
-    stato = sanz_stato;
     motivazione = sanz_motivazione;
     data = sanz_data;
     bibl_id = sanz_bibl_id;
     utente_id = sanz_utente_id;
 }
 
-Sanzione::Sanzione(float sanz_costo, std::string sanz_motivazione, std::string sanz_data, 
+Sanzione::Sanzione(float sanz_costo, std::string sanz_stato, std::string sanz_motivazione, std::string sanz_data, 
                    int sanz_bibl_id, int sanz_utente_id) {
     costo = sanz_costo;
+    stato = sanz_stato;
     motivazione = sanz_motivazione;
     data = sanz_data;
     bibl_id = sanz_bibl_id;

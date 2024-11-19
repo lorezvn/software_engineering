@@ -4,13 +4,15 @@
 INSERT INTO Utente (nome, cognome, email, username)
 VALUES
     ( 'Mario', 'Rossi', 'mario.rossi@gmail.com', 'marionz'),
-    ( 'Lucia', 'Bianchi', 'lucia.bianchi@gmail.com', 'l.bianchi');
+    ( 'Lucia', 'Bianchi', 'lucia.bianchi@gmail.com', 'l.bianchi'),
+    ( 'Franco', 'Neri', 'franco.neri@gmail.com', 'f_neri');
 
 -- Inserisci alcuni bibliotecari 
 INSERT INTO Bibliotecario (nome, cognome, email, dataAssunzione)
 VALUES
     ( 'Giovanni', 'Verdi', 'giovanni.verdi@gmail.com', '2023-01-10'),
-    ( 'Francesca', 'Blu', 'francesca.blu@gmail.com', '2022-06-15');
+    ( 'Francesca', 'Blu', 'francesca.blu@gmail.com', '2022-06-15'), 
+    ( 'Sara', 'Azzurri', 'sara.azzurri@gmail.com', '2020-09-13');
 
 -- Inserisci alcuni fornitori
 INSERT INTO Fornitore (nome, email)
@@ -60,12 +62,12 @@ VALUES
     ('2024-11-20', '2024-12-20', '2024-11-06 10:30:30', 'IN ATTESA', 3, 1);
 
 -- Inserisci prestiti di esempio
-INSERT INTO Prestito (richiesta, dataInizio, dataFine, libro, utente)
+INSERT INTO Prestito (richiesta, dataInizio, dataFine, libro, utente, bibliotecario)
 VALUES
-    (1, '2024-01-01', '2024-01-31', 1, 1),
-    (2, '2024-02-01', '2024-02-28', 2, 2);
+    (1, '2024-11-10', '2024-12-10', 1, 1, 1);
 
 -- Inserimento di sanzioni
 INSERT INTO Sanzione (costo, stato, motivazione, data, bibliotecario, utente)
 VALUES
-    (15.0, 'NON PAGATA', 'Ritardo nella restituzione del libro', '2024-10-15', 2, 1);
+    (15.0, 'NON PAGATA', 'Ritardo nella restituzione del libro', '2024-10-15', 2, 1),
+    (130.15, 'NON PAGATA', 'Danneggiamento libro', '2023-11-24', 3, 2);

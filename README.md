@@ -41,7 +41,7 @@ sh run.sh --kill
 
 ### Utente
 - [x] add-utente
-- [x] add-richiesta-prestito 
+- [x] add-richiesta-prestito (da ricontrollare)
 - [x] ricerca-libri (da ricontrollare)
 - [ ] visualizza-prestiti 
 - [x] visualizza-sanzioni (da ricontrollare)
@@ -51,9 +51,8 @@ sh run.sh --kill
 ### Bibliotecario
 - [x] add-bibliotecario
 - [x] add-sanzione (guardare TODO)
-- [ ] add-prestito
+- [x] add-prestito
 - [ ] add-richiesta-restock
-- [ ] visualizza-catalogo (?)
 - [ ] visualizza-copie
 - [x] estingui-sanzione
 - [x] revoca-sanzione
@@ -70,10 +69,11 @@ sh run.sh --kill
 
 
 ## TO-DO
-- [ ] Per operazioni di visualizzazione da "stack smashed" -> Cercare su readFromFunctions in `server/handler.cpp` la causa
+- [x] Per operazioni di visualizzazione da "stack smashed" -> Cercare su readFromFunctions in `server/handler.cpp` la causa
 - [ ] Sistemare relazione
 - [ ] Sistemare UML 
 - [ ] Aggiornare Trigger
 - [ ] Sistemare monitor non funzionali
 - [x] Sistemare Tester (alcuni test dovrebbero essere fatti meglio ad esempio per coppie di date inizio/fine)
-
+- [ ] Rivedere meglio la gestione di dataInizio e fine in RichiestaPrestito (andrebbero cancellate e lasciate solo in Prestito)
+- [ ] Le richieste prestito dovrebbero avere l'edizione di riferimento e non il libro fisico (se alcune copie non sono disponibili se ne cercano altre)
