@@ -1,10 +1,25 @@
 #include "prestito.h"
 
+// Costruttore completo senza valori opzionali
+Prestito::Prestito(int p_richiesta_id, int p_utente_id, int p_bibl_id, int p_libro_id, 
+                   std::string p_data_inizio, std::string p_data_fine, std::string p_data_rest, bool p_is_terminato) {
+    richiesta_id = p_richiesta_id;
+    utente_id = p_utente_id;
+    bibl_id = p_bibl_id;
+    libro_id = p_libro_id;
+    data_inizio = p_data_inizio;
+    data_fine = p_data_fine;
+    data_rest = p_data_rest;
+    is_terminato = p_is_terminato;
+}
+
+// Costruttore ridotto (per semplicità nei test o usi parziali)
 Prestito::Prestito(int p_richiesta_id, int p_bibl_id) {
     richiesta_id = p_richiesta_id;
     bibl_id = p_bibl_id;
 }
 
+// Metodo fromRedisStream aggiornato
 Prestito* Prestito::fromRedisStream(redisReply* reply, int stream_num, int msg_num) {
 
     int richiesta_id;
@@ -29,4 +44,7 @@ Prestito* Prestito::fromRedisStream(redisReply* reply, int stream_num, int msg_n
     }
 
     return new Prestito(richiesta_id, bibl_id);
+}
+std::string Prestito::toRedisFormat() const {
+    return is_terminato ? "true" : "false";
 }

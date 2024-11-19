@@ -134,6 +134,8 @@ make_folder functions/add-richiesta-prestito/src
 make_folder functions/ricerca-libri/src
 make_folder functions/update-username/src
 make_folder functions/visualizza-sanzioni/src
+make_folder functions/visualizza-prestiti/src
+
 
 
 printf "\n\n### Script 'make.sh' completato ### \n\n"

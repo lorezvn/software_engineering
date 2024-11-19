@@ -99,6 +99,7 @@ run_main functions/add-richiesta-prestito/bin
 run_main functions/ricerca-libri/bin
 run_main functions/update-username/bin
 run_main functions/visualizza-sanzioni/bin
+run_main functions/visualizza-prestiti/bin
 
 
 printf "\n\n### Script 'run.sh' completato ### \n\n"
