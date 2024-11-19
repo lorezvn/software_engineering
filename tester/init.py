@@ -59,14 +59,20 @@ requests = {
         [("richiesta_id", IdGenerator)], 
         [("bibl_id", IdGenerator)]
     ],
-    "visualizza-prestiti":[
+    "visualizza-prestiti": [
         [("utente_id", IdGenerator)]
+    ], 
+    "add-richiesta-restock": [
+        [("bibl_id", IdGenerator)],
+        [("forn_nome", StringSGenerator)],
+        [("quantita", IntGZGenerator)],
+        [("edizione", ISBNGenerator)]
     ]
 }
 
 
 api_methods = {
-    "bibliotecario": ["add-bibliotecario", "add-sanzione", "estingui-sanzione", "revoca-sanzione", "add-prestito"],
+    "bibliotecario": ["add-bibliotecario", "add-sanzione", "add-richiesta-restock", "estingui-sanzione", "revoca-sanzione", "add-prestito"],
     "fornitore": ["add-fornitore"],
     "utente": ["add-utente", "add-richiesta-prestito", "ricerca-libri", "update-username", "visualizza-sanzioni", "visualizza-prestiti"]
 }

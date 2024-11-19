@@ -65,15 +65,14 @@ int main() {
         for (int row = 0; row < PQntuples(query_res); row++) {
             Prestito *prestito = new Prestito(
                 atoi(PQgetvalue(query_res, row, PQfnumber(query_res, "richiesta"))),
-                atoi(PQgetvalue(query_res, row, PQfnumber(query_res, "bibliotecario")))
+                atoi(PQgetvalue(query_res, row, PQfnumber(query_res, "utente"))),
+                atoi(PQgetvalue(query_res, row, PQfnumber(query_res, "bibliotecario"))),
+                atoi(PQgetvalue(query_res, row, PQfnumber(query_res, "libro"))),
+                std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "dataInizio"))),
+                std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "dataFine"))),
+                std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "dataRest"))),
+                (atoi(PQgetvalue(query_res, row, PQfnumber(query_res, "isTerminato"))) != 0)
             );
-
-            prestito->utente_id = atoi(PQgetvalue(query_res, row, PQfnumber(query_res, "utente")));
-            prestito->libro_id = atoi(PQgetvalue(query_res, row, PQfnumber(query_res, "libro")));
-            prestito->data_inizio = std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "dataInizio")));
-            prestito->data_fine = std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "dataFine")));
-            prestito->data_rest = std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "dataRest")));
-            prestito->is_terminato = (atoi(PQgetvalue(query_res, row, PQfnumber(query_res, "isTerminato"))) != 0);
 
             prestiti.push_back(prestito);
         }

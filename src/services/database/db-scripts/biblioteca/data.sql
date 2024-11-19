@@ -68,14 +68,10 @@ VALUES
     (2, '2024-11-10', '2024-12-10', 1, 1, 1),
     (3, '2024-11-10', '2024-12-10', 1, 1, 1);
 
-
-
 -- Inserimento di sanzioni
 INSERT INTO Sanzione (costo, stato, motivazione, data, bibliotecario, utente)
 VALUES
     (15.0, 'NON PAGATA', 'Ritardo nella restituzione del libro', '2024-10-15', 2, 1),
-    (15.0, 'NON PAGATA', 'Ritardo nella restituzione del libro', '2024-10-15', 2, 1),
-    (15.0, 'NON PAGATA', 'Ritardo nella restituzione del libro', '2024-10-15', 2, 1),
-    (15.0, 'NON PAGATA', 'Ritardo nella restituzione del libro', '2024-10-15', 2, 1),
-
-    (130.15, 'NON PAGATA', 'Danneggiamento libro', '2023-11-24', 3, 2);
+    (100.20, 'NON PAGATA', 'Libro perso', '2024-10-15', 2, 1),
+    (180.50, 'NON PAGATA', 'Libro bruciato', '2024-10-15', 2, 1),
+    (30.0, 'NON PAGATA', 'Ritardo nella restituzione del libro', '2023-11-24', 3, 2);
