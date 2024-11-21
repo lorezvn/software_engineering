@@ -57,14 +57,14 @@ sh run.sh --kill
 - [x] estingui-sanzione
 - [x] revoca-sanzione
 - [ ] termina-prestito
-- [ ] visualizza-richieste-prestito
+- [x] visualizza-richieste-prestito (da controllare, funzione prelimiunare)
 - [ ] rifiuta-richiesta-prestito
 
 
 ### Fornitore
 - [x] add-fornitore
 - [ ] add-restock
-- [ ] visualizza-richieste-restock
+- [x] visualizza-richieste-restock(da controllare, funzione prelimiunare)
 - [ ] rifiuta-richiesta-restock
 
 
