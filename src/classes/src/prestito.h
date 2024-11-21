@@ -1,5 +1,5 @@
-#ifndef richiesta_prestito_h
-#define richiesta_prestito_h
+#ifndef prestito_h
+#define prestito_h
 
 #include <string.h>
 #include <iostream>

@@ -40,19 +40,24 @@ INSERT INTO LibroFisico (edizione)
 VALUES
     ('9781234567897'),
     ('9782345678901'),
+    ('9784515712938'),
     ('9784515712938');
 
 -- Inserimento di richieste di rifornimento 
 INSERT INTO RichiestaRestock (quantita, bibliotecario, istante, fornitore, edizione, stato)
 VALUES
-    (5, 1, '2024-09-13 10:30:00', 'Distribuzione Libri S.p.A.', '9781234567897', 'IN ATTESA'),
-    (10, 2, '2024-09-05 14:45:00', 'Libro Express SRL', '9782345678901', 'IN ATTESA');
+    (1, 1, '2024-09-13 10:30:00', 'Distribuzione Libri S.p.A.', '9781234567897', 'IN ATTESA'),
+    (1, 2, '2024-09-05 14:45:00', 'Libro Express SRL', '9782345678901', 'IN ATTESA'),
+    (2, 3, '2024-09-05 14:45:00', 'Libro Express SRL', '9784515712938', 'IN ATTESA'),
+    (12, 3, '2024-10-07 17:50:00', 'Distribuzione Libri S.p.A.', '9784515712938', 'IN ATTESA'),
+    (15, 1, '2024-11-10 10:32:50', 'Libro Express SRL', '9774515712039', 'IN ATTESA');
 
 -- Inserimento di rifornimenti completati
 INSERT INTO Restock (richiesta, quantita, istante, fornitore, edizione)
 VALUES
-    (1, 5, '2024-09-15 09:00:00', 'Distribuzione Libri S.p.A.', '9781234567897'),
-    (2, 10, '2024-09-07 11:20:00', 'Libro Express SRL', '9782345678901');
+    (1, 1, '2024-09-15 09:00:00', 'Distribuzione Libri S.p.A.', '9781234567897'),
+    (2, 1, '2024-09-07 11:20:00', 'Libro Express SRL', '9782345678901'),
+    (3, 2, '2024-10-05 15:00:00', 'Libro Express SRL', '9784515712938');
 
 -- Inserimento di richieste di prestito
 INSERT INTO RichiestaPrestito (dataInizio, dataFine, istante, stato, libro, utente)

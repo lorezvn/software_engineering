@@ -87,6 +87,7 @@ set_current_root src/clients/fornitore
 run_main handler/bin
 
 run_main functions/add-fornitore/bin
+run_main functions/add-restock/bin
 run_main functions/visualizza-richieste-restock/bin
 
 

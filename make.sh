@@ -122,6 +122,7 @@ set_current_root src/clients/fornitore
 make_folder handler/src
 
 make_folder functions/add-fornitore/src
+make_folder functions/add-restock/src
 make_folder functions/visualizza-richieste-restock/src
 
 
