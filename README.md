@@ -56,7 +56,7 @@ sh run.sh --kill
 - [ ] visualizza-copie
 - [x] estingui-sanzione
 - [x] revoca-sanzione
-- [ ] termina-prestito
+- [x] termina-prestito
 - [x] visualizza-richieste-prestito
 - [ ] rifiuta-richiesta-prestito
 
