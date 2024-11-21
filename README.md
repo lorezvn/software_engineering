@@ -56,14 +56,14 @@ sh run.sh --kill
 - [ ] visualizza-copie
 - [x] estingui-sanzione
 - [x] revoca-sanzione
-- [ ] termina-prestito
+- [x] termina-prestito
 - [x] visualizza-richieste-prestito
 - [ ] rifiuta-richiesta-prestito
 
 
 ### Fornitore
 - [x] add-fornitore
-- [ ] add-restock
+- [x] add-restock
 - [x] visualizza-richieste-restock
 - [ ] rifiuta-richiesta-restock
 

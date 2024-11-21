@@ -77,6 +77,8 @@ run_main functions/add-sanzione/bin
 run_main functions/estingui-sanzione/bin
 run_main functions/revoca-sanzione/bin
 run_main functions/visualizza-richieste-prestito/bin
+run_main functions/termina-prestito/bin
+
 
 
 # Fornitore

@@ -112,6 +112,8 @@ make_folder functions/add-sanzione/src
 make_folder functions/estingui-sanzione/src
 make_folder functions/revoca-sanzione/src
 make_folder functions/visualizza-richieste-prestito/src
+make_folder functions/termina-prestito/src
+
 
 
 # Fornitore

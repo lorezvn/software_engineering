@@ -75,12 +75,15 @@ requests = {
     ], 
     "add-restock": [
         [("richiesta_id", IdGenerator)]
+    ],
+    "termina-prestito":[
+        [("prestito_id", IdGenerator)]
     ]
 }
 
 
 api_methods = {
-    "bibliotecario": ["add-bibliotecario", "add-sanzione", "add-richiesta-restock", "estingui-sanzione", "revoca-sanzione", "add-prestito", "visualizza-richieste-prestito"],
     "fornitore": ["add-fornitore", "add-restock", "visualizza-richieste-restock"],
+    "bibliotecario": ["add-bibliotecario", "add-sanzione", "add-richiesta-restock", "estingui-sanzione", "revoca-sanzione", "add-prestito", "visualizza-richieste-prestito", "termina-prestito"],
     "utente": ["add-utente", "add-richiesta-prestito", "ricerca-libri", "update-username", "visualizza-sanzioni", "visualizza-prestiti"]
 }
