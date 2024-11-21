@@ -10,4 +10,4 @@ class IntGZGenerator():
         pass
 
     def generate(self):
-        return random.randint(1, 20)
+        return random.randint(1, 30)

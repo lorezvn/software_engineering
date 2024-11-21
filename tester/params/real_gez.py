@@ -10,4 +10,4 @@ class RealGEZGenerator():
         pass
 
     def generate(self):
-        return round(random.uniform(0, 10000), 2)
+        return round(random.uniform(0, 1000), 2)

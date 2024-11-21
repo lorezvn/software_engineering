@@ -87,3 +87,5 @@ api_methods = {
     "bibliotecario": ["add-bibliotecario", "add-sanzione", "add-richiesta-restock", "estingui-sanzione", "revoca-sanzione", "add-prestito", "visualizza-richieste-prestito", "termina-prestito"],
     "utente": ["add-utente", "add-richiesta-prestito", "ricerca-libri", "update-username", "visualizza-sanzioni", "visualizza-prestiti"]
 }
+
+ports = {"bibliotecario": 42069, "fornitore": 42070, "utente": 42071}
