@@ -20,7 +20,7 @@ bool Handler::sendToFunctions(int client_id, std::string msg) {
         if (msg[i] == 32)  break;   // 32 è il carattere Spazio in ASCII
     }
 
-    if (i >= msg.length()) {
+    if (i > msg.length()) {
         std::cout << "\nMessaggio non valido" << std::endl;
         return false;
     }

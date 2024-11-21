@@ -76,6 +76,7 @@ run_main functions/add-richiesta-restock/bin
 run_main functions/add-sanzione/bin
 run_main functions/estingui-sanzione/bin
 run_main functions/revoca-sanzione/bin
+run_main functions/visualizza-richieste-prestito/bin
 
 
 # Fornitore
@@ -86,6 +87,7 @@ set_current_root src/clients/fornitore
 run_main handler/bin
 
 run_main functions/add-fornitore/bin
+run_main functions/visualizza-richieste-restock/bin
 
 
 # Utente

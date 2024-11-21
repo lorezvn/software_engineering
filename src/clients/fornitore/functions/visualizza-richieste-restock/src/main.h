@@ -1,5 +1,5 @@
-#ifndef main_h
-#define main_h
+#ifndef MAIN_H
+#define MAIN_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,21 +15,21 @@
 
 #include "../../../../../services/database/src/con2db.h"
 #include "../../../../../services/redis/src/con2redis.h"
-#include "../../../../../classes/src/richiestaPrestito.h"
+#include "../../../../../classes/src/richiesta_restock.h"
 #include "../../../../../utilities/src/functions.h"
 #include "../../../../../utilities/src/constants.h"
 
-#define READ_STREAM "visualizza-richieste-prestito-in"
-#define WRITE_STREAM "visualizza-richieste-prestito-out"
+#define READ_STREAM "visualizza-richieste-restock-in"
+#define WRITE_STREAM "visualizza-richieste-restock-out"
+
 
 #define REDIS_SERVER "localhost"
 #define REDIS_PORT 6379
 
 #define POSTGRESQL_SERVER "localhost"
 #define POSTGRESQL_PORT "5432"
-#define POSTGRESQL_USER "bibliotecario"
-#define POSTGRESQL_PASSWORD "bibliotecario"
+#define POSTGRESQL_USER "fornitore"
+#define POSTGRESQL_PASSWORD "fornitore"
 #define POSTGRESQL_DBNAME "biblioteca"
-
 
 #endif

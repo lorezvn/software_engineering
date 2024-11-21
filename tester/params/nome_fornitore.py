@@ -11,4 +11,5 @@ class NomeFornitoreGenerator():
                     'De Agostini', 'Adelphi Edizioni', 'Pontedera Libri']
 
     def generate(self):
+        return 'Distribuzione Libri S.p.A.'
         return random.choice(self.nomi)

@@ -13,7 +13,7 @@ int main() {
     char first_key[KEY_SIZE];
     char client_id[VALUE_SIZE];
     char second_key[KEY_SIZE];
-    char fornitore_nome[PARAMETERS_SIZE];
+    char forn_nome[PARAMETERS_SIZE];
 
     Con2DB db(POSTGRESQL_SERVER, POSTGRESQL_PORT, POSTGRESQL_USER, POSTGRESQL_PASSWORD, POSTGRESQL_DBNAME);
     c2r = redisConnect(REDIS_SERVER, REDIS_PORT);
@@ -43,16 +43,16 @@ int main() {
 
         // Controllo della seconda coppia chiave-valore
         ReadStreamMsgVal(reply, 0, 0, 2, second_key);
-        ReadStreamMsgVal(reply, 0, 0, 3, fornitore_nome);
+        ReadStreamMsgVal(reply, 0, 0, 3, forn_nome);
 
         int max_elements = ReadStreamMsgNumVal(reply, 0, 0);
-        if (strcmp(second_key, "fornitore_nome") != 0 || max_elements > 4) {
+        if (strcmp(second_key, "forn_nome") != 0 || max_elements > 4) {
             send_response_status(c2r, WRITE_STREAM, client_id, "BAD_REQUEST", msg_id, 0);
             continue;
         }
 
         // Creazione della query per le richieste di restock
-        sprintf(query, "SELECT * FROM RichiestaRestock WHERE stato = 'IN ATTESA' AND fornitore = '%s'", fornitore_nome);
+        sprintf(query, "SELECT * FROM RichiestaRestock WHERE stato = 'IN ATTESA' AND fornitore = '%s'", forn_nome);
 
         query_res = db.execQuery(query, true);
 
@@ -65,11 +65,11 @@ int main() {
 
          for (int row = 0; row < PQntuples(query_res); row++) {
             RichiestaRestock* richiesta = new RichiestaRestock(
-                atoi(PQgetvalue(query_res, row, PQfnumber(query_res, "id"))),
-                atoi(PQgetvalue(query_res, row, PQfnumber(query_res, "quantita"))),
                 atoi(PQgetvalue(query_res, row, PQfnumber(query_res, "bibliotecario"))),
                 std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "fornitore"))),
+                atoi(PQgetvalue(query_res, row, PQfnumber(query_res, "quantita"))),
                 std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "edizione"))),
+                std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "istante"))),
                 std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "stato")))
             );
             richieste.push_back(richiesta);
@@ -83,10 +83,10 @@ int main() {
 
             reply = RedisCommand(
                 c2r,
-                "XADD %s * row %d richiesta_id %d quantita %d bibliotecario %d fornitore %s edizione %s stato %s",
-                WRITE_STREAM_RICHIESTE_RESTOCK, row,
-                richiesta->id, richiesta->quantita, richiesta->bibliotecario,
-                richiesta->fornitore.c_str(), richiesta->edizione.c_str(), richiesta->stato.c_str()
+                "XADD %s * row %d bibl_id %d forn_nome %s quantita %d edizione %s istante %s stato %s",
+                WRITE_STREAM, row,
+                richiesta->bibl_id, richiesta->forn_nome.c_str(), richiesta->quantita, 
+                richiesta->edizione.c_str(), richiesta->istante.c_str(), richiesta->stato.c_str()
             );
             assertReplyType(c2r, reply, REDIS_REPLY_STRING);
             freeReplyObject(reply);

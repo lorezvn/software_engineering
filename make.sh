@@ -111,6 +111,7 @@ make_folder functions/add-richiesta-restock/src
 make_folder functions/add-sanzione/src
 make_folder functions/estingui-sanzione/src
 make_folder functions/revoca-sanzione/src
+make_folder functions/visualizza-richieste-prestito/src
 
 
 # Fornitore
@@ -121,6 +122,7 @@ set_current_root src/clients/fornitore
 make_folder handler/src
 
 make_folder functions/add-fornitore/src
+make_folder functions/visualizza-richieste-restock/src
 
 
 # Utente

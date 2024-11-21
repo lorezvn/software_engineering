@@ -24,7 +24,11 @@ int main() {
             continue;
         }
 
+        // stream_num = 0
+        // msg_num = 0
         ReadStreamNumMsgID(reply, 0, 0, msg_id);
+
+        // Check per la prima coppia chiave-valore
         ReadStreamMsgVal(reply, 0, 0, 0, first_key);
         ReadStreamMsgVal(reply, 0, 0, 1, client_id);
 
@@ -47,7 +51,6 @@ int main() {
 
         for (int row = 0; row < PQntuples(query_res); row++) {
             RichiestaPrestito* richiesta = new RichiestaPrestito(
-                atoi(PQgetvalue(query_res, row, PQfnumber(query_res, "id"))),
                 atoi(PQgetvalue(query_res, row, PQfnumber(query_res, "utente"))),
                 atoi(PQgetvalue(query_res, row, PQfnumber(query_res, "libro"))),
                 std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "dataInizio"))),
@@ -55,6 +58,7 @@ int main() {
                 std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "istante"))),
                 std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "stato")))
             );
+
             richieste.push_back(richiesta);
         }
 
@@ -66,9 +70,9 @@ int main() {
 
             reply = RedisCommand(
                 c2r,
-                "XADD %s * row %d richiesta_id %d utente_id %d libro_id %d data_inizio %s data_fine %s istante %s stato %s",
+                "XADD %s * row %d utente_id %d libro_id %d data_inizio %s data_fine %s istante %s stato %s",
                 WRITE_STREAM, row,
-                richiesta->id, richiesta->utente_id, richiesta->libro_id,
+                richiesta->utente_id, richiesta->libro_id,
                 richiesta->data_inizio.c_str(), richiesta->data_fine.c_str(),
                 richiesta->istante.c_str(), richiesta->stato.c_str()
             );
