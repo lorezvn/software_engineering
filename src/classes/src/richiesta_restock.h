@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "../../utilities/src/constants.h"
+#include "../../utilities/src/functions.h"
 #include "../../services/redis/src/con2redis.h"
 
 class RichiestaRestock {

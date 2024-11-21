@@ -9,7 +9,7 @@ random.seed(RANDOM_SEED)
 
 class StringLGenerator():
     def __init__(self):
-        self.allowed_chars = string.ascii_letters + string.digits + PUNCTUATION
+        self.allowed_chars = string.ascii_letters + string.digits + " "
         self.max_len = 250
 
     def generate(self):

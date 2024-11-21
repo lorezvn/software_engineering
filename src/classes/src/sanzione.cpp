@@ -39,7 +39,7 @@ Sanzione* Sanzione::fromRedisStream(redisReply* reply, int stream_num, int msg_n
         if (strcmp(key, "costo") == 0) {
             costo = atof(value);
         } else if (strcmp(key, "motivazione") == 0) {
-            motivazione = value;
+            motivazione = replace_all(value, SPACE_REDIS_STRING, SPACE);
         } else if (strcmp(key, "data") == 0) {
             data = value;
         } else if (strcmp(key, "bibl_id") == 0) {

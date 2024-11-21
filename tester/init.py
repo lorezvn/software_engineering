@@ -8,6 +8,7 @@ from params.username import UsernameGenerator
 from params.id import IdGenerator
 from params.date import DateGenerator
 from params.isbn import ISBNGenerator
+from params.nome_fornitore import NomeFornitoreGenerator
 
 
 requests = {
@@ -18,7 +19,7 @@ requests = {
         [("data_ass", DateGenerator)]
     ],
     "add-fornitore": [
-        [("nome", StringSGenerator)],
+        [("nome", NomeFornitoreGenerator)],
         [("email", EmailGenerator)]
     ],
     "add-utente": [
@@ -64,7 +65,7 @@ requests = {
     ], 
     "add-richiesta-restock": [
         [("bibl_id", IdGenerator)],
-        [("forn_nome", StringSGenerator)],
+        [("forn_nome", NomeFornitoreGenerator)],
         [("quantita", IntGZGenerator)],
         [("edizione", ISBNGenerator)]
     ]

@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "../../utilities/src/constants.h"
+#include "../../utilities/src/functions.h"
 #include "../../services/redis/src/con2redis.h"
 
 class Sanzione {
@@ -20,7 +21,7 @@ class Sanzione {
         int bibl_id;
         int utente_id;
 
-         Sanzione(float sanz_costo,std::string sanz_motivazione, std::string sanz_data, int sanz_bibl_id, int sanz_utente_id);
+        Sanzione(float sanz_costo,std::string sanz_motivazione, std::string sanz_data, int sanz_bibl_id, int sanz_utente_id);
 
         Sanzione(float sanz_costo, std::string sanz_stato, std::string sanz_motivazione, std::string sanz_data, 
                  int sanz_bibl_id, int sanz_utente_id);

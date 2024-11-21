@@ -11,7 +11,7 @@ RANDOM_SEED = 10
 ports = {"bibliotecario": 42069, "fornitore": 42070, "utente": 42071}
 
 DEBUG = True
-debug = {"method_name": "add-richiesta-restock", "client": "bibliotecario"}
+debug = {"method_name": "add-sanzione", "client": "bibliotecario"}
 
 def generate_request(client):
     method_name = debug["method_name"] if DEBUG else random.choice(api_methods[client])
