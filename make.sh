@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/src/bash
 
 ROOT=$(pwd)
 CURRENT_ROOT=""
@@ -111,8 +111,9 @@ make_folder functions/add-richiesta-restock/src
 make_folder functions/add-sanzione/src
 make_folder functions/estingui-sanzione/src
 make_folder functions/revoca-sanzione/src
-make_folder functions/visualizza-richieste-prestito/src
+make_folder functions/rifiuta-richiesta-prestito/src
 make_folder functions/termina-prestito/src
+make_folder functions/visualizza-richieste-prestito/src
 
 
 
@@ -125,6 +126,7 @@ make_folder handler/src
 
 make_folder functions/add-fornitore/src
 make_folder functions/add-restock/src
+make_folder functions/rifiuta-richiesta-restock/src
 make_folder functions/visualizza-richieste-restock/src
 
 
@@ -135,12 +137,12 @@ set_current_root src/clients/utente
 
 make_folder handler/src
 
-make_folder functions/add-utente/src
 make_folder functions/add-richiesta-prestito/src
+make_folder functions/add-utente/src
 make_folder functions/ricerca-libri/src
 make_folder functions/update-username/src
-make_folder functions/visualizza-sanzioni/src
 make_folder functions/visualizza-prestiti/src
+make_folder functions/visualizza-sanzioni/src
 
 
 

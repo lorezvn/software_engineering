@@ -76,9 +76,9 @@ run_main functions/add-richiesta-restock/bin
 run_main functions/add-sanzione/bin
 run_main functions/estingui-sanzione/bin
 run_main functions/revoca-sanzione/bin
-run_main functions/visualizza-richieste-prestito/bin
+run_main functions/rifiuta-richiesta-prestito/bin
 run_main functions/termina-prestito/bin
-
+run_main functions/visualizza-richieste-prestito/bin
 
 
 # Fornitore
@@ -90,6 +90,7 @@ run_main handler/bin
 
 run_main functions/add-fornitore/bin
 run_main functions/add-restock/bin
+run_main functions/rifiuta-richiesta-restock/bin
 run_main functions/visualizza-richieste-restock/bin
 
 
@@ -100,12 +101,12 @@ set_current_root src/clients/utente
 
 run_main handler/bin
 
-run_main functions/add-utente/bin
 run_main functions/add-richiesta-prestito/bin
+run_main functions/add-utente/bin
 run_main functions/ricerca-libri/bin
 run_main functions/update-username/bin
-run_main functions/visualizza-sanzioni/bin
 run_main functions/visualizza-prestiti/bin
+run_main functions/visualizza-sanzioni/bin
 
 
 printf "\n\n### Script 'run.sh' completato ### \n\n"

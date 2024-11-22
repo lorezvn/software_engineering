@@ -13,7 +13,7 @@ int main() {
     char first_key[KEY_SIZE];
     char client_id[VALUE_SIZE];
     char second_key[KEY_SIZE];
-    char prestito_id[PARAMETERS_SIZE];
+    char richiesta_id[PARAMETERS_SIZE];
 
     Con2DB db(POSTGRESQL_SERVER, POSTGRESQL_PORT, POSTGRESQL_USER, POSTGRESQL_PASSWORD, POSTGRESQL_DBNAME);
     c2r = redisConnect(REDIS_SERVER, REDIS_PORT);
@@ -39,7 +39,6 @@ int main() {
             continue;
         }
 
-        // Controllo per la seconda coppia chiave-valore
         ReadStreamMsgVal(reply, 0, 0, 2, second_key);
         ReadStreamMsgVal(reply, 0, 0, 3, richiesta_id);
 

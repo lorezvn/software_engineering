@@ -78,14 +78,27 @@ requests = {
     ],
     "termina-prestito":[
         [("prestito_id", IdGenerator)]
+    ], 
+    "rifiuta-richiesta-prestito": [
+        [("richiesta_id", IdGenerator)]
+    ],
+    "rifiuta-richiesta-restock": [
+        [("richiesta_id", IdGenerator)]
     ]
 }
 
 
 api_methods = {
-    "fornitore": ["add-fornitore", "add-restock", "visualizza-richieste-restock"],
-    "bibliotecario": ["add-bibliotecario", "add-sanzione", "add-richiesta-restock", "estingui-sanzione", "revoca-sanzione", "add-prestito", "visualizza-richieste-prestito", "termina-prestito"],
-    "utente": ["add-utente", "add-richiesta-prestito", "ricerca-libri", "update-username", "visualizza-sanzioni", "visualizza-prestiti"]
+    "fornitore": ["add-fornitore", "add-restock", "visualizza-richieste-restock",
+                  "rifiuta-richiesta-restock"],
+
+    "bibliotecario": ["add-bibliotecario", "add-sanzione", "add-richiesta-restock", 
+                      "estingui-sanzione", "revoca-sanzione", "add-prestito", 
+                      "visualizza-richieste-prestito", "termina-prestito", 
+                      "rifiuta-richiesta-prestito"],
+
+    "utente": ["add-utente", "add-richiesta-prestito", "ricerca-libri", 
+               "update-username", "visualizza-sanzioni", "visualizza-prestiti"]
 }
 
 ports = {"bibliotecario": 42069, "fornitore": 42070, "utente": 42071}

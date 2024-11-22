@@ -10,8 +10,11 @@ def colored_output(text, color_code):
 def colored_output_bold(text, color_code):
     return f"\033[1;{color_code}m{text}\033[0m"
 
+def key_to_elem(d, elem):
+    return next((k for k, v in d.items() if elem in v), None)
+
 class Tester:
-    def __init__(self, totale: int, richieste: int, random_seed: int = 10, host: str = "127.0.0.1", debug: bool = False, method_name: str = None, client: str = None):
+    def __init__(self, totale: int, richieste: int, random_seed: int = 10, host: str = "127.0.0.1", debug: bool = False, method_name: str = None):
         """
         Inizializza un'istanza di Tester.
         :param totale: Numero di cicli di test
@@ -20,12 +23,11 @@ class Tester:
         :param host: Indirizzo IP del server
         :param debug: Modalità di debug
         :param method_name: Metodo da utilizzare (opzionale)
-        :param client: Tipo di client (opzionale)
         """
         self.random_seed = random_seed
         self.host = host
         self.debug = debug
-        self.debug_info = {"method_name": method_name, "client": client}
+        self.debug_method = method_name
         self.totale = totale
         self.richieste = richieste
         self.tot_richieste = self.totale * self.richieste
@@ -36,7 +38,7 @@ class Tester:
 
     def generate_request(self, client):
 
-        method_name = self.debug_info["method_name"] if self.debug else random.choice(api_methods[client])
+        method_name = self.debug_method if self.debug else random.choice(api_methods[client])
 
         request_args = []
         for arg_set in requests[method_name]:
@@ -62,7 +64,7 @@ class Tester:
     def send_requests(self):
 
         for i in range(self.totale):
-            client = self.debug_info["client"] if self.debug else random.choice(list(api_methods.keys()))
+            client = key_to_elem(api_methods, self.debug_method) if self.debug else random.choice(list(api_methods.keys()))
             PORT = ports[client]
 
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -96,12 +98,18 @@ class Tester:
         self.print_results()
 
     def print_results(self):
+        print(f"{colored_output_bold('Testing terminato', 37)}")
         print(f"Richieste soddisfatte: {colored_output_bold(self.successful, 32)}/{self.tot_richieste}")
-        print(f"Richieste fallite: {colored_output_bold(self.failed, 31)}/{self.tot_richieste}\n")
+        print(f"Richieste fallite: {colored_output_bold(self.failed, 31)}/{self.tot_richieste}\n\n")
 
 
 
 if __name__ == "__main__":
-    # tester = Tester(totale=10, richieste=2, debug=True, method_name="add-utente", client="utente")
-    tester = Tester(totale=10, richieste=2)
+
+    print(key_to_elem(api_methods, "add-utente"))
+
+    tester = Tester(totale=1, richieste=5, debug=True, method_name="rifiuta-richiesta-prestito")
+    tester.send_requests()
+    tester = Tester(totale=1, richieste=5, debug=True, method_name="rifiuta-richiesta-restock")
+    #tester = Tester(totale=10, richieste=2)
     tester.send_requests()

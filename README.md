@@ -44,13 +44,13 @@ sh run.sh --kill
 - [x] add-richiesta-prestito (da ricontrollare)
 - [x] ricerca-libri (da ricontrollare)
 - [x] visualizza-prestiti 
-- [x] visualizza-sanzioni (da ricontrollare)
+- [x] visualizza-sanzioni 
 - [x] update-username
 
 
 ### Bibliotecario
 - [x] add-bibliotecario
-- [x] add-sanzione (guardare TODO)
+- [x] add-sanzione 
 - [x] add-prestito
 - [x] add-richiesta-restock
 - [ ] visualizza-copie
@@ -77,4 +77,4 @@ sh run.sh --kill
 - [x] Sistemare Tester (alcuni test dovrebbero essere fatti meglio ad esempio per coppie di date inizio/fine)
 - [ ] Rivedere meglio la gestione di dataInizio e fine in RichiestaPrestito (andrebbero cancellate e lasciate solo in Prestito)
 - [ ] Le richieste prestito dovrebbero avere l'edizione di riferimento e non il libro fisico (se alcune copie non sono disponibili se ne cercano altre)
-- [ ] Nel caso in cui ci siano richieste con argomenti spaziati il sistema non lo gestisce correttamente (add-richiesta-restock da rivedere)
+- [x] Nel caso in cui ci siano richieste con argomenti spaziati il sistema non lo gestisce correttamente (add-richiesta-restock da rivedere)

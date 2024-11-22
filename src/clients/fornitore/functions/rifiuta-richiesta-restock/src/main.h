@@ -20,16 +20,16 @@
 #include "../../../../../utilities/src/constants.h"
 
 
-#define READ_STREAM "rifiuta-richiesta-prestito-in"
-#define WRITE_STREAM "rifiuta-richiesta-prestito-out"
+#define READ_STREAM "rifiuta-richiesta-restock-in"
+#define WRITE_STREAM "rifiuta-richiesta-restock-out"
 
 #define REDIS_SERVER "localhost"
 #define REDIS_PORT 6379
 
 #define POSTGRESQL_SERVER "localhost"
 #define POSTGRESQL_PORT "5432"
-#define POSTGRESQL_USER "bibliotecario"
-#define POSTGRESQL_PASSWORD "bibliotecario"
+#define POSTGRESQL_USER "fornitore"
+#define POSTGRESQL_PASSWORD "fornitore"
 #define POSTGRESQL_DBNAME "biblioteca"
 
 #endif
