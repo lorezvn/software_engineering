@@ -58,14 +58,14 @@ sh run.sh --kill
 - [x] revoca-sanzione
 - [x] termina-prestito
 - [x] visualizza-richieste-prestito
-- [ ] rifiuta-richiesta-prestito
+- [x] rifiuta-richiesta-prestito
 
 
 ### Fornitore
 - [x] add-fornitore
 - [x] add-restock
 - [x] visualizza-richieste-restock
-- [ ] rifiuta-richiesta-restock
+- [x] rifiuta-richiesta-restock
 
 
 ## TO-DO
