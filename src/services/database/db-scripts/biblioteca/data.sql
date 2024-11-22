@@ -42,6 +42,7 @@ VALUES
     ('9782345678901'),
     ('9784515712938'),
     ('9784515712938');
+    
 
 -- Inserimento di richieste di rifornimento 
 INSERT INTO RichiestaRestock (quantita, bibliotecario, istante, fornitore, edizione, stato)
@@ -70,8 +71,8 @@ VALUES
 INSERT INTO Prestito (richiesta, dataInizio, dataFine, libro, utente, bibliotecario)
 VALUES
     (1, '2024-11-10', '2024-12-10', 1, 1, 1),
-    (2, '2024-11-10', '2024-12-10', 1, 1, 1),
-    (3, '2024-11-10', '2024-12-10', 1, 1, 1);
+    (2, '2024-11-10', '2024-12-10', 2, 1, 1),
+    (3, '2024-11-10', '2024-12-10', 3, 1, 1);
 
 -- Inserimento di sanzioni
 INSERT INTO Sanzione (costo, stato, motivazione, data, bibliotecario, utente)

@@ -84,7 +84,8 @@ requests = {
     ],
     "rifiuta-richiesta-restock": [
         [("richiesta_id", IdGenerator)]
-    ]
+    ],
+    "visualizza-copie": []
 }
 
 
@@ -95,7 +96,7 @@ api_methods = {
     "bibliotecario": ["add-bibliotecario", "add-sanzione", "add-richiesta-restock", 
                       "estingui-sanzione", "revoca-sanzione", "add-prestito", 
                       "visualizza-richieste-prestito", "termina-prestito", 
-                      "rifiuta-richiesta-prestito"],
+                      "rifiuta-richiesta-prestito", "visualizza-copie"],
 
     "utente": ["add-utente", "add-richiesta-prestito", "ricerca-libri", 
                "update-username", "visualizza-sanzioni", "visualizza-prestiti"]

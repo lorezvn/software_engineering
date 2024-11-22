@@ -53,7 +53,7 @@ sh run.sh --kill
 - [x] add-sanzione 
 - [x] add-prestito
 - [x] add-richiesta-restock
-- [ ] visualizza-copie
+- [x] visualizza-copie (da ricontrollare)
 - [x] estingui-sanzione
 - [x] revoca-sanzione
 - [x] termina-prestito
@@ -70,11 +70,15 @@ sh run.sh --kill
 
 ## TO-DO
 - [x] Per operazioni di visualizzazione da "stack smashed" -> Cercare su readFromFunctions in `server/handler.cpp` la causa
+- [x] Sistemare Tester (alcuni test dovrebbero essere fatti meglio ad esempio per coppie di date inizio/fine)
+- [x] Nel caso in cui ci siano richieste con argomenti spaziati il sistema non lo gestisce correttamente (add-richiesta-restock da rivedere)
+- [ ] Aggiornare trigger 
+    *   Fare in modo che i dati di restock/prestito siano uguali alle richieste
+    *   Uno stesso libro non possa essere prestato contemporaneamente
+    *   I trigger col cf sono da modificare
 - [ ] Sistemare relazione
 - [ ] Sistemare UML 
-- [ ] Aggiornare Trigger
 - [ ] Sistemare monitor non funzionali
-- [x] Sistemare Tester (alcuni test dovrebbero essere fatti meglio ad esempio per coppie di date inizio/fine)
 - [ ] Rivedere meglio la gestione di dataInizio e fine in RichiestaPrestito (andrebbero cancellate e lasciate solo in Prestito)
 - [ ] Le richieste prestito dovrebbero avere l'edizione di riferimento e non il libro fisico (se alcune copie non sono disponibili se ne cercano altre)
-- [x] Nel caso in cui ci siano richieste con argomenti spaziati il sistema non lo gestisce correttamente (add-richiesta-restock da rivedere)
+

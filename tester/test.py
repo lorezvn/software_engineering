@@ -102,14 +102,25 @@ class Tester:
         print(f"Richieste soddisfatte: {colored_output_bold(self.successful, 32)}/{self.tot_richieste}")
         print(f"Richieste fallite: {colored_output_bold(self.failed, 31)}/{self.tot_richieste}\n\n")
 
+def test_for_all():
+    s, f, tot = 0, 0, 0
+    for _, functions in api_methods.items():
+        for func in functions:
+            tester = Tester(totale=1, richieste=1, debug=True, method_name=func)
+            tester.send_requests()
+            s += tester.successful
+            f += tester.failed
+            tot += tester.tot_richieste
 
+    print(f"{colored_output_bold('test_for_all() terminato', 37)}")
+    print(f"Richieste soddisfatte: {colored_output_bold(s, 32)}/{tot}")
+    print(f"Richieste fallite: {colored_output_bold(f, 31)}/{tot}\n\n")
+    
 
 if __name__ == "__main__":
 
-    print(key_to_elem(api_methods, "add-utente"))
+    #test_for_all()
 
-    tester = Tester(totale=1, richieste=5, debug=True, method_name="rifiuta-richiesta-prestito")
+    tester = Tester(totale=1, richieste=5, debug=True, method_name="visualizza-copie")
     tester.send_requests()
-    tester = Tester(totale=1, richieste=5, debug=True, method_name="rifiuta-richiesta-restock")
-    #tester = Tester(totale=10, richieste=2)
-    tester.send_requests()
+    
