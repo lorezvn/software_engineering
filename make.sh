@@ -114,6 +114,7 @@ make_folder functions/revoca-sanzione/src
 make_folder functions/rifiuta-richiesta-prestito/src
 make_folder functions/termina-prestito/src
 make_folder functions/visualizza-copie/src
+make_folder functions/visualizza-restock/src
 make_folder functions/visualizza-richieste-prestito/src
 
 

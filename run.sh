@@ -79,6 +79,7 @@ run_main functions/revoca-sanzione/bin
 run_main functions/rifiuta-richiesta-prestito/bin
 run_main functions/termina-prestito/bin
 run_main functions/visualizza-copie/bin
+run_main functions/visualizza-restock/bin
 run_main functions/visualizza-richieste-prestito/bin
 
 

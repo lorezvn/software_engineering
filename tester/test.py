@@ -116,6 +116,6 @@ if __name__ == "__main__":
 
     #test_for_all()
 
-    tester = Tester(totale=1, richieste=5, debug=True, method_name="add-restock")
+    tester = Tester(totale=1, richieste=5, debug=True, method_name="visualizza-restock")
     tester.send_requests()
     

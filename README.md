@@ -50,6 +50,7 @@ sh run.sh --kill
 
 ### Bibliotecario
 - [x] add-bibliotecario
+- [ ] add-edizione
 - [x] add-sanzione 
 - [x] add-prestito
 - [x] add-richiesta-restock
@@ -58,8 +59,8 @@ sh run.sh --kill
 - [x] revoca-sanzione
 - [x] termina-prestito
 - [x] visualizza-richieste-prestito
+- [x] visualizza-restock
 - [x] rifiuta-richiesta-prestito
-- [ ] visualizza-restock
 
 
 ### Fornitore
@@ -82,4 +83,4 @@ sh run.sh --kill
 - [ ] Sistemare monitor non funzionali
 - [x] Rivedere meglio la gestione di dataInizio e fine in RichiestaPrestito (andrebbero cancellate e lasciate solo in Prestito)
 - [ ] Le richieste prestito dovrebbero avere l'edizione di riferimento e non il libro fisico (se alcune copie non sono disponibili se ne cercano altre)
-
+- [ ] Rivedere autori e generi dei libri (per adesso non sono considerati)
