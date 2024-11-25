@@ -44,11 +44,6 @@ class Tester:
         for arg_set in requests[method_name]:
             arg_values = {}
             for arg_name, arg_class in arg_set:
-                if isinstance(arg_name, tuple) and arg_class.__name__ == "DateGenerator":
-                    start_date = arg_name[0]
-                    end_date = arg_name[1]
-                    arg_values[start_date], arg_values[end_date] = arg_class().generate_start_end()
-                else:
                     arg_values[arg_name] = arg_class().generate()
             request_args.append(arg_values)
 
@@ -121,6 +116,6 @@ if __name__ == "__main__":
 
     #test_for_all()
 
-    tester = Tester(totale=1, richieste=5, debug=True, method_name="visualizza-copie")
+    tester = Tester(totale=1, richieste=5, debug=True, method_name="add-restock")
     tester.send_requests()
     

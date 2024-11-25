@@ -48,9 +48,9 @@ int main() {
             continue;
         }
 
-        sprintf(query, "INSERT INTO RichiestaPrestito (utente, libro, dataInizio, dataFine, istante) VALUES (%d, %d, \'%s\', \'%s\', CURRENT_TIMESTAMP)", 
-                        richiesta->utente_id, richiesta->libro_id, 
-                        richiesta->data_inizio.c_str(), richiesta->data_fine.c_str());
+        sprintf(query, "INSERT INTO RichiestaPrestito (utente, libro, istante) VALUES (%d, %d, CURRENT_TIMESTAMP)", 
+                        richiesta->utente_id, richiesta->libro_id
+        );
 
         query_res = db.execQuery(query, false);
 

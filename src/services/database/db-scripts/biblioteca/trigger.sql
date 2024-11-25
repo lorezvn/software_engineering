@@ -1,24 +1,6 @@
 \c :dbname
 
--- 1. Trigger sulla tabella Prestito: Imposta automaticamente la data di restituzione quando il prestito è terminato
-CREATE OR REPLACE FUNCTION set_restituzione_date() RETURNS TRIGGER AS $$
-BEGIN
-    -- Se il prestito è terminato e la restituzione non è ancora impostata, imposta la data corrente
-    IF NEW.isTerminato = TRUE AND NEW.dataRest IS NULL THEN
-        NEW.dataRest = CURRENT_DATE;
-    END IF;
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER before_update_prestito_restituzione
-BEFORE UPDATE ON Prestito
-FOR EACH ROW
-WHEN (NEW.isTerminato = TRUE)
-EXECUTE FUNCTION set_restituzione_date();
-
-
--- 2. Trigger sulla tabella LibroFisico: Impedisci la cancellazione di un libro se è in prestito
+-- 1. Trigger sulla tabella LibroFisico: Impedisci la cancellazione di un libro se è in prestito
 CREATE OR REPLACE FUNCTION prevent_delete_if_in_prestito() RETURNS TRIGGER AS $$
 BEGIN
     -- Impedisci la cancellazione del libro se è attualmente in prestito
@@ -35,7 +17,7 @@ FOR EACH ROW
 EXECUTE FUNCTION prevent_delete_if_in_prestito();
 
 
--- 3. Trigger sulla tabella LibroEdizione: Impedisci la cancellazione di un' edizione se ci sono libri associati in prestiti attivi
+-- 2. Trigger sulla tabella LibroEdizione: Impedisci la cancellazione di un' edizione se ci sono libri associati in prestiti attivi
 CREATE OR REPLACE FUNCTION prevent_delete_if_edizione_in_prestito() RETURNS TRIGGER AS $$
 BEGIN
     IF EXISTS (SELECT 1 FROM Prestito WHERE libro IN (SELECT id FROM LibroFisico WHERE edizione = OLD.ISBN) AND isTerminato = FALSE) THEN
@@ -51,7 +33,7 @@ FOR EACH ROW
 EXECUTE FUNCTION prevent_delete_if_edizione_in_prestito();
 
 
--- 4. Trigger sulla tabella Prestito: Impedisci la restituzione di un libro che non è stato preso in prestito dall'utente
+-- 3. Trigger sulla tabella Prestito: Impedisci la restituzione di un libro che non è stato preso in prestito dall'utente
 CREATE OR REPLACE FUNCTION check_prestito_validity() RETURNS TRIGGER AS $$
 BEGIN
     -- Verifica che l'utente stia restituendo un libro che ha effettivamente preso in prestito
@@ -75,11 +57,11 @@ WHEN (NEW.dataRest IS NOT NULL)
 EXECUTE FUNCTION check_prestito_validity();
 
 
--- 5. Trigger sulla tabella Utente: Impedisci la cancellazione di un utente se ha prestiti attivi
+-- 4. Trigger sulla tabella Utente: Impedisci la cancellazione di un utente se ha prestiti attivi
 CREATE OR REPLACE FUNCTION prevent_delete_if_user_has_prestiti() RETURNS TRIGGER AS $$
 BEGIN
     -- Impedisci la cancellazione dell'utente se ha prestiti attivi
-    IF EXISTS (SELECT 1 FROM Prestito WHERE utente = OLD.cf AND isTerminato = FALSE) THEN
+    IF EXISTS (SELECT 1 FROM Prestito WHERE utente = OLD.id AND isTerminato = FALSE) THEN
         RAISE EXCEPTION 'Impossibile cancellare l''utente, ha ancora prestiti attivi';
     END IF;
     RETURN OLD;
@@ -92,7 +74,7 @@ FOR EACH ROW
 EXECUTE FUNCTION prevent_delete_if_user_has_prestiti();
 
 
--- 6. Trigger sulla tabella Prestito: Completa la richiesta associata al prestito inserito
+-- 5. Trigger sulla tabella Prestito: Completa la richiesta associata al prestito inserito
 CREATE OR REPLACE FUNCTION update_richiesta_prestito_status()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -110,7 +92,7 @@ FOR EACH ROW
 EXECUTE FUNCTION update_richiesta_prestito_status();
 
 
--- 7. Trigger sulla tabella Restock: Completa la richiesta associata al restock inserito
+-- 6. Trigger sulla tabella Restock: Completa la richiesta associata al restock inserito
 CREATE OR REPLACE FUNCTION update_richiesta_restock_status()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -128,7 +110,7 @@ FOR EACH ROW
 EXECUTE FUNCTION update_richiesta_restock_status();
 
 
--- 8. Trigger sulla tabella Prestito: Inserimento solo se la richiesta associata è "IN ATTESA"
+-- 7. Trigger sulla tabella Prestito: Inserimento solo se la richiesta associata è "IN ATTESA"
 CREATE OR REPLACE FUNCTION check_richiesta_prestito_in_attesa()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -150,7 +132,7 @@ FOR EACH ROW
 EXECUTE FUNCTION check_richiesta_prestito_in_attesa();
 
 
--- 9. Trigger sulla tabella Restock: Inserimento solo se la richiesta associata è "IN ATTESA"
+-- 8. Trigger sulla tabella Restock: Inserimento solo se la richiesta associata è "IN ATTESA"
 CREATE OR REPLACE FUNCTION check_richiesta_restock_in_attesa()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -170,6 +152,124 @@ CREATE TRIGGER before_restock_insert
 BEFORE INSERT ON Restock
 FOR EACH ROW
 EXECUTE FUNCTION check_richiesta_restock_in_attesa();
+
+
+-- 9. Trigger sulla tabella Prestito: Verifica che i dati del prestito corrispondano a quelli della richiesta
+CREATE OR REPLACE FUNCTION verifica_coerenza_prestito()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM RichiestaPrestito
+        WHERE id = NEW.richiesta
+          AND utente = NEW.utente
+          AND libro = NEW.libro
+    ) THEN
+        RAISE EXCEPTION 'I dati del prestito non corrispondono alla richiesta associata.';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_verifica_prestito
+BEFORE INSERT OR UPDATE ON Prestito
+FOR EACH ROW
+EXECUTE FUNCTION verifica_coerenza_prestito();
+
+
+-- 10. Trigger sulla tabella Prestito: Verifica che l'istante della richiesta sia minore della dataInizio del prestito
+CREATE OR REPLACE FUNCTION verifica_istante_richiesta_prestito()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM RichiestaPrestito
+        WHERE id = NEW.richiesta
+          AND istante::DATE <= NEW.dataInizio
+    ) THEN
+        RAISE EXCEPTION 'La data di inizio del prestito deve essere successiva all''istante della richiesta.';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_verifica_istante_richiesta_prestito
+BEFORE INSERT OR UPDATE ON Prestito
+FOR EACH ROW
+EXECUTE FUNCTION verifica_istante_richiesta_prestito();
+
+
+-- 11. Trigger sulla tabella Restock: Verifica che i dati del restock corrispondano a quelli della richiesta
+CREATE OR REPLACE FUNCTION verifica_coerenza_restock()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM RichiestaRestock
+        WHERE id = NEW.richiesta
+          AND quantita = NEW.quantita
+          AND fornitore = NEW.fornitore
+          AND edizione = NEW.edizione
+    ) THEN
+        RAISE EXCEPTION 'I dati del restock non corrispondono alla richiesta associata.';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_verifica_restock
+BEFORE INSERT OR UPDATE ON Restock
+FOR EACH ROW
+EXECUTE FUNCTION verifica_coerenza_restock();
+
+
+-- 12. Trigger sulla tabella Restock: Verifica che l'istante della richiesta sia minore dell'istante del restock
+CREATE OR REPLACE FUNCTION verifica_istante_richiesta_restock()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM RichiestaRestock
+        WHERE id = NEW.richiesta
+          AND istante < NEW.istante
+    ) THEN
+        RAISE EXCEPTION 'L''istante del restock deve essere successivo all''istante della richiesta.';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_verifica_istante_richiesta_restock
+BEFORE INSERT OR UPDATE ON Restock
+FOR EACH ROW
+EXECUTE FUNCTION verifica_istante_richiesta_restock();
+
+
+-- 13. Trigger sulla tabella Prestito: Controlla se esiste un altro prestito attivo per lo stesso libro nello stesso periodo
+CREATE OR REPLACE FUNCTION verifica_prestito_unico()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM Prestito
+        WHERE libro = NEW.libro
+          AND isTerminato = FALSE
+          AND (
+              (NEW.dataInizio, NEW.dataFine) OVERLAPS (dataInizio, dataFine)
+          )
+    ) THEN
+        RAISE EXCEPTION 'Il libro è già in prestito in questo periodo.';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_verifica_prestito_unico
+BEFORE INSERT OR UPDATE ON Prestito
+FOR EACH ROW
+EXECUTE FUNCTION verifica_prestito_unico();
 
 
 

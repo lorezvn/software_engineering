@@ -1,18 +1,13 @@
 #include "richiesta_prestito.h"
 
-RichiestaPrestito::RichiestaPrestito(int r_utente_id, int r_libro_id, std::string r_data_inizio, std::string r_data_fine) {
+RichiestaPrestito::RichiestaPrestito(int r_utente_id, int r_libro_id) {
     utente_id = r_utente_id;
     libro_id = r_libro_id;
-    data_inizio = r_data_inizio;
-    data_fine = r_data_fine;
 }
 
-RichiestaPrestito::RichiestaPrestito(int r_utente_id, int r_libro_id, std::string r_data_inizio, std::string r_data_fine, 
-                                     std::string r_istante, std::string r_stato) {
+RichiestaPrestito::RichiestaPrestito(int r_utente_id, int r_libro_id, std::string r_istante, std::string r_stato) {
     utente_id = r_utente_id;
     libro_id = r_libro_id;
-    data_inizio = r_data_inizio;
-    data_fine = r_data_fine;
     istante = r_istante;
     stato = r_stato;
 }
@@ -37,10 +32,6 @@ RichiestaPrestito* RichiestaPrestito::fromRedisStream(redisReply* reply, int str
             utente_id = atoi(value);
         } else if (strcmp(key, "libro_id") == 0) {
             libro_id = atoi(value);
-        } else if (strcmp(key, "data_inizio") == 0) {
-            data_inizio = value;
-        } else if (strcmp(key, "data_fine") == 0) {
-            data_fine = value;
         } else {
             throw std::invalid_argument("Errore stream: chiave non riconosciuta");
         }

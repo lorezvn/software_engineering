@@ -50,11 +50,8 @@ CREATE TABLE IF NOT EXISTS RichiestaPrestito (
     id SERIAL PRIMARY KEY,
     utente INTEGER NOT NULL,
     libro INTEGER NOT NULL,
-    dataInizio DATE NOT NULL,
-    dataFine DATE NOT NULL,
     istante TIMESTAMP NOT NULL,
     stato StatoRichiesta DEFAULT 'IN ATTESA',
-    CHECK (dataInizio < dataFine),
     FOREIGN KEY (libro) REFERENCES LibroFisico(id) ON DELETE CASCADE,
     FOREIGN KEY (utente) REFERENCES Utente(id) ON DELETE CASCADE
 );

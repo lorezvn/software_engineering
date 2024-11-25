@@ -31,7 +31,6 @@ requests = {
     "add-richiesta-prestito": [
         [("utente_id", IdGenerator)],
         [("libro_id", IdGenerator)],
-        [(("data_inizio", "data_fine"), DateGenerator)]
     ],
     "ricerca-libri": [
         [("titolo", StringSGenerator)]
