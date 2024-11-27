@@ -30,7 +30,7 @@ requests = {
     ], 
     "add-richiesta-prestito": [
         [("utente_id", IdGenerator)],
-        [("libro_id", IdGenerator)],
+        [("edizione", ISBNGenerator)],
     ],
     "ricerca-libri": [
         [("titolo", StringSGenerator)]

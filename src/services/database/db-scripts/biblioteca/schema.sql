@@ -9,6 +9,7 @@ CREATE DOMAIN StringS AS VARCHAR(50);
 CREATE DOMAIN StringM AS VARCHAR(100);
 CREATE DOMAIN StringL AS VARCHAR(250);
 CREATE DOMAIN Email AS StringM CHECK (VALUE ~* E'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
+CREATE DOMAIN ISBN AS VARCHAR(13);
 
 -- Definizione dei tipi
 CREATE TYPE StatoRichiesta AS ENUM('IN ATTESA', 'COMPLETATA', 'RIFIUTATA');
@@ -31,7 +32,7 @@ CREATE TABLE IF NOT EXISTS CasaEditrice (
 
 -- Tabella LibroEdizione
 CREATE TABLE IF NOT EXISTS LibroEdizione (
-    ISBN VARCHAR(13) PRIMARY KEY,
+    ISBN ISBN PRIMARY KEY,
     titolo StringS NOT NULL,
     pagine IntGZ NOT NULL,
     casaEditrice StringM,
@@ -41,7 +42,7 @@ CREATE TABLE IF NOT EXISTS LibroEdizione (
 -- Tabella LibroFisico
 CREATE TABLE IF NOT EXISTS LibroFisico (
     id SERIAL PRIMARY KEY,
-    edizione VARCHAR(13) NOT NULL,
+    edizione ISBN NOT NULL,
     FOREIGN KEY (edizione) REFERENCES LibroEdizione(ISBN) ON DELETE CASCADE
 );
 
@@ -49,10 +50,10 @@ CREATE TABLE IF NOT EXISTS LibroFisico (
 CREATE TABLE IF NOT EXISTS RichiestaPrestito (
     id SERIAL PRIMARY KEY,
     utente INTEGER NOT NULL,
-    libro INTEGER NOT NULL,
+    edizione ISBN NOT NULL,
     istante TIMESTAMP NOT NULL,
     stato StatoRichiesta DEFAULT 'IN ATTESA',
-    FOREIGN KEY (libro) REFERENCES LibroFisico(id) ON DELETE CASCADE,
+    FOREIGN KEY (edizione) REFERENCES LibroEdizione(ISBN) ON DELETE CASCADE,
     FOREIGN KEY (utente) REFERENCES Utente(id) ON DELETE CASCADE
 );
 
@@ -93,7 +94,7 @@ CREATE TABLE IF NOT EXISTS Genere (
 
 -- Tabella GenereEdizione
 CREATE TABLE IF NOT EXISTS GenereEdizione (
-    edizione VARCHAR(13) NOT NULL,
+    edizione ISBN NOT NULL,
     genere StringS NOT NULL,
     PRIMARY KEY (edizione, genere),
     FOREIGN KEY (edizione) REFERENCES LibroEdizione(ISBN) ON DELETE CASCADE,
@@ -102,7 +103,7 @@ CREATE TABLE IF NOT EXISTS GenereEdizione (
 
 -- Tabella EdizioneAutore
 CREATE TABLE IF NOT EXISTS EdizioneAutore (
-    edizione VARCHAR(13) NOT NULL,
+    edizione ISBN NOT NULL,
     autore INTEGER NOT NULL,
     PRIMARY KEY (edizione, autore),
     FOREIGN KEY (edizione) REFERENCES LibroEdizione(ISBN) ON DELETE CASCADE,
@@ -145,7 +146,7 @@ CREATE TABLE IF NOT EXISTS RichiestaRestock (
     bibliotecario INTEGER NOT NULL,
     fornitore StringS NOT NULL,
     istante TIMESTAMP NOT NULL,
-    edizione VARCHAR(13) NOT NULL,
+    edizione ISBN NOT NULL,
     stato StatoRichiesta DEFAULT 'IN ATTESA',
     FOREIGN KEY (fornitore) REFERENCES Fornitore(nome),
     FOREIGN KEY (edizione) REFERENCES LibroEdizione(ISBN) ON DELETE CASCADE,
@@ -159,7 +160,7 @@ CREATE TABLE IF NOT EXISTS Restock (
     quantita IntGZ NOT NULL,
     istante TIMESTAMP,
     fornitore StringS NOT NULL,
-    edizione VARCHAR(13) NOT NULL,
+    edizione ISBN NOT NULL,
     FOREIGN KEY (richiesta) REFERENCES RichiestaRestock(id) ON DELETE CASCADE,
     FOREIGN KEY (fornitore) REFERENCES Fornitore(nome),
     FOREIGN KEY (edizione) REFERENCES LibroEdizione(ISBN) 

@@ -160,10 +160,11 @@ RETURNS TRIGGER AS $$
 BEGIN
     IF NOT EXISTS (
         SELECT 1
-        FROM RichiestaPrestito
-        WHERE id = NEW.richiesta
-          AND utente = NEW.utente
-          AND libro = NEW.libro
+        FROM RichiestaPrestito AS rp
+        JOIN LibroFisico AS lf ON rp.edizione = lf.edizione
+        WHERE rp.id = NEW.richiesta
+          AND rp.utente = NEW.utente
+          AND lf.id = NEW.libro
     ) THEN
         RAISE EXCEPTION 'I dati del prestito non corrispondono alla richiesta associata.';
     END IF;
@@ -270,6 +271,39 @@ CREATE TRIGGER trigger_verifica_prestito_unico
 BEFORE INSERT OR UPDATE ON Prestito
 FOR EACH ROW
 EXECUTE FUNCTION verifica_prestito_unico();
+
+
+-- 14. Trigger sulla tabella Prestito: Trova un libro fisico disponibile per l'edizione richiesta
+CREATE OR REPLACE FUNCTION assegna_libro_disponibile()
+RETURNS TRIGGER AS $$
+DECLARE
+    libro_disponibile INTEGER;
+BEGIN
+
+    SELECT lf.id
+    INTO libro_disponibile
+    FROM LibroFisico lf
+    LEFT JOIN Prestito p ON lf.id = p.libro AND p.isTerminato = FALSE
+    WHERE lf.edizione = (SELECT edizione FROM RichiestaPrestito WHERE id = NEW.richiesta)
+    AND p.id IS NULL
+    LIMIT 1;
+
+    -- Se non ci sono libri disponibili, solleva un'eccezione
+    IF libro_disponibile IS NULL THEN
+        RAISE EXCEPTION 'Non ci sono copie disponibili per questa edizione.';
+    END IF;
+
+    -- Assegna il libro trovato al prestito
+    NEW.libro = libro_disponibile;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_assegna_libro
+BEFORE INSERT ON Prestito
+FOR EACH ROW
+EXECUTE FUNCTION assegna_libro_disponibile();
 
 
 

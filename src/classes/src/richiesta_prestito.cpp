@@ -1,13 +1,13 @@
 #include "richiesta_prestito.h"
 
-RichiestaPrestito::RichiestaPrestito(int r_utente_id, int r_libro_id) {
+RichiestaPrestito::RichiestaPrestito(int r_utente_id, std::string r_edizione) {
     utente_id = r_utente_id;
-    libro_id = r_libro_id;
+    edizione = r_edizione;
 }
 
-RichiestaPrestito::RichiestaPrestito(int r_utente_id, int r_libro_id, std::string r_istante, std::string r_stato) {
+RichiestaPrestito::RichiestaPrestito(int r_utente_id, std::string r_edizione, std::string r_istante, std::string r_stato) {
     utente_id = r_utente_id;
-    libro_id = r_libro_id;
+    edizione = r_edizione;
     istante = r_istante;
     stato = r_stato;
 }
@@ -15,9 +15,7 @@ RichiestaPrestito::RichiestaPrestito(int r_utente_id, int r_libro_id, std::strin
 RichiestaPrestito* RichiestaPrestito::fromRedisStream(redisReply* reply, int stream_num, int msg_num) {
 
     int utente_id;
-    int libro_id;
-    std::string data_inizio;
-    std::string data_fine;
+    std::string edizione;
 
     char key[KEY_SIZE];
     char value[PARAMETERS_SIZE];
@@ -30,12 +28,12 @@ RichiestaPrestito* RichiestaPrestito::fromRedisStream(redisReply* reply, int str
 
         if (strcmp(key, "utente_id") == 0) {
             utente_id = atoi(value);
-        } else if (strcmp(key, "libro_id") == 0) {
-            libro_id = atoi(value);
+        } else if (strcmp(key, "edizione") == 0) {
+            edizione = value;
         } else {
             throw std::invalid_argument("Errore stream: chiave non riconosciuta");
         }
     }
 
-    return new RichiestaPrestito(utente_id, libro_id, data_inizio, data_fine);
+    return new RichiestaPrestito(utente_id, edizione);
 }

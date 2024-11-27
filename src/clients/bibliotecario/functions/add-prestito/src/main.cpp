@@ -51,9 +51,9 @@ int main() {
         }
 
         sprintf(query,
-                "INSERT INTO Prestito (richiesta, utente, bibliotecario, libro, dataInizio, dataFine) "
-                "SELECT r.id, r.utente, %d, r.libro, CURRENT_DATE, CURRENT_DATE + INTERVAL '30 days' "
-                "FROM RichiestaPrestito r WHERE r.id = %d", prest->bibl_id, prest->richiesta_id);
+            "INSERT INTO Prestito (richiesta, utente, bibliotecario, dataInizio, dataFine) "
+            "SELECT r.id, r.utente, %d, CURRENT_DATE, CURRENT_DATE + INTERVAL '30 days' "
+            "FROM RichiestaPrestito r WHERE r.id = %d", prest->bibl_id, prest->richiesta_id);
 
         query_res = db.execQuery(query, false);
 

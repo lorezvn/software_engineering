@@ -82,5 +82,5 @@ sh run.sh --kill
 - [ ] Sistemare UML 
 - [ ] Sistemare monitor non funzionali
 - [x] Rivedere meglio la gestione di dataInizio e fine in RichiestaPrestito (andrebbero cancellate e lasciate solo in Prestito)
-- [ ] Le richieste prestito dovrebbero avere l'edizione di riferimento e non il libro fisico (se alcune copie non sono disponibili se ne cercano altre)
+- [x] Le richieste prestito dovrebbero avere l'edizione di riferimento e non il libro fisico (se alcune copie non sono disponibili se ne cercano altre)
 - [ ] Rivedere autori e generi dei libri (per adesso non sono considerati)

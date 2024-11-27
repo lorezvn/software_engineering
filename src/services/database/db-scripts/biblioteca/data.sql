@@ -41,7 +41,8 @@ VALUES
     ('9781234567897'),
     ('9782345678901'),
     ('9784515712938'),
-    ('9784515712938');
+    ('9784515712938'), 
+    ('9774515712039');
     
 
 -- Inserimento di richieste di rifornimento 
@@ -61,18 +62,18 @@ VALUES
     (3, 2, '2024-10-05 15:00:00', 'Libro Express SRL', '9784515712938');
 
 -- Inserimento di richieste di prestito
-INSERT INTO RichiestaPrestito (istante, stato, libro, utente)
+INSERT INTO RichiestaPrestito (istante, stato, edizione, utente)
 VALUES
-    ('2024-11-10 09:50:00', 'IN ATTESA', 1, 1),
-    ('2024-11-06 10:30:30', 'IN ATTESA', 2, 2),
-    ('2024-11-06 10:30:30', 'IN ATTESA', 3, 1);
+    ('2024-11-10 09:50:00', 'IN ATTESA', '9781234567897', 1),
+    ('2024-11-06 10:30:30', 'IN ATTESA', '9782345678901', 2),
+    ('2024-11-06 10:30:30', 'IN ATTESA', '9774515712039', 1);
 
 -- Inserisci prestiti di esempio
-INSERT INTO Prestito (richiesta, dataInizio, dataFine, libro, utente, bibliotecario)
+INSERT INTO Prestito (richiesta, dataInizio, dataFine, utente, bibliotecario)
 VALUES
-    (1, '2024-11-10', '2024-12-10', 1, 1, 1),
-    (2, '2024-11-10', '2024-12-10', 2, 2, 1),
-    (3, '2024-11-10', '2024-12-10', 3, 1, 1);
+    (1, '2024-11-10', '2024-12-10', 1, 1),
+    (2, '2024-11-10', '2024-12-10', 2, 1),
+    (3, '2024-11-10', '2024-12-10', 1, 1);
 
 -- Inserimento di sanzioni
 INSERT INTO Sanzione (costo, stato, motivazione, data, bibliotecario, utente)

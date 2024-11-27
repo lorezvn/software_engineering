@@ -52,7 +52,7 @@ int main() {
         for (int row = 0; row < PQntuples(query_res); row++) {
             RichiestaPrestito* richiesta = new RichiestaPrestito(
                 atoi(PQgetvalue(query_res, row, PQfnumber(query_res, "utente"))),
-                atoi(PQgetvalue(query_res, row, PQfnumber(query_res, "libro"))),
+                std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "edizione"))),
                 std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "istante"))),
                 std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "stato")))
             );
@@ -68,9 +68,9 @@ int main() {
 
             reply = RedisCommand(
                 c2r,
-                "XADD %s * row %d utente_id %d libro_id %d data_inizio %s data_fine %s istante %s stato %s",
+                "XADD %s * row %d utente_id %d edizione %d data_inizio %s data_fine %s istante %s stato %s",
                 WRITE_STREAM, row,
-                richiesta->utente_id, richiesta->libro_id,
+                richiesta->utente_id, richiesta->edizione.c_str(),
                 richiesta->istante.c_str(), richiesta->stato.c_str()
             );
             assertReplyType(c2r, reply, REDIS_REPLY_STRING);
