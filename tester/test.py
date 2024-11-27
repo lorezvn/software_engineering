@@ -37,7 +37,9 @@ class Tester:
         random.seed(self.random_seed)
 
     def generate_request(self, client):
-
+        """
+        Genera una nuova richiesta da inviare
+        """
         method_name = self.debug_method if self.debug else random.choice(api_methods[client])
 
         request_args = []
@@ -56,8 +58,40 @@ class Tester:
         
         return request_string.strip()
 
-    def send_requests(self):
+    def send_custom_request(self, request_string):
+        """
+        Invio di una richiesta personalizzata già formattata.
+        :param request_string: La richiesta completa da inviare al server
+        """
+        req_type = request_string.split(" ")[0]
+        client = key_to_elem(api_methods, req_type)
+        PORT = ports[client]
+        
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.connect((self.host, PORT))
+            colored_req_type = colored_output(req_type, 33)
 
+            print(f"Inviando la richiesta: {colored_req_type} {request_string[len(req_type):]}")
+
+            sock.send(request_string.encode())
+            print(" Richiesta inviata")
+
+            response = sock.recv(2048).decode()
+
+            if response.startswith("BAD_REQUEST") or response.startswith("DB_ERROR"):
+                self.failed += 1
+                self.errate.append(request_string)
+                print(f"{colored_output_bold('[ERRORE]', 31)} Risposta ricevuta: {response}\n")
+            else:
+                self.successful += 1
+                print(f"{colored_output_bold('[SUCCESSO]', 32)} Risposta ricevuta: {response}\n")
+                
+        self.print_results()
+
+    def send_requests(self):
+        """
+        Invia richieste multiple
+        """
         for i in range(self.totale):
             client = key_to_elem(api_methods, self.debug_method) if self.debug else random.choice(list(api_methods.keys()))
             PORT = ports[client]
@@ -97,25 +131,9 @@ class Tester:
         print(f"Richieste soddisfatte: {colored_output_bold(self.successful, 32)}/{self.tot_richieste}")
         print(f"Richieste fallite: {colored_output_bold(self.failed, 31)}/{self.tot_richieste}\n\n")
 
-def test_for_all():
-    s, f, tot = 0, 0, 0
-    for _, functions in api_methods.items():
-        for func in functions:
-            tester = Tester(totale=1, richieste=1, debug=True, method_name=func)
-            tester.send_requests()
-            s += tester.successful
-            f += tester.failed
-            tot += tester.tot_richieste
-
-    print(f"{colored_output_bold('test_for_all() terminato', 37)}")
-    print(f"Richieste soddisfatte: {colored_output_bold(s, 32)}/{tot}")
-    print(f"Richieste fallite: {colored_output_bold(f, 31)}/{tot}\n\n")
-    
-
 if __name__ == "__main__":
 
     #test_for_all()
 
-    tester = Tester(totale=1, richieste=5, debug=True, method_name="visualizza-restock")
-    tester.send_requests()
+    tester = Tester(1, 1).send_custom_request("add-prestito richiesta_id 6")
     

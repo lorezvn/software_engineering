@@ -268,7 +268,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER trigger_verifica_prestito_unico
-BEFORE INSERT OR UPDATE ON Prestito
+BEFORE INSERT ON Prestito
 FOR EACH ROW
 EXECUTE FUNCTION verifica_prestito_unico();
 
