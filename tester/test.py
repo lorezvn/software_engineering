@@ -135,5 +135,6 @@ if __name__ == "__main__":
 
     #test_for_all()
 
-    tester = Tester(1, 1).send_custom_request("ricerca-libri titolo Il")
+    tester = Tester(5, 1, debug="True", method_name="delete-copia")
+    tester.send_requests()
     

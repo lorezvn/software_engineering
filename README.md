@@ -50,18 +50,18 @@ sh run.sh --kill
 
 ### Bibliotecario
 - [x] add-bibliotecario
-- [ ] add-edizione
+- [x] add-edizione
 - [x] add-sanzione 
 - [x] add-prestito
 - [x] add-richiesta-restock
-- [x] visualizza-copie (da ricontrollare)
+- [x] visualizza-copie 
 - [x] estingui-sanzione
 - [x] revoca-sanzione
 - [x] termina-prestito
 - [x] visualizza-richieste-prestito
 - [x] visualizza-restock
 - [x] rifiuta-richiesta-prestito
-- [ ] delete-copia
+- [x] delete-copia
 
 
 ### Fornitore

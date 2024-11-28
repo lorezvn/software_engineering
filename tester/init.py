@@ -8,6 +8,8 @@ from params.username import UsernameGenerator
 from params.id import IdGenerator
 from params.date import DateGenerator
 from params.isbn import ISBNGenerator
+from params.genere import GenereGenerator
+from params.casa_editrice import CasaEditriceGenerator
 from params.nome_fornitore import NomeFornitoreGenerator
 
 
@@ -85,7 +87,18 @@ requests = {
         [("richiesta_id", IdGenerator)]
     ],
     "visualizza-copie": [],
-    "visualizza-restock": []
+    "visualizza-restock": [],
+    "add-edizione": [
+        [("ISBN", ISBNGenerator)],
+        [("titolo", StringSGenerator)],
+        [("pagine", IntGZGenerator)],
+        [("casa_editrice", CasaEditriceGenerator)],
+        [("autore_id", IdGenerator)],
+        [("genere", GenereGenerator)],
+    ], 
+    "delete-copia": [
+        [("libro_id", IdGenerator)]
+    ]
 }
 
 
@@ -97,7 +110,7 @@ api_methods = {
                       "estingui-sanzione", "revoca-sanzione", "add-prestito", 
                       "visualizza-richieste-prestito", "termina-prestito", 
                       "rifiuta-richiesta-prestito", "visualizza-copie", 
-                      "visualizza-restock"],
+                      "visualizza-restock", "add-edizione", "delete-copia"],
 
     "utente": ["add-utente", "add-richiesta-prestito", "ricerca-libri", 
                "update-username", "visualizza-sanzioni", "visualizza-prestiti"]

@@ -15,5 +15,4 @@ class ISBNGenerator():
     def generate(self):
         prefisso = random.choice(self.prefissi)
         sequenza = "".join(random.choices(string.digits, k=10))
-        return random.choice(self.list)
         return f"{prefisso}{sequenza}"

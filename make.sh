@@ -106,9 +106,11 @@ set_current_root src/clients/bibliotecario
 make_folder handler/src
 
 make_folder functions/add-bibliotecario/src
+make_folder functions/add-edizione/src
 make_folder functions/add-prestito/src
 make_folder functions/add-richiesta-restock/src
 make_folder functions/add-sanzione/src
+make_folder functions/delete-copia/src
 make_folder functions/estingui-sanzione/src
 make_folder functions/revoca-sanzione/src
 make_folder functions/rifiuta-richiesta-prestito/src
