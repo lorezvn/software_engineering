@@ -84,6 +84,6 @@ sh run.sh --kill
 - [ ] Sistemare monitor non funzionali
 - [x] Rivedere meglio la gestione di dataInizio e fine in RichiestaPrestito (andrebbero cancellate e lasciate solo in Prestito)
 - [x] Le richieste prestito dovrebbero avere l'edizione di riferimento e non il libro fisico (se alcune copie non sono disponibili se ne cercano altre)
-- [ ] Rivedere autori e generi dei libri (per adesso non sono considerati)
+- [x] Rivedere autori e generi dei libri (per adesso non sono considerati)
 - [ ] Modificare vincoli molteplicità generedizione e genereautore in maniera tale da averne massimo un genere e massimo un autore
 - [ ] Rivedere situazioni in cui qualche attributo è NULL (eseguire ricerca-libri)
