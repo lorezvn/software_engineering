@@ -49,7 +49,6 @@ int main() {
             continue;
         }
 
-
         // Esecuzione della query di aggiornamento
         sprintf(query,
                 "UPDATE Prestito SET isTerminato = TRUE, dataRest = CURRENT_DATE "

@@ -1,5 +1,3 @@
--- DA RIVEDERE dataInizio e dataFine in RichiestaPrestito
-
 \c :dbname
 
 -- Definizione dei domini
@@ -30,13 +28,30 @@ CREATE TABLE IF NOT EXISTS CasaEditrice (
     nome StringM PRIMARY KEY
 );
 
+-- Tabella Autore
+CREATE TABLE IF NOT EXISTS Autore (
+    id SERIAL PRIMARY KEY,
+    nome StringS NOT NULL,
+    cognome StringS NOT NULL,
+    nascita DATE NOT NULL
+);
+
+-- Tabella Genere
+CREATE TABLE IF NOT EXISTS Genere (
+    nome StringS PRIMARY KEY
+);
+
 -- Tabella LibroEdizione
 CREATE TABLE IF NOT EXISTS LibroEdizione (
     ISBN ISBN PRIMARY KEY,
     titolo StringS NOT NULL,
     pagine IntGZ NOT NULL,
     casaEditrice StringM,
-    FOREIGN KEY (casaEditrice) REFERENCES CasaEditrice(nome) ON DELETE SET NULL
+    autore INTEGER NOT NULL,
+    genere StringS NOT NULL,
+    FOREIGN KEY (casaEditrice) REFERENCES CasaEditrice(nome) ON DELETE SET NULL,
+    FOREIGN KEY (autore) REFERENCES Autore(id) ON DELETE SET NULL,
+    FOREIGN KEY (genere) REFERENCES Genere(nome) ON DELETE SET NULL
 );
 
 -- Tabella LibroFisico
@@ -77,37 +92,6 @@ CREATE TABLE IF NOT EXISTS Prestito (
     FOREIGN KEY (richiesta) REFERENCES RichiestaPrestito(id) ON DELETE CASCADE,
     FOREIGN KEY (libro) REFERENCES LibroFisico(id) ON DELETE CASCADE,
     FOREIGN KEY (utente) REFERENCES Utente(id) ON DELETE CASCADE
-);
-
--- Tabella Autore
-CREATE TABLE IF NOT EXISTS Autore (
-    id SERIAL PRIMARY KEY,
-    nome StringS NOT NULL,
-    cognome StringS NOT NULL,
-    nascita DATE NOT NULL
-);
-
--- Tabella Genere
-CREATE TABLE IF NOT EXISTS Genere (
-    nome StringS PRIMARY KEY
-);
-
--- Tabella GenereEdizione
-CREATE TABLE IF NOT EXISTS GenereEdizione (
-    edizione ISBN NOT NULL,
-    genere StringS NOT NULL,
-    PRIMARY KEY (edizione, genere),
-    FOREIGN KEY (edizione) REFERENCES LibroEdizione(ISBN) ON DELETE CASCADE,
-    FOREIGN KEY (genere) REFERENCES Genere(nome) ON DELETE CASCADE
-);
-
--- Tabella EdizioneAutore
-CREATE TABLE IF NOT EXISTS EdizioneAutore (
-    edizione ISBN NOT NULL,
-    autore INTEGER NOT NULL,
-    PRIMARY KEY (edizione, autore),
-    FOREIGN KEY (edizione) REFERENCES LibroEdizione(ISBN) ON DELETE CASCADE,
-    FOREIGN KEY (autore) REFERENCES Autore(id) ON DELETE CASCADE
 );
 
 -- Tabella Fornitore

@@ -27,13 +27,34 @@ VALUES
     ('Salani'),
     ('Sgruda');
 
--- Inserisci alcune edizioni di libri
-INSERT INTO LibroEdizione (ISBN, titolo, pagine, casaEditrice)
+-- Inserimento di alcuni autori
+INSERT INTO Autore (nome, cognome, nascita)
 VALUES
-    ('9781234567897', 'Il Signore degli Anelli', 1000, 'Bompiani'),
-    ('9782345678901', 'Harry Potter e la Pietra Filosofale', 340, 'Salani'),
-    ('9784515712938', 'Il Pianeta di CiccioGamer e Jokerinho', 789000, 'Sgruda'),
-    ('9774515712039', 'Il Mondo di Sgrognolox', 300, 'Sgruda');
+    ('J.R.R.', 'Tolkien', '1892-01-03'),
+    ('J.K.', 'Rowling', '1965-07-31'),
+    ('George', 'Orwell', '1903-06-25'),
+    ('Isaac', 'Asimov', '1920-01-02'),
+    ('Mary', 'Shelley', '1797-08-30');
+
+-- Inserimento di alcuni generi
+INSERT INTO Genere (nome)
+VALUES
+    ('Fantasy'),
+    ('Fantascienza'),
+    ('Distopico'),
+    ('Classico'),
+    ('Horror'),
+    ('Umoristico'),
+    ('Avventura'),
+    ('Thriller');
+
+-- Inserisci alcune edizioni di libri
+INSERT INTO LibroEdizione (ISBN, titolo, pagine, casaEditrice, autore, genere)
+VALUES
+    ('9781234567897', 'Il Signore degli Anelli', 1000, 'Bompiani', 1, 'Fantasy'),
+    ('9782345678901', 'Harry Potter e la Pietra Filosofale', 340, 'Salani', 2, 'Fantasy'),
+    ('9784515712938', 'Il Pianeta di CiccioGamer e Jokerinho', 789000, 'Sgruda', 5, 'Umoristico'),
+    ('9774515712039', 'Il Mondo di Sgrognolox', 300, 'Sgruda', 3, 'Avventura');
 
 -- Inserisci alcuni libri fisici
 INSERT INTO LibroFisico (edizione)
@@ -44,7 +65,6 @@ VALUES
     ('9784515712938'), 
     ('9774515712039');
     
-
 -- Inserimento di richieste di rifornimento 
 INSERT INTO RichiestaRestock (quantita, bibliotecario, istante, fornitore, edizione, stato)
 VALUES

@@ -57,7 +57,9 @@ int main() {
                 std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "ISBN"))),
                 std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "titolo"))),
                 atoi(PQgetvalue(query_res, row, PQfnumber(query_res, "pagine"))),
-                std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "casaEditrice")))
+                std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "casaEditrice"))),
+                atoi(PQgetvalue(query_res, row, PQfnumber(query_res, "autore"))),
+                std::string(PQgetvalue(query_res, row, PQfnumber(query_res, "genere")))
             );
 
             libri.push_back(libro);
@@ -71,8 +73,9 @@ int main() {
 
             libri.pop_front();
 
-            reply = RedisCommand(c2r, "XADD %s * row %d ISBN %s titolo %s pagine %d casa_editrice %s", WRITE_STREAM, row, 
-                                 libro->ISBN.c_str(), libro->titolo.c_str(), libro->pagine, libro->casa_editrice.c_str());
+            reply = RedisCommand(c2r, "XADD %s * row %d ISBN %s titolo %s pagine %d casa_editrice %s autore_id %d genere %s", WRITE_STREAM, row, 
+                                 libro->ISBN.c_str(), libro->titolo.c_str(), libro->pagine, libro->casa_editrice.c_str(), 
+                                 libro->autore_id, libro->genere.c_str());
             assertReplyType(c2r, reply, REDIS_REPLY_STRING);
             freeReplyObject(reply);
         }

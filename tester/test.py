@@ -135,5 +135,5 @@ if __name__ == "__main__":
 
     #test_for_all()
 
-    tester = Tester(1, 1).send_custom_request("add-prestito richiesta_id 6")
+    tester = Tester(1, 1).send_custom_request("ricerca-libri titolo Il")
     
