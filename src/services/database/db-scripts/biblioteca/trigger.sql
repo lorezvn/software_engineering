@@ -306,4 +306,52 @@ FOR EACH ROW
 EXECUTE FUNCTION assegna_libro_disponibile();
 
 
+-- 15. Trigger sulla tabella Sanzione: Permette ad una sanzione di essere estinta/revocata solo se "NON PAGATA" 
+CREATE OR REPLACE FUNCTION check_stato_before_update_sanzione()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Controlla se il nuovo stato è 'PAGATA' o 'REVOCATA' ma lo stato attuale non è 'NON PAGATA'
+    IF (NEW.stato IN ('PAGATA', 'REVOCATA')) AND OLD.stato != 'NON PAGATA' THEN
+        RAISE EXCEPTION 'Impossibile aggiornare la sanzione: stato attuale non è "NON PAGATA"';
+    END IF;
+
+    -- Permetti l'aggiornamento altrimenti
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER trigger_check_stato_sanzione
+BEFORE UPDATE ON Sanzione
+FOR EACH ROW
+EXECUTE FUNCTION check_stato_before_update_sanzione();
+
+
+-- 16. Funzione generica per controllare lo stato prima dell'aggiornamento
+CREATE OR REPLACE FUNCTION check_stato_before_update_generic()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Controlla se il nuovo stato è 'RIFIUTATA' ma lo stato attuale non è 'IN ATTESA'
+    IF NEW.stato = 'RIFIUTATA' AND OLD.stato != 'IN ATTESA' THEN
+        RAISE EXCEPTION 'Impossibile rifiutare la richiesta: stato attuale non è "IN ATTESA"';
+    END IF;
+
+    -- Permetti l'aggiornamento altrimenti
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Trigger per RichiestaPrestito
+CREATE TRIGGER trigger_check_stato_richiesta_prestito
+BEFORE UPDATE ON RichiestaPrestito
+FOR EACH ROW
+EXECUTE FUNCTION check_stato_before_update_generic();
+
+-- Trigger per RichiestaRestock
+CREATE TRIGGER trigger_check_stato_richiesta_restock
+BEFORE UPDATE ON RichiestaRestock
+FOR EACH ROW
+EXECUTE FUNCTION check_stato_before_update_generic();
+
+
 

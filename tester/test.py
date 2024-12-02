@@ -13,6 +13,19 @@ def colored_output_bold(text, color_code):
 def key_to_elem(d, elem):
     return next((k for k, v in d.items() if elem in v), None)
 
+def test_for_all():
+    s, f, tot = 0, 0, 0
+    for _, functions in api_methods.items():
+        for func in functions:
+            tester = Tester(totale=1, richieste=1, debug=True, method_name=func)
+            tester.send_requests()
+            s += tester.successful
+            f += tester.failed
+            tot += tester.tot_richieste
+    print(f"{colored_output_bold('test_for_all() terminato', 37)}")
+    print(f"Richieste soddisfatte: {colored_output_bold(s, 32)}/{tot}")
+    print(f"Richieste fallite: {colored_output_bold(f, 31)}/{tot}\n\n")
+
 class Tester:
     def __init__(self, totale: int, richieste: int, random_seed: int = 10, host: str = "127.0.0.1", debug: bool = False, method_name: str = None):
         """
@@ -133,8 +146,8 @@ class Tester:
 
 if __name__ == "__main__":
 
-    #test_for_all()
+    test_for_all()
 
-    tester = Tester(5, 1, debug="True", method_name="delete-copia")
-    tester.send_requests()
+    #tester = Tester(5, 1, debug="True", method_name="delete-copia")
+    #tester.send_requests()
     

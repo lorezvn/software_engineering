@@ -75,15 +75,19 @@ sh run.sh --kill
 - [x] Per operazioni di visualizzazione da "stack smashed" -> Cercare su readFromFunctions in `server/handler.cpp` la causa
 - [x] Sistemare Tester (alcuni test dovrebbero essere fatti meglio ad esempio per coppie di date inizio/fine)
 - [x] Nel caso in cui ci siano richieste con argomenti spaziati il sistema non lo gestisce correttamente (add-richiesta-restock da rivedere)
-- [x] Aggiornare trigger 
+- [ ] Aggiornare trigger 
     * [x]  Fare in modo che i dati di restock/prestito siano uguali alle richieste
     * [x]  Uno stesso libro non possa essere prestato contemporaneamente
     * [x]  I trigger col cf sono da modificare
+    * [x]  Per le richieste non dev'essere possibile rifiutare se la richiesta non è "IN ATTESA"
+    * [x]  Le sanzioni possono essere possono essere estinte solo se sono "NON PAGATE"
+    * [x]  Le sanzioni possono essere revocate solo se "NON PAGATE"
 - [ ] Sistemare relazione
 - [ ] Sistemare UML 
-- [ ] Sistemare monitor non funzionali
+- [x] Sistemare monitor non funzionali
 - [x] Rivedere meglio la gestione di dataInizio e fine in RichiestaPrestito (andrebbero cancellate e lasciate solo in Prestito)
 - [x] Le richieste prestito dovrebbero avere l'edizione di riferimento e non il libro fisico (se alcune copie non sono disponibili se ne cercano altre)
 - [x] Rivedere autori e generi dei libri (per adesso non sono considerati)
 - [ ] Modificare vincoli molteplicità generedizione e genereautore in maniera tale da averne massimo un genere e massimo un autore
 - [ ] Rivedere situazioni in cui qualche attributo è NULL (eseguire ricerca-libri)
+- [ ] Sistemare qualche generatore per i test
