@@ -11,7 +11,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER before_delete_librofisico
+CREATE TRIGGER trigger_prevent_delete_if_in_prestito
 BEFORE DELETE ON LibroFisico
 FOR EACH ROW
 EXECUTE FUNCTION prevent_delete_if_in_prestito();
@@ -27,7 +27,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER before_delete_libroedizione
+CREATE TRIGGER trigger_prevent_delete_if_edizione_in_prestito
 BEFORE DELETE ON LibroEdizione
 FOR EACH ROW
 EXECUTE FUNCTION prevent_delete_if_edizione_in_prestito();
@@ -50,7 +50,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER check_prestito_validity_trg
+CREATE TRIGGER trigger_check_prestito_validity
 BEFORE UPDATE ON Prestito
 FOR EACH ROW
 WHEN (NEW.dataRest IS NOT NULL)
@@ -68,7 +68,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER before_delete_utente
+CREATE TRIGGER trigger_prevent_delete_if_user_has_prestiti
 BEFORE DELETE ON Utente
 FOR EACH ROW
 EXECUTE FUNCTION prevent_delete_if_user_has_prestiti();
@@ -86,7 +86,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER after_prestito_insert
+CREATE TRIGGER trigger_update_richiesta_prestito_status
 AFTER INSERT ON Prestito
 FOR EACH ROW
 EXECUTE FUNCTION update_richiesta_prestito_status();
@@ -104,7 +104,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER after_restock_insert
+CREATE TRIGGER trigger_update_richiesta_restock_status
 AFTER INSERT ON Restock
 FOR EACH ROW
 EXECUTE FUNCTION update_richiesta_restock_status();
@@ -126,7 +126,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER before_prestito_insert
+CREATE TRIGGER trigger_check_richiesta_prestito_in_attesa
 BEFORE INSERT ON Prestito
 FOR EACH ROW
 EXECUTE FUNCTION check_richiesta_prestito_in_attesa();
@@ -148,7 +148,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER before_restock_insert
+CREATE TRIGGER trigger_check_richiesta_restock_in_attesa
 BEFORE INSERT ON Restock
 FOR EACH ROW
 EXECUTE FUNCTION check_richiesta_restock_in_attesa();
@@ -172,7 +172,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trigger_verifica_prestito
+CREATE TRIGGER trigger_verifica_coerenza_prestito
 BEFORE INSERT OR UPDATE ON Prestito
 FOR EACH ROW
 EXECUTE FUNCTION verifica_coerenza_prestito();
@@ -219,7 +219,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trigger_verifica_restock
+CREATE TRIGGER trigger_verifica_coerenza_restock
 BEFORE INSERT OR UPDATE ON Restock
 FOR EACH ROW
 EXECUTE FUNCTION verifica_coerenza_restock();
@@ -300,7 +300,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trigger_assegna_libro
+CREATE TRIGGER trigger_assegna_libro_disponibile
 BEFORE INSERT ON Prestito
 FOR EACH ROW
 EXECUTE FUNCTION assegna_libro_disponibile();
