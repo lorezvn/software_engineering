@@ -84,4 +84,3 @@ You can modify the number of requests made by the ```test_for_all()``` function 
 - add-restock
 - visualizza-richieste-restock
 - rifiuta-richiesta-restock
-
