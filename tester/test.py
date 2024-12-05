@@ -13,11 +13,15 @@ def colored_output_bold(text, color_code):
 def key_to_elem(d, elem):
     return next((k for k, v in d.items() if elem in v), None)
 
-def test_for_all():
+def test_for_all(richieste=1):
+    """
+    Genera richieste per ogni metodo in base al parametro specificato
+    :param richieste: Numero di richieste da generare per metodo api.
+    """
     s, f, tot = 0, 0, 0
     for _, functions in api_methods.items():
         for func in functions:
-            tester = Tester(totale=1, richieste=1, debug=True, method_name=func)
+            tester = Tester(richieste=richieste, debug=True, method_name=func)
             tester.send_requests()
             s += tester.successful
             f += tester.failed
@@ -27,7 +31,7 @@ def test_for_all():
     print(f"Richieste fallite: {colored_output_bold(f, 31)}/{tot}\n\n")
 
 class Tester:
-    def __init__(self, totale: int, richieste: int, random_seed: int = 10, host: str = "127.0.0.1", debug: bool = False, method_name: str = None):
+    def __init__(self, totale: int = 1, richieste: int = 1, random_seed: int = 10, host: str = "127.0.0.1", debug: bool = False, method_name: str = None):
         """
         Inizializza un'istanza di Tester.
         :param totale: Numero di cicli di test
@@ -59,6 +63,9 @@ class Tester:
         for arg_set in requests[method_name]:
             arg_values = {}
             for arg_name, arg_class in arg_set:
+                if arg_class.__name__ == "ISBNGenerator" and method_name != "add-edizione":
+                    arg_values[arg_name] = arg_class().generate_from_list()
+                else:
                     arg_values[arg_name] = arg_class().generate()
             request_args.append(arg_values)
 
@@ -146,8 +153,7 @@ class Tester:
 
 if __name__ == "__main__":
 
-    test_for_all()
+    #Tester(totale=5, richieste=1, debug="True", method_name="add-richiesta-prestito").send_requests()
+    test_for_all(richieste=5)
 
-    #tester = Tester(5, 1, debug="True", method_name="delete-copia")
-    #tester.send_requests()
     

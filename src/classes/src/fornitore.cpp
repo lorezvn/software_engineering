@@ -20,7 +20,7 @@ Fornitore* Fornitore::fromRedisStream(redisReply* reply, int stream_num, int msg
         ReadStreamMsgVal(reply, stream_num, msg_num, elem_num + 1, value);
 
         if (strcmp(key, "nome") == 0) {
-            nome = value;
+            nome = replace_all(value, SPACE_REDIS_STRING, SPACE);
         } else if (strcmp(key, "email") == 0) {
             email = value;
         } else {

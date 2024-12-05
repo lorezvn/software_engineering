@@ -103,17 +103,17 @@ requests = {
 
 
 api_methods = {
+    "utente": ["add-utente", "add-richiesta-prestito", "ricerca-libri", 
+               "update-username", "visualizza-sanzioni", "visualizza-prestiti"],
+
     "fornitore": ["add-fornitore", "add-restock", "visualizza-richieste-restock",
                   "rifiuta-richiesta-restock"],
 
     "bibliotecario": ["add-bibliotecario", "add-sanzione", "add-richiesta-restock", 
-                      "estingui-sanzione", "revoca-sanzione", "add-prestito", 
+                      "add-edizione", "add-prestito", "revoca-sanzione", "estingui-sanzione", 
                       "visualizza-richieste-prestito", "termina-prestito", 
                       "rifiuta-richiesta-prestito", "visualizza-copie", 
-                      "visualizza-restock", "add-edizione", "delete-copia"],
-
-    "utente": ["add-utente", "add-richiesta-prestito", "ricerca-libri", 
-               "update-username", "visualizza-sanzioni", "visualizza-prestiti"]
+                      "visualizza-restock", "delete-copia"]
 }
 
 ports = {"bibliotecario": 42069, "fornitore": 42070, "utente": 42071}

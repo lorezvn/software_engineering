@@ -68,7 +68,7 @@ int main() {
 
             reply = RedisCommand(
                 c2r,
-                "XADD %s * row %d utente_id %d edizione %d data_inizio %s data_fine %s istante %s stato %s",
+                "XADD %s * row %d utente_id %d edizione %s istante %s stato %s",
                 WRITE_STREAM, row,
                 richiesta->utente_id, richiesta->edizione.c_str(),
                 richiesta->istante.c_str(), richiesta->stato.c_str()

@@ -36,8 +36,22 @@ To stop all processes related to the project, run:
 sh run.sh --kill
 ```
 
-## Api Methods
+## Test the project
+After the project is running (see [Running the project](#running-the-project)) to test the API methods, follow these steps:
+1. Navigate to the ```tester``` directory:
+```sh
+cd tester
+```
+2. Run the test script:
+```sh
+python test.py
+```
+This will initiate testing for all the API methods listed in the section [API Methods](#api-methods).
+### Customizing the Test Behavior
+You can modify the number of requests made by the ```test_for_all()``` function by adjusting the following field in the code:
+*   richieste: Specifies the number of requests per API method.
 
+## API Methods
 
 ### Utente
 - add-utente

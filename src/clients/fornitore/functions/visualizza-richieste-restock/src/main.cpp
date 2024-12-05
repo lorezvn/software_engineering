@@ -51,8 +51,10 @@ int main() {
             continue;
         }
 
+        std::string fornitore = replace_all(forn_nome, SPACE_REDIS_STRING, SPACE);
+
         // Creazione della query per le richieste di restock
-        sprintf(query, "SELECT * FROM RichiestaRestock WHERE stato = 'IN ATTESA' AND fornitore = '%s'", forn_nome);
+        sprintf(query, "SELECT * FROM RichiestaRestock WHERE stato = 'IN ATTESA' AND fornitore = '%s'", fornitore.c_str());
 
         query_res = db.execQuery(query, true);
 
